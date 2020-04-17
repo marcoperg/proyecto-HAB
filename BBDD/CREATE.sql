@@ -22,6 +22,14 @@ CREATE TABLE direccion (
 	pais varchar(255)
 );
 
+CREATE TABLE metodo_pago (
+	id int PRIMARY KEY,
+	nombre varchar(255),
+	nombre_titular varchar(255),
+	numb_tarjeta int,
+	codigo_seguridad int
+);
+
 CREATE TABLE local (
 	id int PRIMARY KEY,
 	nombre varchar(255),
@@ -56,7 +64,11 @@ CREATE TABLE usuario (
 	
 	id_direccion int,
 	CONSTRAINT fk_direccion_usuario FOREIGN KEY (id_direccion)
-	REFERENCES direccion(id)
+	REFERENCES direccion(id),
+	
+	id_metodo_pago int,
+	CONSTRAINT fk_metodopago_usuario FOREIGN KEY (id_metodo_pago)
+	REFERENCES metodo_pago(id)
 );
 
 CREATE TABLE usuario_local (
@@ -85,7 +97,11 @@ CREATE TABLE carrito (
 	
 	user_id int,
 	CONSTRAINT fk_user_carrito FOREIGN KEY (user_id)
-	REFERENCES usuario(id)
+	REFERENCES usuario(id),
+	
+	id_metodo_pago int,
+	CONSTRAINT fk_metodopago_carrito FOREIGN KEY (id_metodo_pago)
+	REFERENCES metodo_pago(id)
 );
 
 CREATE TABLE plato (
