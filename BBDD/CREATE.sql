@@ -3,18 +3,18 @@ CREATE DATABASE IF NOT EXISTS proyecto;
 USE proyecto;
 
 CREATE TABLE vendedor (
-	id int PRIMARY KEY,
-	nick varchar(255),
+	id int unsigned PRIMARY KEY auto_increment,
+	nick varchar(255) NOT NULL UNIQUE,
 	nombre varchar(255),
-	pass_hash varchar(255),
-	fecha_creacion date,
-	fecha_ultima_modificacion datetime,
-	IPv4_ultima_modificacion int,
+	pass_hash varchar(255) NOT NULL,
+	fecha_creacion timestamp DEFAULT CURRENT_TIMESTAMP,
+	fecha_ultima_modificacion timestamp DEFAULT CURRENT_TIMESTAMP,
+	IPv4_ultima_modificacion varchar(255),
 	IPv6_ultima_modificacion varchar(39)
 );
 
 CREATE TABLE direccion (
-	id int PRIMARY KEY,
+	id int unsigned PRIMARY KEY auto_increment,
 	linea1 varchar(255),
 	linea2 varchar(255),
 	ciudad varchar(255),
@@ -23,15 +23,15 @@ CREATE TABLE direccion (
 );
 
 CREATE TABLE metodo_pago (
-	id int PRIMARY KEY,
+	id int unsigned PRIMARY KEY auto_increment,
 	nombre varchar(255),
 	nombre_titular varchar(255),
-	numb_tarjeta int,
+	numb_tarjeta bigint,
 	codigo_seguridad int
 );
 
 CREATE TABLE local (
-	id int PRIMARY KEY,
+	id int unsigned PRIMARY KEY auto_increment,
 	nombre varchar(255),
 	descripcion varchar(255),
 	foto varchar(255), -- REVISAR PARA MULTIPLES FOTOS
@@ -39,17 +39,17 @@ CREATE TABLE local (
 	email varchar(255),
 	tlf int,
 	
-	id_direccion int,
+	id_direccion int unsigned,
 	CONSTRAINT fk_direccion_local FOREIGN KEY (id_direccion)
 	REFERENCES direccion(id),
 	
-	id_vendedor int,
+	id_vendedor int unsigned,
 	CONSTRAINT fk_vendedor_local FOREIGN KEY (id_vendedor)
 	REFERENCES vendedor(id)
 );
 
-CREATE TABLE usuario (
-	id int PRIMARY KEY,
+CREATE TABLE usuarios (
+	id int unsigned PRIMARY KEY auto_increment,
 	nick varchar(255),
 	pass_hash varchar(255),
 	nombre varchar(255),
@@ -58,69 +58,69 @@ CREATE TABLE usuario (
 	tlf int,
 	avatar varchar(255), -- dirección imagen
 	fecha_nacimiento date,
-	fecha_creacion date,
-	fecha_ultima_modificacion datetime,
-	IPv4_ultima_modificacion int,
+	fecha_creacion timestamp DEFAULT CURRENT_TIMESTAMP,
+	fecha_ultima_modificacion timestamp DEFAULT CURRENT_TIMESTAMP,
+	IPv4_ultima_modificacion varchar(255),
 	IPv6_ultima_modificacion varchar(39),
 	
-	id_direccion int,
-	CONSTRAINT fk_direccion_usuario FOREIGN KEY (id_direccion)
+	id_direccion int unsigned,
+	CONSTRAINT fk_direccion_usuarios FOREIGN KEY (id_direccion)
 	REFERENCES direccion(id),
 	
-	id_metodo_pago int,
-	CONSTRAINT fk_metodopago_usuario FOREIGN KEY (id_metodo_pago)
+	id_metodo_pago int unsigned,
+	CONSTRAINT fk_metodopago_usuarios FOREIGN KEY (id_metodo_pago)
 	REFERENCES metodo_pago(id)
 );
 
-CREATE TABLE usuario_local (
-	id_usuario int,
-	id_local int,
+CREATE TABLE usuarios_local (
+	id_usuarios int unsigned,
+	id_local int unsigned,
 	rating int,
 	comentario varchar(255),
-	fecha datetime,
+	fecha timestamp DEFAULT CURRENT_TIMESTAMP,
 	
-	CONSTRAINT fk_usuario_local FOREIGN KEY (id_usuario)
-	REFERENCES usuario(id),
-	CONSTRAINT fk_local_usuario FOREIGN KEY (id_local)
+	CONSTRAINT fk_usuarios_local FOREIGN KEY (id_usuarios)
+	REFERENCES usuarios(id),
+	CONSTRAINT fk_local_usuarios FOREIGN KEY (id_local)
 	REFERENCES local(id)
 );
 
 CREATE TABLE carrito (
-	id int PRIMARY KEY,
+	id int unsigned PRIMARY KEY auto_increment,
 	checkout bool,
-	fecha_checkout timestamp,
+	fecha_checkout timestamp DEFAULT CURRENT_TIMESTAMP,
 	pagado bool,
-	fecha_pago timestamp,
+	fecha_pago timestamp DEFAULT CURRENT_TIMESTAMP,
 
-	IPv4_ultima_modificacion int, 
+	IPv4_ultima_modificacion varchar(255), 
 	IPv6_ultima_modificacion varchar(39),
 	precio_total float,
 	
-	user_id int,
+	user_id int unsigned,
 	CONSTRAINT fk_user_carrito FOREIGN KEY (user_id)
-	REFERENCES usuario(id),
+	REFERENCES usuarios(id),
 	
-	id_metodo_pago int,
+	id_metodo_pago int unsigned,
 	CONSTRAINT fk_metodopago_carrito FOREIGN KEY (id_metodo_pago)
 	REFERENCES metodo_pago(id)
 );
 
 CREATE TABLE plato (
-	id int PRIMARY KEY,
+	id int unsigned PRIMARY KEY auto_increment,
 	nombre varchar(255),
 	foto varchar(255), -- REVISAR PARA MULTIPLES FOTOS
 	descripcion varchar(255),
 	precio float,
 	rating_medio int,
 	
-	id_vendedor int,
+	id_vendedor int unsigned,
 	CONSTRAINT fk_vendedor_plato FOREIGN KEY (id_vendedor)
 	REFERENCES vendedor(id)
 );
 
 CREATE TABLE carrito_platos (
-	id_carrito int,
-	id_plato int,
+	id_carrito int unsigned,
+	id_plato int unsigned,
 	precio float,
 	cantidad int,
 	rating int,
