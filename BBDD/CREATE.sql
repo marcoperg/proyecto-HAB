@@ -72,14 +72,14 @@ CREATE TABLE usuarios (
 	REFERENCES metodo_pago(id)
 );
 
-CREATE TABLE usuarios_local (
-	id_usuarios int unsigned,
+CREATE TABLE usuario_local (
+	id_usuario int unsigned,
 	id_local int unsigned,
 	rating int,
 	comentario varchar(255),
 	fecha timestamp DEFAULT CURRENT_TIMESTAMP,
 	
-	CONSTRAINT fk_usuarios_local FOREIGN KEY (id_usuarios)
+	CONSTRAINT fk_usuarios_local FOREIGN KEY (id_usuario)
 	REFERENCES usuarios(id),
 	CONSTRAINT fk_local_usuarios FOREIGN KEY (id_local)
 	REFERENCES local(id)
