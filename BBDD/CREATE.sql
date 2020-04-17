@@ -64,6 +64,7 @@ CREATE TABLE usuario_local (
 	id_local int,
 	rating int,
 	comentario varchar(255),
+	fecha datetime,
 	
 	CONSTRAINT fk_usuario_local FOREIGN KEY (id_usuario)
 	REFERENCES usuario(id),
