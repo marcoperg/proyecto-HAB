@@ -36,6 +36,8 @@ CREATE TABLE local (
 	descripcion varchar(255),
 	foto varchar(255), -- REVISAR PARA MULTIPLES FOTOS
 	rating_medio int,
+	email varchar(255),
+	tlf int,
 	
 	id_direccion int,
 	CONSTRAINT fk_direccion_local FOREIGN KEY (id_direccion)
@@ -54,7 +56,6 @@ CREATE TABLE usuario (
 	apellidos varchar(255),
 	email varchar(255),
 	tlf int,
-	tarjeta_credito int, -- revisar
 	avatar varchar(255), -- dirección imagen
 	fecha_nacimiento date,
 	fecha_creacion date,
