@@ -4,7 +4,7 @@ USE proyecto;
 
 CREATE TABLE vendedor (
 	id int unsigned PRIMARY KEY auto_increment,
-	nick varchar(255) NOT NULL UNIQUE,
+	nick varchar(255) NOT NULL,
 	nombre varchar(255),
 	pass_hash varchar(255) NOT NULL,
 	fecha_creacion timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -28,7 +28,7 @@ CREATE TABLE local (
 	descripcion varchar(255),
 	rating_medio int,
 	email varchar(255),
-	tlf int,
+	tlf varchar(255),
 	
 	id_direccion int unsigned,
 	CONSTRAINT fk_direccion_local FOREIGN KEY (id_direccion)
@@ -46,7 +46,7 @@ CREATE TABLE usuarios (
 	nombre varchar(255),
 	apellidos varchar(255),
 	email varchar(255),
-	tlf int,
+	tlf varchar(255),
 	avatar varchar(255),
 	fecha_nacimiento date,
 	fecha_creacion timestamp DEFAULT CURRENT_TIMESTAMP,
