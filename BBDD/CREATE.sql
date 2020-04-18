@@ -34,7 +34,6 @@ CREATE TABLE local (
 	id int unsigned PRIMARY KEY auto_increment,
 	nombre varchar(255),
 	descripcion varchar(255),
-	foto varchar(255), -- REVISAR PARA MULTIPLES FOTOS
 	rating_medio int,
 	email varchar(255),
 	tlf int,
@@ -56,7 +55,7 @@ CREATE TABLE usuarios (
 	apellidos varchar(255),
 	email varchar(255),
 	tlf int,
-	avatar varchar(255), -- dirección imagen
+	avatar varchar(255),
 	fecha_nacimiento date,
 	fecha_creacion timestamp DEFAULT CURRENT_TIMESTAMP,
 	fecha_ultima_modificacion timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -108,7 +107,6 @@ CREATE TABLE carrito (
 CREATE TABLE plato (
 	id int unsigned PRIMARY KEY auto_increment,
 	nombre varchar(255),
-	foto varchar(255), -- REVISAR PARA MULTIPLES FOTOS
 	descripcion varchar(255),
 	precio float,
 	rating_medio int,
@@ -129,5 +127,17 @@ CREATE TABLE carrito_platos (
 	CONSTRAINT fk_carrito_platos FOREIGN KEY (id_carrito)
 	REFERENCES carrito(id),
 	CONSTRAINT fk_plato_carrito FOREIGN KEY (id_plato)
+	REFERENCES plato(id)
+);
+
+CREATE TABLE fotos(
+	id_local int unsigned,
+	id_plato int unsigned,
+	nombre varchar(255),
+	fecha_subida timestamp DEFAULT CURRENT_TIMESTAMP,
+	
+	CONSTRAINT fk_local_foto FOREIGN KEY (id_local)
+	REFERENCES `local`(id),
+	CONSTRAINT fk_plato_foto FOREIGN KEY (id_plato)
 	REFERENCES plato(id)
 );
