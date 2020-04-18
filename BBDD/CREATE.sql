@@ -22,14 +22,6 @@ CREATE TABLE direccion (
 	pais varchar(255)
 );
 
-CREATE TABLE metodo_pago (
-	id int unsigned PRIMARY KEY auto_increment,
-	nombre varchar(255),
-	nombre_titular varchar(255),
-	numb_tarjeta bigint,
-	codigo_seguridad int
-);
-
 CREATE TABLE local (
 	id int unsigned PRIMARY KEY auto_increment,
 	nombre varchar(255),
@@ -64,11 +56,7 @@ CREATE TABLE usuarios (
 	
 	id_direccion int unsigned,
 	CONSTRAINT fk_direccion_usuarios FOREIGN KEY (id_direccion)
-	REFERENCES direccion(id),
-	
-	id_metodo_pago int unsigned,
-	CONSTRAINT fk_metodopago_usuarios FOREIGN KEY (id_metodo_pago)
-	REFERENCES metodo_pago(id)
+	REFERENCES direccion(id)
 );
 
 CREATE TABLE usuario_local (
@@ -95,13 +83,9 @@ CREATE TABLE carrito (
 	IPv6_ultima_modificacion varchar(39),
 	precio_total float,
 	
-	user_id int unsigned,
-	CONSTRAINT fk_user_carrito FOREIGN KEY (user_id)
-	REFERENCES usuarios(id),
-	
-	id_metodo_pago int unsigned,
-	CONSTRAINT fk_metodopago_carrito FOREIGN KEY (id_metodo_pago)
-	REFERENCES metodo_pago(id)
+	id_usuario int unsigned,
+	CONSTRAINT fk_user_carrito FOREIGN KEY (id_usuario )
+	REFERENCES usuarios(id)
 );
 
 CREATE TABLE plato (
