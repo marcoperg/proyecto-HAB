@@ -2,17 +2,6 @@ DROP DATABASE IF EXISTS proyecto;
 CREATE DATABASE IF NOT EXISTS proyecto;
 USE proyecto;
 
-CREATE TABLE vendedor (
-	id int unsigned PRIMARY KEY auto_increment,
-	nick varchar(255) NOT NULL,
-	nombre varchar(255),
-	pass_hash varchar(255) NOT NULL,
-	fecha_creacion timestamp DEFAULT CURRENT_TIMESTAMP,
-	fecha_ultima_modificacion timestamp DEFAULT CURRENT_TIMESTAMP,
-	IPv4_ultima_modificacion varchar(255),
-	IPv6_ultima_modificacion varchar(39)
-);
-
 CREATE TABLE direccion (
 	id int unsigned PRIMARY KEY auto_increment,
 	linea1 varchar(255),
@@ -22,27 +11,11 @@ CREATE TABLE direccion (
 	pais varchar(255)
 );
 
-CREATE TABLE local (
-	id int unsigned PRIMARY KEY auto_increment,
-	nombre varchar(255),
-	descripcion varchar(255),
-	rating_medio int,
-	email varchar(255),
-	tlf varchar(255),
-	
-	id_direccion int unsigned,
-	CONSTRAINT fk_direccion_local FOREIGN KEY (id_direccion)
-	REFERENCES direccion(id),
-	
-	id_vendedor int unsigned,
-	CONSTRAINT fk_vendedor_local FOREIGN KEY (id_vendedor)
-	REFERENCES vendedor(id)
-);
-
 CREATE TABLE usuarios (
 	id int unsigned PRIMARY KEY auto_increment,
 	nick varchar(255),
 	pass_hash varchar(255),
+	es_vendedor bool,
 	nombre varchar(255),
 	apellidos varchar(255),
 	email varchar(255),
@@ -58,6 +31,24 @@ CREATE TABLE usuarios (
 	CONSTRAINT fk_direccion_usuarios FOREIGN KEY (id_direccion)
 	REFERENCES direccion(id)
 );
+
+CREATE TABLE `local` (
+	id int unsigned PRIMARY KEY auto_increment,
+	nombre varchar(255),
+	descripcion varchar(255),
+	rating_medio int,
+	email varchar(255),
+	tlf varchar(255),
+	
+	id_direccion int unsigned,
+	CONSTRAINT fk_direccion_local FOREIGN KEY (id_direccion)
+	REFERENCES direccion(id),
+	
+	id_vendedor int unsigned,
+	CONSTRAINT fk_vendedor_local FOREIGN KEY (id_vendedor)
+	REFERENCES usuarios(id)
+);
+
 
 CREATE TABLE usuario_local (
 	id_usuario int unsigned,
@@ -95,9 +86,9 @@ CREATE TABLE plato (
 	precio float,
 	rating_medio int,
 	
-	id_vendedor int unsigned,
-	CONSTRAINT fk_vendedor_plato FOREIGN KEY (id_vendedor)
-	REFERENCES vendedor(id)
+	id_local int unsigned,
+	CONSTRAINT fk_local_plato FOREIGN KEY (id_local)
+	REFERENCES `local`(id)
 );
 
 CREATE TABLE carrito_platos (
