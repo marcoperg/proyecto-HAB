@@ -25,17 +25,17 @@ CREATE TABLE users (
 	id int unsigned PRIMARY KEY auto_increment,
 	nick varchar(255),
 	pass_hash varchar(255),
-	is_seller boolean,
+	role enum('admin', 'client', 'seller'),
 	first_name varchar(255),
 	last_name varchar(255),
 	email varchar(255),
 	tlf varchar(255),
 	avatar varchar(255),
 	birthday date,
+	active boolean,
 	creation_date timestamp DEFAULT CURRENT_TIMESTAMP,
 	last_modification_date timestamp DEFAULT CURRENT_TIMESTAMP,
-	last_modification_IPv4 varchar(255),
-	last_modification_IPv6 varchar(39),
+	last_modification_IP varchar(39),
 	
 	id_address int unsigned,
 	CONSTRAINT fk_address_users FOREIGN KEY (id_address)
@@ -80,8 +80,7 @@ CREATE TABLE cart (
 	paid boolean,
 	paid_date timestamp DEFAULT CURRENT_TIMESTAMP,
 
-	last_modification_IPv4 varchar(255),
-	last_modification_IPv6 varchar(39),
+	last_modification_IP varchar(39),
 	total_prize float,
 	
 	id_user int unsigned,
