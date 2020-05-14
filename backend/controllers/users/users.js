@@ -2,10 +2,10 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { getConnection } = require("../helpers/db");
-const { registrationSchema, loginSchema } = require("../validations/users");
+const { getConnection } = require("../../helpers/db");
+const { registrationSchema, loginSchema } = require("../../validations/users");
 
-const { generateError, processAndSavePhoto } = require("../helpers/");
+const { generateError, processAndSavePhoto } = require("../../helpers");
 
 // POST - /user/registration
 async function registration(req, res, next) {
@@ -203,8 +203,20 @@ async function infoUser(req, res, next) {
 	}
 }
 
+// PUT - /users/:id
+async function changeUserData() {}
+
+// POST - /users/:id/password
+async function changePass() {}
+
+// DELETE - /users/:id
+async function deleteAccount() {}
+
 module.exports = {
 	registration,
 	login,
 	infoUser,
+	changeUserData,
+	changePass,
+	deleteAccount,
 };
