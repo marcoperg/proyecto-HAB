@@ -53,6 +53,7 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(cors());
 app.use(fileUpload());
+app.use(express.static("./static/"));
 
 // ROUTES
 // User routes
