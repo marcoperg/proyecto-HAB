@@ -1,4 +1,5 @@
 const sharp = require("sharp");
+const crypto = require("crypto");
 const path = require("path");
 const fs = require("fs-extra");
 const uuid = require("uuid");
@@ -34,8 +35,12 @@ function generateError(message, code) {
 	if (code) error.httpCode = code;
 	return error;
 }
+function randomString(size = 20) {
+	return crypto.randomBytes(size).toString("hex").slice(0, size);
+}
 
 module.exports = {
 	processAndSavePhoto,
 	generateError,
+	randomString,
 };

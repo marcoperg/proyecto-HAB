@@ -15,12 +15,17 @@ const port = process.env.PORT;
 // User controllers
 const {
 	registration,
+	validateUser,
 	login,
 	infoUser,
 	changeUserData,
 	changePass,
 	deleteAccount,
-} = require("./controllers/users/users");
+} = require("./controllers/users/");
+const {
+	userIsAuthenticated,
+	userIsAdmin,
+} = require("./controllers/users/auth");
 
 // Seller controllers
 const { newShop, editShop, deleteShop } = require("./controllers/seller/shop");
@@ -52,11 +57,12 @@ app.use(fileUpload());
 // ROUTES
 // User routes
 app.post("/users/registration", registration);
+app.get("/users/validate", validateUser);
 app.post("/users/login", login);
-app.get("/users/:id", infoUser);
-app.put("/users/:id", changeUserData);
-app.post("/users/:id/password", changePass);
-app.delete("users/:id", deleteAccount);
+app.get("/users/:id", userIsAuthenticated, infoUser);
+app.put("/users/:id", userIsAuthenticated, changeUserData);
+app.post("/users/:id/password", userIsAuthenticated, changePass);
+app.delete("/users/:id", userIsAuthenticated, deleteAccount);
 
 // Seller routes
 app.post("/shops/new", newShop);
@@ -86,5 +92,5 @@ app.use(notFoundMiddleware);
 
 // Server listener
 app.listen(port, () => {
-	console.log(`Server listening in http://127.0.0.1:${port}`);
+	console.log(`Server listening in http://${process.env.LOCAL_IP}:${port}`);
 });

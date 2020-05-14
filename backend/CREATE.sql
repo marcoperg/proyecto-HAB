@@ -32,10 +32,12 @@ CREATE TABLE users (
 	tlf varchar(255),
 	avatar varchar(255),
 	birthday date,
-	active boolean,
+	active boolean DEFAULT 1,
 	creation_date timestamp DEFAULT CURRENT_TIMESTAMP,
 	last_modification_date timestamp DEFAULT CURRENT_TIMESTAMP,
 	last_modification_IP varchar(39),
+	confirmation_code varchar(255),
+	last_critical_update timestamp DEFAULT CURRENT_TIMESTAMP,
 	
 	id_address int unsigned,
 	CONSTRAINT fk_address_users FOREIGN KEY (id_address)
