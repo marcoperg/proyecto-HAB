@@ -24,12 +24,22 @@ const {
 } = require("./controllers/users/");
 const {
 	userIsAuthenticated,
-	userIsAdmin,
+	userIsSeller,
 } = require("./controllers/users/auth");
 
 // Seller controllers
-const { newShop, editShop, deleteShop } = require("./controllers/seller/shop");
-const { newMenu, editMenu, deleteMenu } = require("./controllers/seller/menu");
+const {
+	newShop,
+	editShop,
+	deleteShop,
+	getShops,
+} = require("./controllers/seller/shop");
+const {
+	newMenu,
+	editMenu,
+	deleteMenu,
+	getMenus,
+} = require("./controllers/seller/menu");
 
 // Client controllers
 const {
@@ -66,24 +76,26 @@ app.post("/users/:id/password", userIsAuthenticated, changePass);
 app.delete("/users/:id", userIsAuthenticated, deleteAccount);
 
 // Seller routes
-app.post("/shops/new", newShop);
-app.put("/shops/:id", editShop);
-app.delete("/shops/:id", deleteShop);
+app.post("/shops/", userIsAuthenticated, userIsSeller, newShop);
+app.put("/shops/:id", userIsAuthenticated, userIsSeller, editShop);
+app.delete("/shops/:id", userIsAuthenticated, userIsSeller, deleteShop);
+app.get("/shops/:id", userIsAuthenticated, userIsSeller, getShops);
 
-app.post("/menu/new", newMenu);
-app.put("/menu/:id", editMenu);
-app.delete("/menu/:id", deleteMenu);
+app.post("/menu/", userIsAuthenticated, userIsSeller, newMenu);
+app.put("/menu/:id", userIsAuthenticated, userIsSeller, editMenu);
+app.delete("/menu/:id", userIsAuthenticated, userIsSeller, deleteMenu);
+app.get("/menu/:id", userIsAuthenticated, userIsSeller, getMenus);
 
 // Client routes
-app.get("/shops", searchShops);
-app.get("/menu/:id", getMenu);
+app.get("/shops", userIsAuthenticated, searchShops);
+app.get("/menu/:id", userIsAuthenticated, getMenu);
 
-app.post("/visits", newVisit);
-app.put("/visits/:id", addPlate);
-app.post("/visits/:id", checkout);
-app.post("/visits/:id/paid", paid);
-app.post("/visits/:id/call", callWaiter);
-app.post("/visits/:id/rate", rateVisit);
+app.post("/visits", userIsAuthenticated, newVisit);
+app.put("/visits/:id", userIsAuthenticated, addPlate);
+app.post("/visits/:id", userIsAuthenticated, checkout);
+app.post("/visits/:id/paid", userIsAuthenticated, paid);
+app.post("/visits/:id/call", userIsAuthenticated, callWaiter);
+app.post("/visits/:id/rate", userIsAuthenticated, rateVisit);
 
 // Error middleware
 app.use(errorMiddleware);

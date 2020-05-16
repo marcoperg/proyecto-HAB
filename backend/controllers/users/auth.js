@@ -71,7 +71,19 @@ function userIsAdmin(req, res, next) {
 	next();
 }
 
+function userIsSeller(req, res, next) {
+	if (!req.auth || !(req.auth.role === "seller" || req.auth.role === "admin")) {
+		return next(
+			generateError(
+				"This section is only avaiable for sellers, if you one to add your bussiness create a seller app."
+			)
+		);
+	}
+	next();
+}
+
 module.exports = {
 	userIsAuthenticated,
 	userIsAdmin,
+	userIsSeller,
 };

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const { getConnection } = require("../../helpers/db");
 const { sendConfirmationEmail } = require("../../helpers/email");
+
 const {
 	registrationSchema,
 	loginSchema,
@@ -11,11 +12,7 @@ const {
 	editPasswordUserSchema,
 } = require("../../validations/users");
 
-const {
-	generateError,
-	processAndSavePhoto,
-	randomString,
-} = require("../../helpers");
+const { generateError, processAndSavePhoto } = require("../../helpers");
 
 // POST - /users/sendconfirmationemail
 async function confirmationEmail(req, res, next) {}
@@ -212,7 +209,6 @@ async function infoUser(req, res, next) {
 	try {
 		const { id } = req.params;
 
-		console.log(id, req.auth.id);
 		// Check if auth user is the same as :id or is admin
 		if (!req.auth || !(id == req.auth.id || req.auth.role === "admin")) {
 			throw generateError("You do not have access to this information", 401);

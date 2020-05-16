@@ -2,16 +2,22 @@ const Joi = require("@hapi/joi");
 const { generateError } = require("../helpers");
 
 // Basic schemas
-const passwordSchema = Joi.string().min(6).max(100).required();
+const passwordSchema = Joi.string()
+	.min(6)
+	.max(100)
+	.required()
+	.error(new Error("The password must have at least 6 characters."));
+
+const emailSchema = Joi.string()
+	.email()
+	.error(new Error("The provided email is not well formed."));
 
 // Compound schemas
 const userInfoSchema = Joi.object().keys({
 	nick: Joi.string(),
 	first_name: Joi.string(),
 	last_name: Joi.string(),
-	email: Joi.string()
-		.email()
-		.error(new Error("The provided email is not well formed.")),
+	email: emailSchema,
 	tlf: Joi.number().integer(),
 	birthday: Joi.date(),
 	address_line1: Joi.string(),
@@ -22,17 +28,12 @@ const userInfoSchema = Joi.object().keys({
 });
 
 const registrationSchema = userInfoSchema.append({
-	password: passwordSchema.error(
-		new Error("The password must have at least 6 characters.")
-	),
+	password: passwordSchema,
 	seller: Joi.bool(),
 	nick: Joi.string().required(),
 	first_name: Joi.string().required(),
 	last_name: Joi.string().required(),
-	email: Joi.string()
-		.email()
-		.required()
-		.error(new Error("The provided email is not well formed.")),
+	email: emailSchema,
 	birthday: Joi.date(),
 });
 
@@ -40,9 +41,7 @@ const loginSchema = Joi.object().keys({
 	username: Joi.string()
 		.required()
 		.error(generateError("The username is required", 400)),
-	password: passwordSchema.error(
-		generateError("The password is required", 400)
-	),
+	password: passwordSchema,
 });
 
 const editPasswordUserSchema = Joi.object().keys({
