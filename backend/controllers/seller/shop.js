@@ -27,7 +27,7 @@ async function newShop(req, res, next) {
 
 		// Check if the name of the shop alredy exists
 		const [existingShop] = await connection.query(
-			`SELECT * FROM shop WHERE name=? and id_seller=? and 
+			`SELECT id FROM shop WHERE name=? and id_seller=? and 
 			(SELECT line1 FROM address WHERE id=id_address)=? and
 			(SELECT city FROM address WHERE id=id_address)=? and
 			(SELECT country FROM address WHERE id=id_address)=? and
@@ -45,8 +45,6 @@ async function newShop(req, res, next) {
 			VALUES (?, ?, ?, ? , ?)`,
 			[address_line1, address_line2, city, state, country]
 		);
-
-		console.log(addressEntry.insertId);
 
 		await connection.query(
 			`INSERT INTO shop (name, description, email, tlf, id_address, id_seller, last_modification_IP)
@@ -120,7 +118,7 @@ async function editShop(req, res, next) {
 
 		// Check if the name of the shop alredy exists
 		const [existingShop] = await connection.query(
-			`SELECT * FROM shop WHERE name=? and id_seller=? and 
+			`SELECT id FROM shop WHERE name=? and id_seller=? and 
 			(SELECT line1 FROM address WHERE id=id_address)=? and
 			(SELECT city FROM address WHERE id=id_address)=? and
 			(SELECT country FROM address WHERE id=id_address)=?`,
@@ -226,25 +224,10 @@ async function getShops(req, res, next) {
 	try {
 		const { id } = req.params;
 
-		// Validate body
-		await shopSchema.validateAsync(req.body);
-
-		const {
-			name,
-			description,
-			email,
-			tlf,
-			address_line1,
-			address_line2,
-			city,
-			state,
-			country,
-		} = req.body;
-
 		connection = await getConnection();
 
 		const [[shop]] = await connection.query(
-			`SELECT s.name, s.description, s.email, s.tlf, 
+			`SELECT s.id, s.name, s.description, s.email, s.tlf, 
 			a.line1, a.line2, a.city, a.state, a.country, s.id_seller
 			FROM shop s left join address a on s.id_address=a.id WHERE s.id=? and active=1`,
 			[id]
@@ -263,7 +246,6 @@ async function getShops(req, res, next) {
 			throw generateError("You do not have access to this information", 401);
 		}
 
-		console.log(req.body);
 		res.send({
 			status: "ok",
 			message: "Shop info",

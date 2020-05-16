@@ -100,7 +100,6 @@ CREATE TABLE plates (
 	name varchar(255),
 	description varchar(255),
 	prize float,
-	active boolean DEFAULT 1,
 	
 	id_shop int unsigned,
 	CONSTRAINT fk_shop_palte FOREIGN KEY (id_shop)

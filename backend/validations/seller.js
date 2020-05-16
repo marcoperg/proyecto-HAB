@@ -43,7 +43,23 @@ const newShopSchema = Joi.object().keys({
 	country: Joi.string().required(),
 });
 
+const plateSchema = Joi.object().keys({
+	name: nameSchema,
+	description: descriptionShema,
+	prize: Joi.number(),
+	id_shop: Joi.number().integer(),
+});
+
+const newPlateSchema = Joi.object().keys({
+	name: nameSchema.required(),
+	description: descriptionShema.required(),
+	prize: Joi.number().required(),
+	id_shop: Joi.number().integer().required(),
+});
+
 module.exports = {
 	shopSchema,
 	newShopSchema,
+	plateSchema,
+	newPlateSchema,
 };
