@@ -476,9 +476,11 @@ async function deleteAccount(req, res, next) {
 
 		await connection.query(
 			`UPDATE users
-			SET active=0
+			SET active=0,
+			last_modification_date=NOW(),
+			last_modification_IP=?
 			WHERE id=?`,
-			[id]
+			[req.ip, id]
 		);
 
 		connection.release();

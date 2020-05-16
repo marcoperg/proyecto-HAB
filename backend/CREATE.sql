@@ -50,6 +50,11 @@ CREATE TABLE shop (
 	description varchar(255),
 	email varchar(255),
 	tlf varchar(255),
+	active boolean DEFAULT 1,
+
+	creation_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	last_modification_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	last_modification_IP varchar(39),
 	
 	id_address int unsigned,
 	CONSTRAINT fk_address_shop FOREIGN KEY (id_address)
@@ -77,9 +82,9 @@ CREATE TABLE user_shop (
 
 CREATE TABLE cart (
 	id int unsigned PRIMARY KEY auto_increment,
-	checkout boolean,
+	checkout boolean DEFAULT 0,
 	checkout_date timestamp DEFAULT CURRENT_TIMESTAMP,
-	paid boolean,
+	paid boolean DEFAULT 0,
 	paid_date timestamp DEFAULT CURRENT_TIMESTAMP,
 
 	last_modification_IP varchar(39),
@@ -95,6 +100,7 @@ CREATE TABLE plates (
 	name varchar(255),
 	description varchar(255),
 	prize float,
+	active boolean DEFAULT 1,
 	
 	id_shop int unsigned,
 	CONSTRAINT fk_shop_palte FOREIGN KEY (id_shop)
