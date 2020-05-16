@@ -35,11 +35,11 @@ const {
 	getShops,
 } = require("./controllers/seller/shop");
 const {
-	newMenu,
-	editMenu,
-	deleteMenu,
-	getMenus,
-} = require("./controllers/seller/menu");
+	newPlate,
+	editPlate,
+	deletePlate,
+	getPlate,
+} = require("./controllers/seller/plate");
 
 // Client controllers
 const {
@@ -81,10 +81,10 @@ app.put("/shops/:id", userIsAuthenticated, userIsSeller, editShop);
 app.delete("/shops/:id", userIsAuthenticated, userIsSeller, deleteShop);
 app.get("/shops/:id", userIsAuthenticated, userIsSeller, getShops);
 
-app.post("/menu/", userIsAuthenticated, userIsSeller, newMenu);
-app.put("/menu/:id", userIsAuthenticated, userIsSeller, editMenu);
-app.delete("/menu/:id", userIsAuthenticated, userIsSeller, deleteMenu);
-app.get("/menu/:id", userIsAuthenticated, userIsSeller, getMenus);
+app.post("/plate/", userIsAuthenticated, userIsSeller, newPlate);
+app.put("/plate/:id", userIsAuthenticated, userIsSeller, editPlate);
+app.delete("/plate/:id", userIsAuthenticated, userIsSeller, deletePlate);
+app.get("/plate/:id", userIsAuthenticated, userIsSeller, getPlate);
 
 // Client routes
 app.get("/shops", userIsAuthenticated, searchShops);
