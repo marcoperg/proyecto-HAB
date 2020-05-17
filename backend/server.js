@@ -87,8 +87,8 @@ app.delete("/plate/:id", userIsAuthenticated, userIsSeller, deletePlate);
 app.get("/plate/:id", userIsAuthenticated, userIsSeller, getPlate);
 
 // Client routes
-app.get("/shops", userIsAuthenticated, searchShops);
-app.get("/menu/:id", userIsAuthenticated, getMenu);
+app.get("/shops", searchShops);
+app.get("/menu/:id", getMenu);
 
 app.post("/visits", userIsAuthenticated, newVisit);
 app.put("/visits/:id", userIsAuthenticated, addPlate);
