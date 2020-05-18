@@ -75,7 +75,7 @@ async function addPlate(req, res, next) {
 		if (existingPlateOnCart) {
 			await connection.query(
 				`UPDATE cart_plates SET
-				ammount= COALESCE(ammount, 1) + 1
+				ammount= COALESCE(ammount, 0) + 1
 				WHERE id_plate=?`,
 				[plate.id]
 			);
@@ -86,6 +86,55 @@ async function addPlate(req, res, next) {
 				[cartId, plate.id, plate.prize]
 			);
 		}
+
+		res.send({ status: "ok" });
+	} catch (error) {
+		next(error);
+	} finally {
+		if (connection) connection.release();
+	}
+}
+
+// POST - /visits/:id/remove
+async function reducePlateOnCart(req, res, next) {
+	let connection;
+	try {
+		const { id } = req.params;
+
+		connection = await getConnection();
+
+		// Get the cart Id
+		let cartId;
+		try {
+			cartId = (
+				await connection.query(
+					`SELECT id FROM cart WHERE id_user=? and active=1`,
+					[req.auth.id]
+				)
+			)[0][0].id;
+		} catch (error) {
+			throw generateError("You don't have any active cart", 404);
+		}
+
+		// Check if the plate exists in the cart
+		const [
+			[plate],
+		] = await connection.query(
+			`SELECT id_plate FROM cart_plates WHERE id_plate=? and id_cart=?`,
+			[id, cartId]
+		);
+
+		if (!plate) {
+			throw generateError("The plate does not exists", 404);
+		}
+
+		// Reduce ammount on DB
+		await connection.query(
+			`UPDATE cart_plates 
+			SET ammount=ammount-1
+			WHERE id_cart=? and id_plate=?`,
+			[cartId, id]
+		);
 
 		res.send({ status: "ok" });
 	} catch (error) {
@@ -113,4 +162,5 @@ module.exports = {
 	paid,
 	callWaiter,
 	rateVisit,
+	reducePlateOnCart,
 };
