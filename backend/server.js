@@ -94,11 +94,10 @@ app.post("/plate/:id", userIsAuthenticated, userIsSeller, uploadPlatePhoto);
 app.get("/shops", searchShops);
 app.get("/menu/:id", getMenu);
 
-app.post("/visits", userIsAuthenticated, newVisit);
-app.put("/visits/:id", userIsAuthenticated, addPlate);
-app.post("/visits/:id", userIsAuthenticated, checkout);
-app.post("/visits/:id/paid", userIsAuthenticated, paid);
-app.post("/visits/:id/call", userIsAuthenticated, callWaiter);
+app.post("/visits/", userIsAuthenticated, addPlate);
+app.post("/visits/checkout", userIsAuthenticated, checkout);
+app.post("/visits/paid", userIsAuthenticated, paid);
+app.post("/visits/call", userIsAuthenticated, callWaiter);
 app.post("/visits/:id/rate", userIsAuthenticated, rateVisit);
 
 // Error middleware

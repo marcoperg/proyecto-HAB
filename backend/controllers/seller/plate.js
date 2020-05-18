@@ -22,6 +22,10 @@ async function newPlate(req, res, next) {
 			id_shop,
 		]);
 
+		if (!shop) {
+			throw generateError("The shop does not exists", 404);
+		}
+
 		if (
 			!req.auth ||
 			!(shop.id_seller == req.auth.id || req.auth.role === "admin")
@@ -42,7 +46,7 @@ async function newPlate(req, res, next) {
 		}
 
 		// Add data to DB
-		await connection.query(
+		const insertion = await connection.query(
 			`INSERT INTO plates (name, description, prize, id_shop)
 			VALUES (?, ?, ?, ?)`,
 			[name, description, prize, id_shop]
@@ -53,7 +57,7 @@ async function newPlate(req, res, next) {
 		res.send({
 			status: "ok",
 			message: "Plate added succesfully",
-			data: req.body,
+			data: { id: insertion.insertId, ...req.body },
 		});
 	} catch (error) {
 		next(error);
