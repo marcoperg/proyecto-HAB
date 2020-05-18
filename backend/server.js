@@ -33,12 +33,14 @@ const {
 	editShop,
 	deleteShop,
 	getShops,
+	uploadShopPhoto,
 } = require("./controllers/seller/shop");
 const {
 	newPlate,
 	editPlate,
 	deletePlate,
 	getPlate,
+	uploadPlatePhoto,
 } = require("./controllers/seller/plate");
 
 // Client controllers
@@ -79,12 +81,14 @@ app.delete("/users/:id", userIsAuthenticated, deleteAccount);
 app.post("/shops/", userIsAuthenticated, userIsSeller, newShop);
 app.put("/shops/:id", userIsAuthenticated, userIsSeller, editShop);
 app.delete("/shops/:id", userIsAuthenticated, userIsSeller, deleteShop);
-app.get("/shops/:id", userIsAuthenticated, userIsSeller, getShops);
+app.get("/shops/:id", getShops);
+app.post("/shops/:id", userIsAuthenticated, userIsSeller, uploadShopPhoto);
 
 app.post("/plate/", userIsAuthenticated, userIsSeller, newPlate);
 app.put("/plate/:id", userIsAuthenticated, userIsSeller, editPlate);
 app.delete("/plate/:id", userIsAuthenticated, userIsSeller, deletePlate);
-app.get("/plate/:id", userIsAuthenticated, userIsSeller, getPlate);
+app.get("/plate/:id", getPlate);
+app.post("/plate/:id", userIsAuthenticated, userIsSeller, uploadPlatePhoto);
 
 // Client routes
 app.get("/shops", searchShops);

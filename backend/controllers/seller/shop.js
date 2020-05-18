@@ -238,14 +238,6 @@ async function getShops(req, res, next) {
 			throw generateError("The shop to remove does not exists", 404);
 		}
 
-		// Check if auth user is the owner of the shop :id or is admin
-		if (
-			!req.auth ||
-			!(shop.id_seller == req.auth.id || req.auth.role === "admin")
-		) {
-			throw generateError("You do not have access to this information", 401);
-		}
-
 		res.send({
 			status: "ok",
 			message: "Shop info",
@@ -258,4 +250,7 @@ async function getShops(req, res, next) {
 	}
 }
 
-module.exports = { newShop, editShop, deleteShop, getShops };
+// POST - /shops/:id
+async function uploadShopPhoto(req, res, next) {}
+
+module.exports = { newShop, editShop, deleteShop, getShops, uploadShopPhoto };

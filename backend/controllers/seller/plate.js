@@ -246,4 +246,13 @@ async function getPlate(req, res, next) {
 	}
 }
 
-module.exports = { newPlate, editPlate, deletePlate, getPlate };
+// POST - /plate/:id
+async function uploadPlatePhoto(req, res, next) {}
+
+module.exports = {
+	newPlate,
+	editPlate,
+	deletePlate,
+	getPlate,
+	uploadPlatePhoto,
+};
