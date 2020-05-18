@@ -83,16 +83,22 @@ CREATE TABLE user_shop (
 CREATE TABLE cart (
 	id int unsigned PRIMARY KEY auto_increment,
 	checkout boolean DEFAULT 0,
-	checkout_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	checkout_date timestamp,
 	paid boolean DEFAULT 0,
-	paid_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	paid_date timestamp,
+	creation_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	active boolean DEFAULT 1, 
 
 	last_modification_IP varchar(39),
 	total_prize float,
 	
 	id_user int unsigned,
 	CONSTRAINT fk_users_cart FOREIGN KEY (id_user)
-	REFERENCES users(id)
+	REFERENCES users(id),
+
+	id_shop int unsigned,
+	CONSTRAINT fk_shop_cart FOREIGN KEY (id_shop)
+	REFERENCES shop(id)
 );
 
 CREATE TABLE plates (
@@ -110,7 +116,7 @@ CREATE TABLE cart_plates (
 	id_cart int unsigned,
 	id_plate int unsigned,
 	prize float,
-	ammount int,
+	ammount int DEFAULT 1,
 	rating int,
 	comment varchar(255),
 	
