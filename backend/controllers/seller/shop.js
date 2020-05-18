@@ -2,7 +2,7 @@ require("dotenv").config();
 const { getConnection } = require("../../helpers/db");
 
 const { shopSchema, newShopSchema } = require("../../validations/seller");
-const { generateError } = require("../../helpers");
+const { generateError, processAndSavePhoto } = require("../../helpers");
 
 // POST - /shops/
 async function newShop(req, res, next) {
@@ -226,14 +226,21 @@ async function getShops(req, res, next) {
 
 		connection = await getConnection();
 
+		// Get data
 		const [[shop]] = await connection.query(
 			`SELECT s.id, s.name, s.description, s.email, s.tlf, 
 			a.line1, a.line2, a.city, a.state, a.country, s.id_seller
 			FROM shop s left join address a on s.id_address=a.id WHERE s.id=? and active=1`,
 			[id]
 		);
+
+		// Get photos
+		const [
+			photos,
+		] = await connection.query(`SELECT name FROM photos WHERE id_shop=?`, [id]);
 		connection.release();
 
+		// Throw error if the id does't correspond to a shop
 		if (!shop) {
 			throw generateError("The shop to remove does not exists", 404);
 		}
@@ -242,6 +249,7 @@ async function getShops(req, res, next) {
 			status: "ok",
 			message: "Shop info",
 			data: shop,
+			photos: photos,
 		});
 	} catch (error) {
 		next(error);
@@ -251,6 +259,68 @@ async function getShops(req, res, next) {
 }
 
 // POST - /shops/:id
-async function uploadShopPhoto(req, res, next) {}
+async function uploadShopPhoto(req, res, next) {
+	let connection;
+	try {
+		const { id } = req.params;
+
+		connection = await getConnection();
+
+		// Check if the id correspond to a shop own by de user
+		const [
+			[shop],
+		] = await connection.query(
+			`SELECT id, id_seller FROM shop WHERE id=? and active=1`,
+			[id]
+		);
+
+		if (!shop) {
+			throw generateError("The shop to remove does not exists", 404);
+		}
+
+		if (
+			!req.auth ||
+			!(shop.id_seller == req.auth.id || req.auth.role === "admin")
+		) {
+			throw generateError("This shop does not belong to you", 401);
+		}
+
+		// If the input is not an array turn it into one
+		if (!(req.files.photos instanceof Array)) {
+			req.files.photos = new Array(req.files.photos);
+		}
+
+		// For loop that repites the process for every photo on the req
+		for (const photo of req.files.photos) {
+			// Save photo
+
+			let savedFileName;
+			try {
+				savedFileName = await processAndSavePhoto(photo);
+			} catch (error) {
+				const imageError = new Error(
+					"Can not process upload image. Try again."
+				);
+				imageError.httpCode = 400;
+				throw imageError;
+			}
+
+			// Add data to DB
+			await connection.query(
+				`INSERT INTO photos (id_shop, name)
+				VALUES (?, ?)`,
+				[id, savedFileName]
+			);
+		}
+
+		connection.release();
+
+		res.send({ status: "ok" });
+	} catch (error) {
+		next(error);
+	} finally {
+		if (connection) connection.release();
+	}
+}
 
 module.exports = { newShop, editShop, deleteShop, getShops, uploadShopPhoto };

@@ -2,7 +2,7 @@ require("dotenv").config();
 const { getConnection } = require("../../helpers/db");
 
 const { plateSchema, newPlateSchema } = require("../../validations/seller");
-const { generateError } = require("../../helpers");
+const { generateError, processAndSavePhoto } = require("../../helpers");
 
 // POST - /plate/
 async function newPlate(req, res, next) {
@@ -209,11 +209,51 @@ async function getPlate(req, res, next) {
 
 		connection = await getConnection();
 
-		// Check if the plate exists
+		// Get data
 		const [[plate]] = await connection.query(
 			`SELECT * FROM plates WHERE id=?`,
 			[id]
 		);
+
+		// Get phots
+		const [
+			photos,
+		] = await connection.query(`SELECT name FROM photos WHERE id_plate=?`, [
+			id,
+		]);
+
+		// Throw error if the id does't correspond to a plate
+		if (!plate) {
+			throw generateError("The plate does not exists", 404);
+		}
+
+		connection.release();
+
+		res.send({
+			status: "ok",
+			message: "Plate info",
+			data: plate,
+			photos: photos,
+		});
+	} catch (error) {
+		next(error);
+	} finally {
+		if (connection) connection.release();
+	}
+}
+
+// POST - /plate/:id
+async function uploadPlatePhoto(req, res, next) {
+	let connection;
+	try {
+		const { id } = req.params;
+
+		connection = await getConnection();
+
+		// Check if the plate exists
+		const [
+			[plate],
+		] = await connection.query(`SELECT id_shop FROM plates WHERE id=?`, [id]);
 		if (!plate) {
 			throw generateError("The plate does not exists", 404);
 		}
@@ -232,22 +272,43 @@ async function getPlate(req, res, next) {
 			throw generateError("This plate does not belong to you", 401);
 		}
 
+		// If the input is not an array turn it into one
+		if (!(req.files.photos instanceof Array)) {
+			req.files.photos = new Array(req.files.photos);
+		}
+
+		// For loop that repites the process for every photo on the req
+		for (const photo of req.files.photos) {
+			// Save photo
+
+			let savedFileName;
+			try {
+				savedFileName = await processAndSavePhoto(photo);
+			} catch (error) {
+				const imageError = new Error(
+					"Can not process upload image. Try again."
+				);
+				imageError.httpCode = 400;
+				throw imageError;
+			}
+
+			// Add data to DB
+			await connection.query(
+				`INSERT INTO photos (id_plate, name)
+				VALUES (?, ?)`,
+				[id, savedFileName]
+			);
+		}
+
 		connection.release();
 
-		res.send({
-			status: "ok",
-			message: "Plate info",
-			data: plate,
-		});
+		res.send({ status: "ok" });
 	} catch (error) {
 		next(error);
 	} finally {
 		if (connection) connection.release();
 	}
 }
-
-// POST - /plate/:id
-async function uploadPlatePhoto(req, res, next) {}
 
 module.exports = {
 	newPlate,
