@@ -46,6 +46,7 @@ async function userIsAuthenticated(req, res, next) {
 			"SELECT last_critical_update FROM users WHERE id=? and active=1",
 			[id]
 		);
+
 		if (!user.length) {
 			throw new Error("The user no longer exists");
 		}

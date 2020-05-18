@@ -478,7 +478,8 @@ async function deleteAccount(req, res, next) {
 			`UPDATE users
 			SET active=0,
 			last_modification_date=NOW(),
-			last_modification_IP=?
+			last_modification_IP=?,
+			last_critical_update=NOW()
 			WHERE id=?`,
 			[req.ip, id]
 		);
