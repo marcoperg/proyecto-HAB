@@ -217,6 +217,21 @@ async function checkout(req, res, next) {
 			throw generateError("There is no active cart to checkout", 404);
 		}
 
+		// Get the id of the table, if not passed try to get it from DB
+		const { table_id } = req.body;
+
+		if (!table_id) {
+			try {
+				table_id = (
+					await connection.query(`SELECT table_id FROM cart WHERE id=?`, [
+						cart.id,
+					])
+				)[0][0].table_id;
+			} catch (error) {
+				throw generateError("Plase pass the number of your table", 404);
+			}
+		}
+
 		// Get prizes of the cart
 		const [prizes] = await connection.query(
 			`SELECT  prize, ammount FROM cart_plates
@@ -235,8 +250,10 @@ async function checkout(req, res, next) {
 			checkout_date=NOW(),
 			active=0,
 			last_modification_IP=?,
-			total_prize=?`,
-			[req.ip, totalPrize]
+			total_prize=?,
+			table_id=?
+			WHERE id=?`,
+			[req.ip, totalPrize, table_id, cart.id]
 		);
 
 		res.send({ status: "ok" });

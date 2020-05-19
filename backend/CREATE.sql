@@ -88,6 +88,7 @@ CREATE TABLE cart (
 	paid_date timestamp,
 	creation_date timestamp DEFAULT CURRENT_TIMESTAMP,
 	active boolean DEFAULT 1, 
+	table_id int unsigned,
 
 	last_modification_IP varchar(39),
 	total_prize float,
