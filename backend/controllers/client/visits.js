@@ -45,7 +45,7 @@ async function addPlate(req, res, next) {
 				)
 			)[0][0];
 
-			if (oldPlate.id_shop != plate.id_shop) {
+			if (oldPlate && oldPlate.id_shop != plate.id_shop) {
 				throw generateError(
 					" You have a cart active from another shop, if you are no longer there deleted before creating a new one",
 					400
@@ -68,8 +68,8 @@ async function addPlate(req, res, next) {
 		const [
 			[existingPlateOnCart],
 		] = await connection.query(
-			`SELECT ammount FROM cart_plates WHERE id_plate=?`,
-			[plate.id]
+			`SELECT ammount FROM cart_plates WHERE id_plate=? and id_cart=?`,
+			[plate.id, cartId]
 		);
 
 		if (existingPlateOnCart) {
@@ -86,6 +86,52 @@ async function addPlate(req, res, next) {
 				[cartId, plate.id, plate.prize]
 			);
 		}
+
+		res.send({ status: "ok" });
+	} catch (error) {
+		next(error);
+	} finally {
+		if (connection) connection.release();
+	}
+}
+
+// DELETE - /visits/
+async function deleteCartWithoutCheckout(req, res, next) {
+	let connection;
+	try {
+		connection = await getConnection();
+
+		// Check if there is an active cart
+		const [
+			[cart],
+		] = await connection.query(
+			`SELECT id FROM cart WHERE id_user=? and active=1`,
+			[req.auth.id]
+		);
+
+		if (!cart) {
+			throw generateError("There is no active cart to checkout", 404);
+		}
+
+		// Get prizes of the cart
+		const [prizes] = await connection.query(
+			`SELECT  prize, ammount FROM cart_plates
+			WHERE id_cart=?`,
+			[cart.id]
+		);
+
+		const totalPrize = prizes.reduce((accumulator, currentValue) => {
+			return accumulator + currentValue.prize * currentValue.ammount;
+		}, 0);
+
+		// Update DB
+		await connection.query(
+			`UPDATE cart SET
+			active=0,
+			last_modification_IP=?,
+			total_prize=?`,
+			[req.ip, totalPrize]
+		);
 
 		res.send({ status: "ok" });
 	} catch (error) {
@@ -212,6 +258,7 @@ async function rateVisit() {}
 
 module.exports = {
 	addPlate,
+	deleteCartWithoutCheckout,
 	reducePlateOnCart,
 	checkout,
 	paid,
