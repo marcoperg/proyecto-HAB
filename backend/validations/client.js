@@ -4,7 +4,7 @@ const { generateError } = require("../helpers");
 // Basic schemas
 // Compound schemas
 const addPlateSchema = Joi.object().keys({
-	plate_id: Joi.number().integer(),
+	plate_id: Joi.number().integer().required(),
 });
 
 module.exports = {

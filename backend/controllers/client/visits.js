@@ -57,9 +57,9 @@ async function addPlate(req, res, next) {
 		if (!cartId) {
 			cartId = (
 				await connection.query(
-					`INSERT INTO cart(id_user, id_shop)
-				VALUES (?, ?)`,
-					[req.auth.id, plate.id_shop]
+					`INSERT INTO cart(id_user, id_shop, last_modification_IP)
+					VALUES (?, ?, ?)`,
+					[req.auth.id, plate.id_shop, req.ip]
 				)
 			)[0].insertId;
 		}
@@ -154,7 +154,52 @@ async function reducePlateOnCart(req, res, next) {
 }
 
 // POST - /visits/checkout
-async function checkout() {}
+async function checkout(req, res, next) {
+	let connection;
+	try {
+		connection = await getConnection();
+
+		// Check if there is an active cart
+		const [
+			[cart],
+		] = await connection.query(
+			`SELECT id FROM cart WHERE id_user=? and active=1`,
+			[req.auth.id]
+		);
+
+		if (!cart) {
+			throw generateError("There is no active cart to checkout", 404);
+		}
+
+		// Get prizes of the cart
+		const [prizes] = await connection.query(
+			`SELECT  prize, ammount FROM cart_plates
+			WHERE id_cart=?`,
+			[cart.id]
+		);
+
+		const totalPrize = prizes.reduce((accumulator, currentValue) => {
+			return accumulator + currentValue.prize * currentValue.ammount;
+		}, 0);
+
+		// Update DB
+		await connection.query(
+			`UPDATE cart SET
+			checkout=1,
+			checkout_date=NOW(),
+			active=0,
+			last_modification_IP=?,
+			total_prize=?`,
+			[req.ip, totalPrize]
+		);
+
+		res.send({ status: "ok" });
+	} catch (error) {
+		next(error);
+	} finally {
+		if (connection) connection.release();
+	}
+}
 
 // POST - /visits/paid
 async function paid() {}
