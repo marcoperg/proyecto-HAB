@@ -1,0 +1,1025 @@
+{
+	"info": {
+		"_postman_id": "af61f82a-9df5-4c85-b954-125de0fcce86",
+		"name": "project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Registration Client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsInJvbGUiOiJub3JtYWwiLCJpYXQiOjE1ODg5NjQyODEsImV4cCI6MTU5MTU1NjI4MX0.jIASALexlfha6z3RepwEr7OD_qKrBRnVpvZcI70Hx1s",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nick",
+									"value": "marcoclient",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Marco",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Perez",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "marcopg4+client@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "2020-02-02",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/home/hipnius/Downloads/logo-atari-1.jpg",
+									"disabled": true
+								},
+								{
+									"key": "seller",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "address_line1",
+									"value": "Urb Los Girasoles",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "coruña",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3001/users/registration",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration Seller",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsInJvbGUiOiJub3JtYWwiLCJpYXQiOjE1ODg5NjQyODEsImV4cCI6MTU5MTU1NjI4MX0.jIASALexlfha6z3RepwEr7OD_qKrBRnVpvZcI70Hx1s"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nick",
+									"value": "marcoseller",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Marco",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Perez",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "marcopg4+seller@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "2020-02-02",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/home/hipnius/Downloads/logo-atari-1.jpg",
+									"disabled": true
+								},
+								{
+									"key": "seller",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "address_line1",
+									"value": "Urb Los Girasoles",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "coruña",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3001/users/registration",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "marcoclient",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3001/users/login",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change User data",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImNsaWVudCIsImlhdCI6MTU4OTQ5MzAzOCwiZXhwIjoxNTkyMDg1MDM4fQ.4YwbNaWLuvWxAGaK7wH5XkAovFMAm1X5hgI0CD63idg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "marcog@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "country",
+									"value": "Spain",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "state",
+									"value": "A Coruña",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3001/users/2",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImNsaWVudCIsImlhdCI6MTU4OTQ5MzAzOCwiZXhwIjoxNTkyMDg1MDM4fQ.4YwbNaWLuvWxAGaK7wH5XkAovFMAm1X5hgI0CD63idg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:3001/users/2",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "old_password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "654321",
+									"type": "text"
+								},
+								{
+									"key": "new_password_repeat",
+									"value": "654321",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3001/users/2/password",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"2",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3001/users/validate?code=606fbdcf2c1e4ae28cfb3d48f895d93c58beadde",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"validate"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "606fbdcf2c1e4ae28cfb3d48f895d93c58beadde"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userInfo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImNsaWVudCIsImlhdCI6MTU4OTY1MDk0NCwiZXhwIjoxNTkyMjQyOTQ0fQ.XOOZB9zr5GBkeY_HVKz6x7J_sYXdqior0hkxOWQm1tk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:3001/users/2",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Seller",
+			"item": [
+				{
+					"name": "shop",
+					"item": [
+						{
+							"name": "new Shop",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTkwODgxMCwiZXhwIjoxNTkyNTAwODEwfQ.hrQzx0VRObi9YP6K9jPaZJosaly3spKS1mYQdaKtXrg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Mi tienda",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Increible bar en el centro de coruña",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "marcopg4+seller@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "tlf",
+											"value": "66666",
+											"type": "text"
+										},
+										{
+											"key": "address_line1",
+											"value": "Centro",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "A Coruña",
+											"type": "text"
+										},
+										{
+											"key": "country",
+											"value": "Spain",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/shops/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"shops",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit Shop",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTY1MTIwMiwiZXhwIjoxNTkyMjQzMjAyfQ.8PB7HzNJoE6BKMBWa1cSg7b2YSi2pyN9BafpyS_GMbQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Mi tienda renovada",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/shops/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"shops",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Shop",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTY1MTIwMiwiZXhwIjoxNTkyMjQzMjAyfQ.8PB7HzNJoE6BKMBWa1cSg7b2YSi2pyN9BafpyS_GMbQ",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:3001/shops/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"shops",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "info Shop",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTY1MTIwMiwiZXhwIjoxNTkyMjQzMjAyfQ.8PB7HzNJoE6BKMBWa1cSg7b2YSi2pyN9BafpyS_GMbQ",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:3001/shops/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"shops",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload Shop Photo",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTY1MTIwMiwiZXhwIjoxNTkyMjQzMjAyfQ.8PB7HzNJoE6BKMBWa1cSg7b2YSi2pyN9BafpyS_GMbQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "photos",
+											"type": "file",
+											"src": "/mnt/DATOS/fotos/picture.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/shops/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"shops",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "plate",
+					"item": [
+						{
+							"name": "new Plate",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTkwODgxMCwiZXhwIjoxNTkyNTAwODEwfQ.hrQzx0VRObi9YP6K9jPaZJosaly3spKS1mYQdaKtXrg"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Galletitas1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Riquisimas",
+											"type": "text"
+										},
+										{
+											"key": "prize",
+											"value": "20.00",
+											"type": "text"
+										},
+										{
+											"key": "id_shop",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/plate/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"plate",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit Plate",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTY1MTIwMiwiZXhwIjoxNTkyMjQzMjAyfQ.8PB7HzNJoE6BKMBWa1cSg7b2YSi2pyN9BafpyS_GMbQ"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Hamburguesas mejoradas",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/plate/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"plate",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Plate",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTY1MTIwMiwiZXhwIjoxNTkyMjQzMjAyfQ.8PB7HzNJoE6BKMBWa1cSg7b2YSi2pyN9BafpyS_GMbQ"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:3001/plate/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"plate",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "info Plate",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTY1MTIwMiwiZXhwIjoxNTkyMjQzMjAyfQ.8PB7HzNJoE6BKMBWa1cSg7b2YSi2pyN9BafpyS_GMbQ"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:3001/plate/7",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"plate",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload Plate Photo",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTY1MTIwMiwiZXhwIjoxNTkyMjQzMjAyfQ.8PB7HzNJoE6BKMBWa1cSg7b2YSi2pyN9BafpyS_GMbQ"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "photos",
+											"type": "file",
+											"src": "/mnt/DATOS/fotos/picture.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/plate/7",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"plate",
+										"7"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Search",
+					"item": [
+						{
+							"name": "get Menu",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:3001/menu/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"menu",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Visits",
+					"item": [
+						{
+							"name": "Add Plate",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImNsaWVudCIsImlhdCI6MTU4OTkwODc4MSwiZXhwIjoxNTkyNTAwNzgxfQ.4qCTb9oPz6x_8PUx7g3jMEmL3Z7WN6OjnbpCQce-Txs",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "plate_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/visits",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"visits"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Cart",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6ImNsaWVudCIsImlhdCI6MTU4OTkwNjczMywiZXhwIjoxNTkyNDk4NzMzfQ.PUXdk8TD3kmv3FwnZhj3KtIXZtGLBgnDUMjY27hLn98"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "reduce_completly",
+											"value": "1",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/visits/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"visits",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Plate",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6ImNsaWVudCIsImlhdCI6MTU4OTkwNjczMywiZXhwIjoxNTkyNDk4NzMzfQ.PUXdk8TD3kmv3FwnZhj3KtIXZtGLBgnDUMjY27hLn98"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "reduce_completly",
+											"value": "1",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/visits/1/remove",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"visits",
+										"1",
+										"remove"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "checkout",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImNsaWVudCIsImlhdCI6MTU4OTkwODc4MSwiZXhwIjoxNTkyNTAwNzgxfQ.4qCTb9oPz6x_8PUx7g3jMEmL3Z7WN6OjnbpCQce-Txs",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "table_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/visits/checkout",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"visits",
+										"checkout"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
