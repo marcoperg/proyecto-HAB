@@ -95,12 +95,12 @@ async function addPlate(req, res, next) {
 	}
 }
 
-// POST - /visits/:id/remove
+// DELETE - /visits/:id/remove
 async function reducePlateOnCart(req, res, next) {
 	let connection;
 	try {
 		const { id } = req.params;
-
+		const { reduce_completly } = req.body;
 		connection = await getConnection();
 
 		// Get the cart Id
@@ -128,13 +128,22 @@ async function reducePlateOnCart(req, res, next) {
 			throw generateError("The plate does not exists", 404);
 		}
 
-		// Reduce ammount on DB
-		await connection.query(
-			`UPDATE cart_plates 
-			SET ammount=ammount-1
-			WHERE id_cart=? and id_plate=?`,
-			[cartId, id]
-		);
+		// Reduce ammount on DB or update it to 0 if required
+		if (reduce_completly) {
+			await connection.query(
+				`UPDATE cart_plates
+				SET ammount=0
+				WHERE id_cart=? and id_plate=?`,
+				[cartId, id]
+			);
+		} else {
+			await connection.query(
+				`UPDATE cart_plates 
+				SET ammount=ammount-1
+				WHERE id_cart=? and id_plate=?`,
+				[cartId, id]
+			);
+		}
 
 		res.send({ status: "ok" });
 	} catch (error) {
@@ -158,9 +167,9 @@ async function rateVisit() {}
 
 module.exports = {
 	addPlate,
+	reducePlateOnCart,
 	checkout,
 	paid,
 	callWaiter,
 	rateVisit,
-	reducePlateOnCart,
 };
