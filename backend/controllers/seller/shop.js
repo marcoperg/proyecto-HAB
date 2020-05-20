@@ -234,6 +234,18 @@ async function getShops(req, res, next) {
 			[id]
 		);
 
+		// Get ratings for average
+		const [
+			rates,
+		] = await connection.query(
+			`SELECT rating  FROM user_shop WHERE id_shop=?`,
+			[id]
+		);
+
+		const rate_average = rates.reduce((accum, currentVal) => {
+			return accum + currentVal.rating;
+		}, 0);
+
 		// Get photos
 		const [
 			photos,
@@ -242,13 +254,13 @@ async function getShops(req, res, next) {
 
 		// Throw error if the id does't correspond to a shop
 		if (!shop) {
-			throw generateError("The shop to remove does not exists", 404);
+			throw generateError("The shop does not exists", 404);
 		}
 
 		res.send({
 			status: "ok",
 			message: "Shop info",
-			data: shop,
+			data: { ...shop, average_rate: rate_average },
 			photos: photos,
 		});
 	} catch (error) {
