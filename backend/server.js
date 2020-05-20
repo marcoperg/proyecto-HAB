@@ -47,11 +47,11 @@ const {
 const {
 	addPlate,
 	deleteCartWithoutCheckout,
+	reducePlateOnCart,
 	checkout,
 	paid,
 	callWaiter,
-	rateVisit,
-	reducePlateOnCart,
+	rateShop,
 } = require("./controllers/client/visits");
 const { searchShops, getMenu } = require("./controllers/client/search");
 
@@ -101,7 +101,7 @@ app.delete("/visits/:id/remove", userIsAuthenticated, reducePlateOnCart);
 app.post("/visits/checkout", userIsAuthenticated, checkout);
 app.post("/visits/paid", userIsAuthenticated, paid);
 app.post("/visits/call", userIsAuthenticated, callWaiter);
-app.post("/visits/:id/rate", userIsAuthenticated, rateVisit);
+app.post("/shop/:id/rate", userIsAuthenticated, rateShop);
 
 // Error middleware
 app.use(errorMiddleware);

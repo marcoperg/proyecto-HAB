@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { generateError } = require("../../helpers/");
 const { getConnection } = require("../../helpers/db");
-const { addPlateSchema } = require("../../validations/client");
+const { addPlateSchema, ratingSchema } = require("../../validations/client");
 
 // POST - /visits/
 async function addPlate(req, res, next) {
@@ -270,8 +270,42 @@ async function paid() {}
 // POST - /visits/call
 async function callWaiter() {}
 
-// POST - /visits/:id/rate
-async function rateVisit() {}
+// POST - /shop/:id/rate
+async function rateShop(req, res, next) {
+	let connection;
+	try {
+		// Extract id of the shop to rate and the rating data (and validate it)
+		const { id } = req.params;
+
+		ratingSchema.validate(req.body);
+		const { rate, comment } = req.body;
+
+		connection = await getConnection();
+
+		// Check if the shop exists
+		const [[shop]] = await connection.query(`SELECT id FROM shop WHERE id=?`, [
+			id,
+		]);
+
+		if (!shop) {
+			throw generateError("No shop found with that id", 404);
+		}
+
+		// Update DB
+		await connection.query(
+			`INSERT INTO user_shop (id_user, id_shop, rating, comment)
+			VALUES (?, ?, ?, ?)`,
+			[req.auth.id, id, rate, comment]
+		);
+
+		res.send({ status: "ok", data: req.body });
+	} catch (error) {
+		next(error);
+	} finally {
+		console.log("hola");
+		if (connection) connection.release();
+	}
+}
 
 module.exports = {
 	addPlate,
@@ -280,5 +314,5 @@ module.exports = {
 	checkout,
 	paid,
 	callWaiter,
-	rateVisit,
+	rateShop,
 };
