@@ -1,9 +1,73 @@
 require("dotenv").config();
 const { getConnection } = require("../../helpers/db");
 const { generateError } = require("../../helpers");
+const nodeGeocoder = require("node-geocoder");
+
+const geocoder = nodeGeocoder({
+	provider: "opencage",
+	apiKey: "29aa9cabeb224983a182c71fe7b4bfcb",
+});
 
 // GET - /shops
-async function searchShops() {}
+async function getShops(req, res, next) {
+	let connection;
+	try {
+		const { city, name } = req.query;
+		if (name) {
+			connection = await getConnection();
+
+			// Get shops with that name
+			const [
+				shops,
+			] = await connection.query(
+				`SELECT * FROM shop WHERE name LIKE ? and active`,
+				[`%${name}%`]
+			);
+
+			res.send({ status: "ok", data: shops });
+		} else if (city) {
+			connection = await getConnection();
+
+			// Get list of shops with that city
+			const [shops] = await connection.query(
+				`SELECT s.* FROM shop s JOIN address a 
+			ON a.id = s.id_address WHERE a.city=? and s.active`,
+				[city]
+			);
+
+			res.send({ status: "ok", data: shops });
+		} else {
+			connection = await getConnection();
+
+			// Get list of addresses with shops
+			const [addresses] = await connection.query(
+				`SELECT * FROM address WHERE id in (
+				SELECT id_address FROM shop WHERE active
+			)`
+			);
+
+			const coords = [];
+
+			for (const address of addresses) {
+				coords.push(
+					await geocoder.geocode(
+						(address.line1 || " ") +
+							(address.line2 || " ") +
+							(address.city || " ") +
+							(address.state || " ") +
+							(address.country || " ")
+					)
+				);
+			}
+
+			res.send({ status: "ok", data: coords });
+		}
+	} catch (error) {
+		next(error);
+	} finally {
+		if (connection) connection.release();
+	}
+}
 
 // GET - /menu/:id
 async function getMenu(req, res, next) {
@@ -37,4 +101,4 @@ async function getMenu(req, res, next) {
 	}
 }
 
-module.exports = { searchShops, getMenu };
+module.exports = { getShops, getMenu };

@@ -219,7 +219,7 @@ async function deleteShop(req, res, next) {
 }
 
 // GET - /shops/:id
-async function getShops(req, res, next) {
+async function getShop(req, res, next) {
 	let connection;
 	try {
 		const { id } = req.params;
@@ -335,4 +335,4 @@ async function uploadShopPhoto(req, res, next) {
 	}
 }
 
-module.exports = { newShop, editShop, deleteShop, getShops, uploadShopPhoto };
+module.exports = { newShop, editShop, deleteShop, getShop, uploadShopPhoto };

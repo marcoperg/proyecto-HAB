@@ -525,7 +525,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTY1MTIwMiwiZXhwIjoxNTkyMjQzMjAyfQ.8PB7HzNJoE6BKMBWa1cSg7b2YSi2pyN9BafpyS_GMbQ",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InNlbGxlciIsImlhdCI6MTU4OTkwODgxMCwiZXhwIjoxNTkyNTAwODEwfQ.hrQzx0VRObi9YP6K9jPaZJosaly3spKS1mYQdaKtXrg",
 										"type": "text"
 									}
 								],
@@ -559,7 +559,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://127.0.0.1:3001/shops/2",
+									"raw": "http://127.0.0.1:3001/shops/1",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -570,7 +570,7 @@
 									"port": "3001",
 									"path": [
 										"shops",
-										"2"
+										"1"
 									]
 								}
 							},
@@ -847,6 +847,84 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "get Shop",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:3001/shops",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"shops"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Shop by city",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:3001/shops?city=A Coruña",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"shops"
+									],
+									"query": [
+										{
+											"key": "city",
+											"value": "A Coruña"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Shop by name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:3001/shops?name=end",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"shops"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "end"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
@@ -1008,6 +1086,51 @@
 									"path": [
 										"visits",
 										"checkout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "rate Shop",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImNsaWVudCIsImlhdCI6MTU4OTkwODc4MSwiZXhwIjoxNTkyNTAwNzgxfQ.4qCTb9oPz6x_8PUx7g3jMEmL3Z7WN6OjnbpCQce-Txs"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "rate",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "comment",
+											"value": "Muy buena comida",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/shop/1/rate",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"shop",
+										"1",
+										"rate"
 									]
 								}
 							},

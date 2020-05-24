@@ -32,7 +32,7 @@ const {
 	newShop,
 	editShop,
 	deleteShop,
-	getShops,
+	getShop,
 	uploadShopPhoto,
 } = require("./controllers/seller/shop");
 const {
@@ -53,7 +53,7 @@ const {
 	callWaiter,
 	rateShop,
 } = require("./controllers/client/visits");
-const { searchShops, getMenu } = require("./controllers/client/search");
+const { getShops, getMenu } = require("./controllers/client/search");
 
 // Miscellaneous ccontrollers
 const {
@@ -82,7 +82,7 @@ app.delete("/users/:id", userIsAuthenticated, deleteAccount);
 app.post("/shops/", userIsAuthenticated, userIsSeller, newShop);
 app.put("/shops/:id", userIsAuthenticated, userIsSeller, editShop);
 app.delete("/shops/:id", userIsAuthenticated, userIsSeller, deleteShop);
-app.get("/shops/:id", getShops);
+app.get("/shops/:id", getShop);
 app.post("/shops/:id", userIsAuthenticated, userIsSeller, uploadShopPhoto);
 
 app.post("/plate/", userIsAuthenticated, userIsSeller, newPlate);
@@ -92,7 +92,7 @@ app.get("/plate/:id", getPlate);
 app.post("/plate/:id", userIsAuthenticated, userIsSeller, uploadPlatePhoto);
 
 // Client routes
-app.get("/shops", searchShops);
+app.get("/shops", getShops);
 app.get("/menu/:id", getMenu);
 
 app.post("/visits/", userIsAuthenticated, addPlate);
