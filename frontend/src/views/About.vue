@@ -1,5 +1,22 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+	<div class="about">
+		<menucustom />
+		<h1>This is an about page</h1>
+	</div>
 </template>
+
+
+<script>
+// Components
+import menucustom from '@/components/MenuCustom.vue';
+
+export default {
+	name: 'About',
+	components: {
+		menucustom
+	}
+};
+</script>
+
+<style scoped>
+</style>
