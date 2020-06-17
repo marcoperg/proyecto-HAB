@@ -1,7 +1,7 @@
 <template>
 	<div class="home">
 		<menucustom />
-		{{home}}
+		<h1>Home</h1>
 	</div>
 </template>
 
@@ -13,11 +13,6 @@ export default {
 	name: 'Home',
 	components: {
 		menucustom
-	},
-	data() {
-		return {
-			home: process.env.VUE_APP_BACKEND_URL
-		};
 	}
 };
 </script>
