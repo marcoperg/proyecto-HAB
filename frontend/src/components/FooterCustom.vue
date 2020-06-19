@@ -16,6 +16,7 @@ footer {
 	width: 100%;
 	height: 80px;
 	bottom: 0;
+	z-index: -1;
 	color: black;
 
 	background: #c4c4c4;

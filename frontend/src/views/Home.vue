@@ -2,7 +2,7 @@
 	<div class="home">
 		<menucustom />
 		<main>
-			<!-- <UPPER TEXT> -->
+			<!-- <UPPER TEXT (one tittle for language)> -->
 			<h1
 				v-show="lang==='en'"
 			>Discover the restaurants and cofee shops of your region and ask for your order from your phone.</h1>
@@ -16,6 +16,7 @@
 			>Descobre os restaurantes e cafeterías da túa zona e realiza o teu pedido dende o teu móbil</h1>
 			<!-- </UPPER TEXT> -->
 
+			<!-- <SEARCH FORM> -->
 			<form @keypress.enter="sumbitSearch()">
 				<input type="text" v-model="search" placeholder="Search restaurant" v-show="lang==='en'" />
 				<input
@@ -25,6 +26,7 @@
 					v-show="lang==='es' || lang==='gl'"
 				/>
 			</form>
+			<!-- </SEARCH FORM> -->
 
 			<h2 v-show="lang==='en'">Save your time</h2>
 			<h2 v-show="lang==='es'">Ahorra tiempo</h2>
@@ -167,6 +169,8 @@ h2:after {
 	position: relative;
 	vertical-align: middle;
 	width: 50%;
+
+	z-index: -1;
 }
 
 h2:before {

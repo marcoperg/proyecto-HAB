@@ -11,43 +11,47 @@
 			<button v-show="isMobile()" @click="menu = !menu" class="search"></button>
 		</header>
 
-		<div class="menu" v-show="menu">
-			<button v-show="isMobile()" @click="menu = !menu" class="closemenu"></button>
+		<transition name="slide-fade">
+			<div class="menu" v-show="menu">
+				<button v-show="isMobile()" @click="menu = !menu" class="closemenu"></button>
 
-			<!-- <Languge selector> -->
-			<div class="langSelector">
-				<div class="langtext" v-show="isMobile()">
-					<p v-show="lang==='en'">Change language:</p>
-					<p v-show="lang==='es' || lang==='gl'">Cambiar idioma:</p>
+				<!-- <Languge selector> -->
+				<div class="langSelector">
+					<div class="langtext" v-show="isMobile()">
+						<p v-show="lang==='en'">Change language:</p>
+						<p v-show="lang==='es' || lang==='gl'">Cambiar idioma:</p>
+					</div>
+
+					<div class="lang" @mouseover="languageHover = true" @mouseleave="languageHover = false">
+						<router-link :to="{params: {lang: lang}}" :class="lang"></router-link>
+
+						<transition name="fade">
+							<ul v-if="languageHover" @click="languageHover = false">
+								<li v-show="lang !== 'en'">
+									<router-link :to="{params: {lang: 'en'}}" class="en"></router-link>
+								</li>
+
+								<li v-show="lang !== 'es'">
+									<router-link :to="{params: {lang: 'es'}}" class="es"></router-link>
+								</li>
+
+								<li v-show="lang !== 'gl'">
+									<router-link :to="{params: {lang: 'gl'}}" class="gl"></router-link>
+								</li>
+							</ul>
+						</transition>
+					</div>
 				</div>
+				<!-- </Languge selector> -->
 
-				<div class="lang" @mouseover="languageHover = true" @mouseleave="languageHover = false">
-					<router-link :to="{params: {lang: lang}}" :class="lang"></router-link>
-
-					<transition name="fade">
-						<ul v-if="languageHover" @click="languageHover = false">
-							<li v-show="lang !== 'en'">
-								<router-link :to="{params: {lang: 'en'}}" class="en"></router-link>
-							</li>
-
-							<li v-show="lang !== 'es'">
-								<router-link :to="{params: {lang: 'es'}}" class="es"></router-link>
-							</li>
-
-							<li v-show="lang !== 'gl'">
-								<router-link :to="{params: {lang: 'gl'}}" class="gl"></router-link>
-							</li>
-						</ul>
-					</transition>
-				</div>
+				<router-link class="login" :to="{name: 'Login', params: {lang: lang}}">
+					<p v-show="lang==='en'">Log in</p>
+					<p v-show="lang==='es' || lang==='gl'">Iniciar Sesión</p>
+				</router-link>
 			</div>
-			<!-- </Languge selector> -->
+		</transition>
 
-			<router-link class="login" :to="{name: 'Login', params: {lang: lang}}">
-				<p v-show="lang==='en'">Log in</p>
-				<p v-show="lang==='es' || lang==='gl'">Iniciar Sesión</p>
-			</router-link>
-		</div>
+		<div class="blank" v-show="isMobile() &&  menu" @click="menu = !menu"></div>
 	</div>
 </template>
 

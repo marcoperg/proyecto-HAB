@@ -30,14 +30,15 @@
 	}
 
 	button.closemenu {
-		width: 23px;
-		height: 23px;
+		width: 20px;
+		height: 20px;
 
 		background: url('../assets/icons/close.png') no-repeat;
 		background-size: contain;
 		position: absolute;
 		top: 10px;
 		right: 10px;
+		z-index: 11;
 	}
 
 	button:focus {
@@ -45,13 +46,14 @@
 	}
 
 	.menu {
-		max-width: 70%;
+		max-width: 90%;
 		position: fixed;
 		top: 0;
 		left: 0;
 		bottom: 0;
+		z-index: 10;
 
-		background: grey;
+		background: #dfdfdf;
 
 		width: 20rem;
 		min-height: 100vh;
@@ -60,6 +62,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+
+		-webkit-transition: all 0.25s;
 	}
 
 	.login {
@@ -67,7 +71,6 @@
 		top: 2rem;
 	}
 	.langSelector {
-		order: 2;
 		display: flex;
 		align-items: center;
 	}
@@ -78,6 +81,27 @@
 
 	.lang {
 		margin: 0;
+	}
+
+	.blank {
+		position: fixed;
+		right: 0;
+		top: 0;
+		min-height: 100vh;
+		width: 100%;
+		background: rgba(136, 136, 136, 0.7);
+	}
+
+	.slide-fade-enter-active {
+		transition: all 0.3s ease;
+	}
+	.slide-fade-leave-active {
+		transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+	}
+	.slide-fade-enter,
+	.slide-fade-leave-to {
+		transform: translateX(-100rem);
+		opacity: 0;
 	}
 }
 
