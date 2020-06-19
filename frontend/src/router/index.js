@@ -13,6 +13,11 @@ const routes = [
 	{
 		path: '/:lang/login',
 		name: 'Login',
+		component: () => import('../views/Login.vue')
+	},
+	{
+		path: '/:lang/registration',
+		name: 'Singup',
 		component: () => import('../views/About.vue')
 	},
 	{
@@ -30,6 +35,16 @@ const routes = [
 
 const router = new VueRouter({
 	routes
+});
+
+// Before Each function for redirecting to english page if not language especificated
+router.beforeEach((to, from, next) => {
+	const path = to.path.split('/');
+	if (!(path.includes('es') || path.includes('en') || path.includes('gl'))) {
+		next('/en' + to.path);
+	} else {
+		next();
+	}
 });
 
 export default router;

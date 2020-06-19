@@ -40,17 +40,17 @@
 }
 
 .lang a.en {
-	background: url('../assets/icons/usa.png');
+	background: url('../assets/icons/flags/uk.png');
 	background-size: contain;
 }
 
 .lang a.es {
-	background: url('../assets/icons/spain.png');
+	background: url('../assets/icons/flags/spain.png');
 	background-size: contain;
 }
 
 .lang a.gl {
-	background: url('../assets/icons/galicia.png');
+	background: url('../assets/icons/flags/galicia.png');
 	background-size: contain;
 }
 /* </LANGUAGE SELECTOR STYLES> */
