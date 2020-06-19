@@ -28,12 +28,10 @@ const userInfoSchema = Joi.object().keys({
 });
 
 const registrationSchema = userInfoSchema.append({
-	password: passwordSchema,
+	password: passwordSchema.required(),
 	seller: Joi.bool(),
 	nick: Joi.string().required(),
-	first_name: Joi.string().required(),
-	last_name: Joi.string().required(),
-	email: emailSchema,
+	email: emailSchema.required(),
 	birthday: Joi.date(),
 });
 
