@@ -17,7 +17,12 @@ const routes = [
 	},
 	{
 		path: '/:lang/registration',
-		name: 'Singup',
+		name: 'Signup',
+		component: () => import('../views/Signup.vue')
+	},
+	{
+		path: '/:lang/cart',
+		name: 'Cart',
 		component: () => import('../views/About.vue')
 	},
 	{

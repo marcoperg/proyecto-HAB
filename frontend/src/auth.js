@@ -24,6 +24,19 @@ export async function login(user, pass) {
 	return res;
 }
 
+// Login
+export async function register(data) {
+	clean(data);
+	console.log(data);
+	const url = process.env.VUE_APP_BACKEND_URL + '/users/registration';
+
+	const res = await axios.post(url, data).catch(function(error) {
+		return error.response;
+	});
+
+	return res;
+}
+
 // Save token
 export function saveAuthToken(token) {
 	axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -66,4 +79,13 @@ export function checkIsAdmin() {
 	const decodedToken = jwt(authToken);
 
 	return decodedToken;
+}
+
+// Special function to clena data objects of empty keys
+function clean(obj) {
+	for (const propName in obj) {
+		if (obj[propName] === null || obj[propName] === undefined || obj[propName] === '') {
+			delete obj[propName];
+		}
+	}
 }
