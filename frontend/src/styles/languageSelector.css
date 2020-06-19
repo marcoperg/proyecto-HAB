@@ -1,0 +1,56 @@
+/* <LANGUAGE SELECTOR STYLES> */
+.lang {
+	margin: 0 4rem;
+}
+
+.lang,
+.lang li {
+	background: #c4c4c4;
+	display: block;
+	float: left;
+	position: relative;
+	padding: 3px;
+}
+
+.lang ul {
+	list-style: none;
+	position: absolute;
+	left: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.lang li {
+	transition: background 0.2s;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-active {
+	opacity: 0;
+}
+
+.lang a {
+	display: block;
+	width: 2.7rem;
+	height: 2.7rem;
+}
+
+.lang a.en {
+	background: url('../assets/icons/usa.png');
+	background-size: contain;
+}
+
+.lang a.es {
+	background: url('../assets/icons/spain.png');
+	background-size: contain;
+}
+
+.lang a.gl {
+	background: url('../assets/icons/galicia.png');
+	background-size: contain;
+}
+/* </LANGUAGE SELECTOR STYLES> */

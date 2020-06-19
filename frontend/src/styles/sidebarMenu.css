@@ -1,0 +1,84 @@
+/* <Sidebar Menu for mobile devices> */
+@media (max-width: 600px) {
+	#nav {
+		padding: 0;
+	}
+
+	#nav header {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 1rem;
+	}
+
+	button {
+		text-align: center;
+		border: 0;
+		width: 31px;
+		height: 31px;
+	}
+
+	button.openmenu {
+		background: url('../assets/icons/open-menu.png') no-repeat;
+		background-size: contain;
+	}
+
+	button.search {
+		background: url('../assets/icons/search.png') no-repeat;
+		background-size: contain;
+	}
+
+	button.closemenu {
+		width: 23px;
+		height: 23px;
+
+		background: url('../assets/icons/close.png') no-repeat;
+		background-size: contain;
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
+
+	button:focus {
+		outline: none;
+	}
+
+	.menu {
+		max-width: 70%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+
+		background: grey;
+
+		width: 20rem;
+		min-height: 100vh;
+		padding-top: 5rem;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.login {
+		position: absolute;
+		top: 2rem;
+	}
+	.langSelector {
+		order: 2;
+		display: flex;
+		align-items: center;
+	}
+
+	.langtext p {
+		color: black;
+	}
+
+	.lang {
+		margin: 0;
+	}
+}
+
+/* </Sidebar Menu for mobile devices> */

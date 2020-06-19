@@ -1,0 +1,42 @@
+/* <Upper menu for computer styles> */
+#nav {
+	border-bottom: 1px solid black;
+	padding: 5px 3rem;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+#nav a {
+	font-weight: bold;
+	color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+	color: #42b983;
+}
+
+.menu {
+	width: 80%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.logo,
+.logo img {
+	height: 49px;
+	width: 216px;
+}
+
+.login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	height: 3rem;
+	width: 10rem;
+	border-radius: 1rem;
+	background: #c4c4c4;
+}
+/* </Upper menu for computer styles> */
