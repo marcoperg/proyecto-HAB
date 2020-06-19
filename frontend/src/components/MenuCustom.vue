@@ -44,10 +44,26 @@
 				</div>
 				<!-- </Languge selector> -->
 
-				<router-link class="login" :to="{ name: 'Login', params: { lang: lang } }">
+				<!-- <User options> -->
+				<div class="userOptions">
+					<button class="logout" v-show="logged" @click="logout()">
+						<p v-show="lang === 'en'">Log out</p>
+						<p v-show="lang === 'es'">Cerrar Sesión</p>
+						<p v-show="lang === 'gl'">Pechar sesión</p>
+					</button>
+				</div>
+
+				<router-link v-show="!logged" class="login" :to="{ name: 'Login', params: { lang: lang } }">
 					<p v-show="lang === 'en'">Log in</p>
 					<p v-show="lang === 'es' || lang === 'gl'">Iniciar Sesión</p>
 				</router-link>
+
+				<router-link v-show="logged" class="login" :to="{ name: 'Cart', params: { lang: lang } }">
+					<p v-show="lang === 'en'">Cart</p>
+					<p v-show="lang === 'es' || lang === 'gl'">Carrito</p>
+				</router-link>
+
+				<!-- </User options> -->
 			</div>
 		</transition>
 
@@ -56,6 +72,8 @@
 </template>
 
 <script>
+import { isLoggedIn, logout } from '../auth';
+
 export default {
 	name: 'MenuCustom',
 	data() {
@@ -67,9 +85,18 @@ export default {
 	computed: {
 		lang() {
 			return this.$route.params.lang;
+		},
+		logged() {
+			return isLoggedIn();
 		}
 	},
 	methods: {
+		// Logout function
+		logout() {
+			logout();
+			location.reload();
+		},
+
 		// Function checking if on mobile
 		isMobile() {
 			return screen.width < 700;
