@@ -15,18 +15,22 @@
 	button {
 		text-align: center;
 		border: 0;
-		width: 31px;
-		height: 31px;
 	}
 
 	button.openmenu {
 		background: url('../assets/icons/open-menu.png') no-repeat;
 		background-size: contain;
+
+		width: 31px;
+		height: 31px;
 	}
 
 	button.search {
 		background: url('../assets/icons/search.png') no-repeat;
 		background-size: contain;
+
+		width: 31px;
+		height: 31px;
 	}
 
 	button.closemenu {
@@ -57,11 +61,11 @@
 
 		width: 20rem;
 		min-height: 100vh;
-		padding-top: 5rem;
+		padding: 6rem 0 5rem;
 
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+		justify-content: flex-end;
 
 		-webkit-transition: all 0.25s;
 	}
@@ -70,6 +74,13 @@
 		position: absolute;
 		top: 2rem;
 	}
+
+	.logout {
+		position: absolute;
+		bottom: 1.5rem;
+		left: 3rem;
+	}
+
 	.langSelector {
 		display: flex;
 		align-items: center;

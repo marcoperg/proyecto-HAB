@@ -47,4 +47,14 @@
 	border-radius: 1rem;
 	background: #c4c4c4;
 }
+
+.logout {
+	width: ;
+	border: 0;
+	background: 0;
+	font-weight: bold;
+	font-size: 0.9rem;
+	text-decoration: underline;
+	cursor: pointer;
+}
 /* </Upper menu for computer styles> */

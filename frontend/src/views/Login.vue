@@ -1,8 +1,13 @@
 <template>
-	<div class="login">
+	<!-- This div has 3 analogous parts, english, spanish and galician -->
+	<div class="authForm">
 		<!-- English login html -->
 		<div class="en" v-if="lang === 'en'">
 			<h1>Login</h1>
+
+			<router-link :to="{ name: 'Home', params: { lang: lang } }" class="back">
+				<img src="@/assets/icons/back.png" alt="Logo" />
+			</router-link>
 
 			<p class="error" v-show="error">Incorrect username or password</p>
 
@@ -17,19 +22,29 @@
 				/>
 
 				<label for="password">Password:</label>
-				<input v-model="password" type="password" id="password" name="password" placeholder="Type your password..." />
+				<input
+					v-model="password"
+					type="password"
+					id="password"
+					name="password"
+					placeholder="Type your password..."
+				/>
 
 				<button @click="login()">Log in</button>
 			</form>
 			<p>
 				You don't have an account yet?
-				<router-link :to="{ name: 'Singup' }">Create one here</router-link>
+				<router-link :to="{ name: 'Signup' }">Create one here</router-link>
 			</p>
 		</div>
 
 		<!-- Spanish login html -->
 		<div class="es" v-if="lang === 'es'">
 			<h1>Iniciar sesión</h1>
+
+			<router-link :to="{ name: 'Home', params: { lang: lang } }" class="back">
+				<img src="@/assets/icons/back.png" alt="Logo" />
+			</router-link>
 
 			<p class="error" v-show="error">Usuario o contraseña incorrectos</p>
 
@@ -56,13 +71,17 @@
 			</form>
 			<p>
 				¿No tienes cuenta todavía?
-				<router-link :to="{ name: 'Singup' }">Create una aquí</router-link>
+				<router-link :to="{ name: 'Signup' }">Crea una aquí</router-link>
 			</p>
 		</div>
 
 		<!-- Galician login html -->
 		<div class="gl" v-if="lang === 'gl'">
 			<h1>Iniciar sesión</h1>
+
+			<router-link :to="{ name: 'Home', params: { lang: lang } }" class="back">
+				<img src="@/assets/icons/back.png" alt="Logo" />
+			</router-link>
 
 			<p class="error" v-show="error">Usuario ou contraseña incorrectos</p>
 
@@ -76,20 +95,20 @@
 					placeholder="Ingresa o teu nome de usuario o email..."
 				/>
 
-				<label for="password">Contraseña:</label>
+				<label for="password">Contrasinal:</label>
 				<input
 					v-model="password"
 					type="password"
 					id="password"
 					name="password"
-					placeholder="Ingresa a tua contraseña..."
+					placeholder="Ingresa a tua contrasinal..."
 				/>
 
 				<button @click="login()">Iniciar sesión</button>
 			</form>
 			<p>
 				Non tes conta aínda?
-				<router-link :to="{ name: 'Singup' }">Create unha aquí</router-link>
+				<router-link :to="{ name: 'Signup' }">Crea unha aquí</router-link>
 			</p>
 		</div>
 	</div>
@@ -119,64 +138,17 @@ export default {
 				this.$router.push({ name: 'Home' });
 			} else {
 				this.error = true;
+
+				this.emptyFields();
 			}
+		},
+		emptyFields() {
+			this.username = '';
+			this.password = '';
 		}
 	}
 };
 </script>
 
-<style scoped>
-.login {
-	font-size: 1.3rem;
-	width: 375px;
-	margin: 5rem auto;
-	color: black;
-}
 
-form {
-	display: flex;
-	flex-wrap: wrap;
-}
-
-label {
-	margin: 2rem 3rem 0;
-	font-size: 1.1rem;
-}
-
-input {
-	margin: 0 auto;
-	font-size: 1rem;
-	padding: 0 2rem;
-	width: 20rem;
-	height: 3rem;
-	background: #c4c4c4;
-	border: 0;
-	border-radius: 1rem;
-}
-
-button {
-	font-size: 1rem;
-	margin: 4rem auto;
-	padding: 0 4rem;
-	width: 20rem;
-	height: 3rem;
-	background: #6b6b6b;
-	border: 0;
-	border-radius: 1rem;
-}
-
-p {
-	font-size: 1rem;
-}
-
-a {
-	font-weight: bold;
-	color: black;
-}
-
-.error {
-	margin: 1.4rem 3rem 0;
-	text-align: left;
-	color: red;
-}
-</style>
+<style scoped src="@/styles/informationForms.css"></style>
