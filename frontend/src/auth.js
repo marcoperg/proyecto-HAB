@@ -17,7 +17,6 @@ export async function login(user, pass) {
 		});
 
 	if (res.status == 200) {
-		console.log(res.data.data.token);
 		saveAuthToken(res.data.data.token);
 	}
 

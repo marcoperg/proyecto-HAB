@@ -15,7 +15,7 @@
 				<!-- BASIC INFO -->
 				<fieldset>
 					<h2>· Basic information</h2>
-					<div class="select">
+					<div class="select" :class="{errorHere: errorIn === 'role'}">
 						<button @click="selectClient()" class="option" :class="{selected: role==='client'}">
 							<img src="@/assets/icons/user.png" alt="User" />
 							<p>Client</p>
@@ -34,10 +34,18 @@
 						id="username"
 						name="username"
 						placeholder="Type your username..."
+						:class="{errorHere: errorIn === 'username'}"
 					/>
 
 					<label class="required" for="email">Email:</label>
-					<input v-model="email" type="email" id="email" name="email" placeholder="Type your email..." />
+					<input
+						v-model="email"
+						type="email"
+						id="email"
+						name="email"
+						placeholder="Type your email..."
+						:class="{errorHere: errorIn === 'email'}"
+					/>
 
 					<label class="required" for="confirmEmail">Confirm your email:</label>
 					<input
@@ -46,6 +54,7 @@
 						id="confirmEmail"
 						name="confirmEmail"
 						placeholder="Type your email again..."
+						:class="{errorHere: errorIn === 'email'}"
 					/>
 
 					<label class="required" for="password">Password:</label>
@@ -55,6 +64,7 @@
 						id="password"
 						name="password"
 						placeholder="Type your password..."
+						:class="{errorHere: errorIn === 'password'}"
 					/>
 				</fieldset>
 
@@ -114,7 +124,7 @@
 				<!-- BASIC INFO -->
 				<fieldset>
 					<h2>· Información básica</h2>
-					<div class="select">
+					<div class="select" :class="{errorHere: errorIn === 'role'}">
 						<button @click="selectClient()" class="option" :class="{selected: role==='client'}">
 							<img src="@/assets/icons/user.png" alt="User" />
 							<p>Cliente</p>
@@ -133,10 +143,18 @@
 						id="username"
 						name="username"
 						placeholder="Ingresa tu nombre de usuario..."
+						:class="{errorHere: errorIn === 'username'}"
 					/>
 
 					<label class="required" for="email">Email:</label>
-					<input v-model="email" type="email" id="email" name="email" placeholder="Ingresa tu email..." />
+					<input
+						v-model="email"
+						type="email"
+						id="email"
+						name="email"
+						placeholder="Ingresa tu email..."
+						:class="{errorHere: errorIn === 'email'}"
+					/>
 
 					<label class="required" for="confirmEmail">Confirma tu email:</label>
 					<input
@@ -145,6 +163,7 @@
 						id="confirmEmail"
 						name="confirmEmail"
 						placeholder="Ingresa tu email de nuevo..."
+						:class="{errorHere: errorIn === 'email'}"
 					/>
 
 					<label class="required" for="password">Contraseña:</label>
@@ -154,6 +173,7 @@
 						id="password"
 						name="password"
 						placeholder="Ingresa tu contraseña..."
+						:class="{errorHere: errorIn === 'password'}"
 					/>
 				</fieldset>
 
@@ -213,7 +233,7 @@
 				<!-- BASIC INFO -->
 				<fieldset>
 					<h2>· Información Básica</h2>
-					<div class="select">
+					<div class="select" :class="{errorHere: errorIn === 'role'}">
 						<button @click="selectClient()" class="option" :class="{selected: role==='client'}">
 							<img src="@/assets/icons/user.png" alt="User" />
 							<p>Cliente</p>
@@ -232,10 +252,18 @@
 						id="username"
 						name="username"
 						placeholder="Ingresa o teu nome de usuario..."
+						:class="{errorHere: errorIn === 'username'}"
 					/>
 
 					<label class="required" for="email">Email:</label>
-					<input v-model="email" type="email" id="email" name="email" placeholder="Type your email..." />
+					<input
+						v-model="email"
+						type="email"
+						id="email"
+						name="email"
+						placeholder="Type your email..."
+						:class="{errorHere: errorIn === 'email'}"
+					/>
 
 					<label class="required" for="confirmEmail">Confirma o teu email:</label>
 					<input
@@ -244,6 +272,7 @@
 						id="confirmEmail"
 						name="confirmEmail"
 						placeholder="Ingresa o teu email de novo..."
+						:class="{errorHere: errorIn === 'email'}"
 					/>
 
 					<label class="required" for="password">Contrasinal:</label>
@@ -253,6 +282,7 @@
 						id="password"
 						name="password"
 						placeholder="Ingresa o teu contraseinal..."
+						:class="{errorHere: errorIn === 'password'}"
 					/>
 				</fieldset>
 
@@ -324,7 +354,8 @@ export default {
 			state: '',
 			country: '',
 
-			error: ''
+			error: '',
+			errorIn: ''
 		};
 	},
 	computed: {
@@ -353,24 +384,70 @@ export default {
 
 				const response = await register(data);
 				if (response.status == 200) {
+					let title = '';
 					let message = '';
+
 					if (this.lang === 'en') {
-						message = 'User created successfully';
+						message = 'Plese confirm your email before login';
 					} else if (this.lang === 'es' || this.lang === 'gl') {
-						message = 'Usuario creado correctamente';
+					}
+
+					if (this.lang === 'en') {
+						title = 'User created successfully';
+
+						message = 'Please confirm your account before login.';
+					} else if (this.lang === 'es') {
+						title = 'Usuario creado correctamente';
+
+						message = 'Por favor confirma tu cuenta antes de iniciar sesión';
+					} else if (this.lang === 'gl') {
+						title = 'Usuario creado correctamente';
+
+						message = 'Por favor confirma a túa conta antes de iniciar sesión';
 					}
 
 					this.error = '';
 
 					Swal.fire({
-						title: message,
+						title: title,
 						icon: 'success',
+						text: message,
 						showConfirmButton: false,
-						timer: 1500
+						timer: 6000
 					});
-				} else {
+
+					this.$router.push({ name: 'Login' });
+				} else if (response.status == 409) {
+					console.log(response);
 					window.scrollTo(0, 0);
-					this.error = 'Unknown error, please retry later';
+
+					let message = '';
+
+					if (this.lang === 'en') {
+						message = 'Username already in use';
+					} else if (this.lang === 'es') {
+						message = 'Nombre usuario en uso';
+					} else if (this.lang === 'gl') {
+						message = 'Nome de usuario en uso';
+					}
+
+					this.error = message;
+					this.emptyFields();
+				} else {
+					console.log(response);
+					window.scrollTo(0, 0);
+
+					let message = '';
+
+					if (this.lang === 'en') {
+						message = 'Unknown error, please retry later';
+					} else if (this.lang === 'es') {
+						message = 'Error desconocido, por favor intentalo de nuevo más tarde';
+					} else if (this.lang === 'gl') {
+						message = 'Error desconocido, por favor intentalo de novo máis tarde';
+					}
+
+					this.error = message;
 					this.emptyFields();
 				}
 			}
@@ -383,8 +460,20 @@ export default {
 		},
 		// Validate registering data with custom error messages for each language
 		validateForm() {
-			console.log(this.password.length);
-			if (!this.username) {
+			if (!this.role) {
+				let message = '';
+
+				if (this.lang === 'en') {
+					message = 'Choose between client and seller';
+				} else if (this.lang === 'es') {
+					message = 'Elige entre vendedor y cliente';
+				} else if (this.lang === 'gl') {
+					message = 'Elixe entre vendedor e cliente';
+				}
+
+				this.error = message;
+				this.errorIn = 'role';
+			} else if (!this.username) {
 				let message = '';
 
 				if (this.lang === 'en') {
@@ -396,11 +485,12 @@ export default {
 				}
 
 				this.error = message;
+				this.errorIn = 'username';
 			} else if (!this.email || !this.confirmEmail) {
 				let message = '';
 
 				if (this.lang === 'en') {
-					message = 'The email must be filled';
+					message = 'The emails must be filled';
 				} else if (this.lang === 'es') {
 					message = 'El email es obligatorio';
 				} else if (this.lang === 'gl') {
@@ -408,6 +498,7 @@ export default {
 				}
 
 				this.error = message;
+				this.errorIn = 'email';
 			} else if (!this.password) {
 				let message = '';
 
@@ -420,6 +511,7 @@ export default {
 				}
 
 				this.error = message;
+				this.errorIn = 'password';
 			} else if (this.email !== this.confirmEmail) {
 				let message = '';
 
@@ -432,6 +524,7 @@ export default {
 				}
 
 				this.error = message;
+				this.errorIn = 'email';
 			} else if (this.password.length < 6) {
 				let message = '';
 
@@ -444,6 +537,7 @@ export default {
 				}
 
 				this.error = message;
+				this.errorIn = 'password';
 			} else {
 				return true;
 			}
@@ -459,38 +553,3 @@ export default {
 </script>
 
 <style scoped src="@/styles/informationForms.css"></style>
-
-<style scoped>
-h2 {
-	font-size: 1.5rem;
-	text-align: left;
-	font-weight: normal;
-	margin: 1.7rem 0 1.5rem;
-}
-
-.select {
-	display: flex;
-	justify-content: space-evenly;
-}
-
-.option {
-	padding: 0 0.5rem;
-	margin: 0;
-	width: 136px;
-	height: 72px;
-	background: #dedede;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-}
-
-.option img {
-	width: 43px;
-	height: 42px;
-}
-
-.option.selected {
-	border: 2px solid black;
-	background: #c4c4c4;
-}
-</style>

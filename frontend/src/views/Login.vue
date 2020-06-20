@@ -9,7 +9,7 @@
 				<img src="@/assets/icons/back.png" alt="Logo" />
 			</router-link>
 
-			<p class="error" v-show="error">Incorrect username or password</p>
+			<p class="error">{{error}}</p>
 
 			<form @submit.prevent>
 				<label for="username">Username:</label>
@@ -46,7 +46,7 @@
 				<img src="@/assets/icons/back.png" alt="Logo" />
 			</router-link>
 
-			<p class="error" v-show="error">Usuario o contraseña incorrectos</p>
+			<p class="error">{{error}}</p>
 
 			<form @submit.prevent>
 				<label for="username">Nombre de usuario:</label>
@@ -83,7 +83,7 @@
 				<img src="@/assets/icons/back.png" alt="Logo" />
 			</router-link>
 
-			<p class="error" v-show="error">Usuario ou contraseña incorrectos</p>
+			<p class="error">{{error}}</p>
 
 			<form @submit.prevent>
 				<label for="username">Nome de usuario:</label>
@@ -123,7 +123,7 @@ export default {
 		return {
 			username: '',
 			password: '',
-			error: false
+			error: ''
 		};
 	},
 	computed: {
@@ -133,14 +133,74 @@ export default {
 	},
 	methods: {
 		async login() {
-			const response = await login(this.username, this.password);
-			if (response.status == 200) {
-				this.$router.push({ name: 'Home' });
-			} else {
-				this.error = true;
+			if (this.validateForm()) {
+				const response = await login(this.username, this.password);
+				if (response.status == 200) {
+					this.$router.push({ name: 'Home' });
+				} else if (response.status === 401 || response.status === 500) {
+					console.log(response);
 
-				this.emptyFields();
+					let message = '';
+
+					if (this.lang === 'en') {
+						message = 'Username or password incorrect';
+					} else if (this.lang === 'es') {
+						message = 'Usuario o contraseña incorrectos';
+					} else if (this.lang === 'gl') {
+						message = 'Usuario o contrasional incorrectos';
+					}
+
+					this.error = message;
+					this.emptyFields();
+				} else if (response.status === 400) {
+					console.log(response);
+
+					let message = '';
+
+					if (this.lang === 'en') {
+						message = 'Please confirm your account before login.';
+					} else if (this.lang === 'es') {
+						message = 'Por favor confirma tu cuenta antes de iniciar sesión';
+					} else if (this.lang === 'gl') {
+						message = 'Por favor confirma a túa conta antes de iniciar sesión';
+					}
+
+					this.error = message;
+					this.emptyFields();
+				}
 			}
+		},
+		// Validate registering data with custom error messages for each language
+		validateForm() {
+			if (!this.username) {
+				let message = '';
+
+				if (this.lang === 'en') {
+					message = 'The username must be filled';
+				} else if (this.lang === 'es') {
+					message = 'El nombre de usuario es obligatorio';
+				} else if (this.lang === 'gl') {
+					message = 'O nome de usuartio é obligatorio';
+				}
+
+				this.error = message;
+			} else if (!this.password) {
+				let message = '';
+
+				if (this.lang === 'en') {
+					message = 'The password must be filled';
+				} else if (this.lang === 'es') {
+					message = 'La contraseña es obligatoria';
+				} else if (this.lang === 'gl') {
+					message = 'O contrasinal é obligatoria';
+				}
+
+				this.error = message;
+			} else {
+				return true;
+			}
+			window.scrollTo(0, 0);
+			return false;
 		},
 		emptyFields() {
 			this.username = '';
