@@ -9,6 +9,7 @@ async function newShop(req, res, next) {
 	let connection;
 	try {
 		// Validate body
+		console.log(req.body.email);
 		await newShopSchema.validateAsync(req.body);
 
 		const {
@@ -270,6 +271,52 @@ async function getShop(req, res, next) {
 	}
 }
 
+// GET - /seller/:id/shops
+async function getShopsFromSeller(req, res, next) {
+	let connection;
+	try {
+		const { id } = req.params;
+
+		connection = await getConnection();
+
+		// Get data
+		const [shops] = await connection.query(
+			`SELECT s.id, s.name, s.description, s.email, s.tlf, 
+			a.line1, a.line2, a.city, a.state, a.country, s.id_seller
+			FROM shop s left join address a on s.id_address=a.id WHERE s.id_seller=? and active=1`,
+			[id]
+		);
+
+		// Get photos of each shop
+		for (const shop of shops) {
+			const [
+				photos,
+			] = await connection.query(`SELECT name FROM photos WHERE id_shop=?`, [
+				shop.id,
+			]);
+
+			shop.photos = photos;
+		}
+
+		connection.release();
+
+		// Throw error if the id does't correspond to a shop
+		if (!shops) {
+			throw generateError("The seller does not have any shops", 404);
+		}
+
+		res.send({
+			status: "ok",
+			message: "Shop info",
+			data: shops,
+		});
+	} catch (error) {
+		next(error);
+	} finally {
+		if (connection) connection.release();
+	}
+}
+
 // POST - /shops/:id
 async function uploadShopPhoto(req, res, next) {
 	let connection;
@@ -335,4 +382,11 @@ async function uploadShopPhoto(req, res, next) {
 	}
 }
 
-module.exports = { newShop, editShop, deleteShop, getShop, uploadShopPhoto };
+module.exports = {
+	newShop,
+	editShop,
+	deleteShop,
+	getShop,
+	getShopsFromSeller,
+	uploadShopPhoto,
+};

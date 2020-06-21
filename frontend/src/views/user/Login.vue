@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import { login } from '../auth';
+import { login } from '@/auth';
 
 export default {
 	name: 'Login',

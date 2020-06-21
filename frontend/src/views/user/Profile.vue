@@ -224,7 +224,7 @@
 
 <script>
 // Get auth functions
-import { getUserInfo, getHeader, changeUserData } from '../auth';
+import { getUserInfo, getHeader, changeUserData } from '@/auth';
 
 // Import modules
 import axios from 'axios';

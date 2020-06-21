@@ -33,6 +33,7 @@ const {
 	editShop,
 	deleteShop,
 	getShop,
+	getShopsFromSeller,
 	uploadShopPhoto,
 } = require("./controllers/seller/shop");
 const {
@@ -83,6 +84,7 @@ app.post("/shops/", userIsAuthenticated, userIsSeller, newShop);
 app.put("/shops/:id", userIsAuthenticated, userIsSeller, editShop);
 app.delete("/shops/:id", userIsAuthenticated, userIsSeller, deleteShop);
 app.get("/shops/:id", getShop);
+app.get("/seller/:id/shops", getShopsFromSeller);
 app.post("/shops/:id", userIsAuthenticated, userIsSeller, uploadShopPhoto);
 
 app.post("/plate/", userIsAuthenticated, userIsSeller, newPlate);

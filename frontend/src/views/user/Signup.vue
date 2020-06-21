@@ -332,7 +332,7 @@
 
 <script>
 import Swal from 'sweetalert2';
-import { register } from '../auth';
+import { register } from '@/auth';
 
 export default {
 	name: 'Signup',

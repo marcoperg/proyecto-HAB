@@ -5,31 +5,13 @@ import Home from '../views/Home.vue';
 Vue.use(VueRouter);
 
 const routes = [
+	// Basic routes
 	{
 		path: '/:lang/',
 		name: 'Home',
 		component: Home
 	},
-	{
-		path: '/:lang/login',
-		name: 'Login',
-		component: () => import('../views/Login.vue')
-	},
-	{
-		path: '/:lang/registration',
-		name: 'Signup',
-		component: () => import('../views/Signup.vue')
-	},
-	{
-		path: '/:lang/profile',
-		name: 'Profile',
-		component: () => import('../views/Profile.vue')
-	},
-	{
-		path: '/:lang/cart',
-		name: 'Cart',
-		component: () => import('../views/About.vue')
-	},
+
 	{
 		path: '/about',
 		name: 'About',
@@ -40,6 +22,42 @@ const routes = [
 		path: '*',
 		name: '404 Error',
 		component: () => import('../views/Error404.vue')
+	},
+
+	// User routes
+	{
+		path: '/:lang/login',
+		name: 'Login',
+		component: () => import('../views/user/Login.vue')
+	},
+	{
+		path: '/:lang/registration',
+		name: 'Signup',
+		component: () => import('../views/user/Signup.vue')
+	},
+	{
+		path: '/:lang/profile',
+		name: 'Profile',
+		component: () => import('../views/user/Profile.vue')
+	},
+
+	// Seller routes
+	{
+		path: '/:lang/seller/shops',
+		name: 'SellerShops',
+		component: () => import('../views/seller/Shops.vue')
+	},
+	{
+		path: '/:lang/seller/plates',
+		name: 'SellerPlates',
+		component: () => import('../views/seller/Plates.vue')
+	},
+
+	// To implement
+	{
+		path: '/:lang/cart',
+		name: 'Cart',
+		component: () => import('../views/About.vue')
 	}
 ];
 

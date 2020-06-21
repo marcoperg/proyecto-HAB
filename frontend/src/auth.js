@@ -120,7 +120,7 @@ export function getHeader() {
 }
 
 // Special function to clean data objects of empty keys
-function clean(obj) {
+export function clean(obj) {
 	for (const propName in obj) {
 		if (obj[propName] === null || obj[propName] === undefined || obj[propName] === '') {
 			delete obj[propName];
@@ -129,7 +129,7 @@ function clean(obj) {
 }
 
 // Special function to delete unchanged entries of original and new object
-function removeUnchanged(obj, original) {
+export function removeUnchanged(obj, original) {
 	for (const propName in obj) {
 		if (obj[propName] === original[propName]) {
 			delete obj[propName];

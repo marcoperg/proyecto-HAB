@@ -1,5 +1,7 @@
 /* <LANGUAGE SELECTOR STYLES> */
 .lang {
+	border: 1px solid black;
+
 	margin: 0 4rem;
 }
 
@@ -7,15 +9,18 @@
 .lang li {
 	background: #c4c4c4;
 	display: block;
+	z-index: 5;
 	float: left;
 	position: relative;
 	padding: 3px;
 }
 
 .lang ul {
+	border: 1px solid black;
 	list-style: none;
 	position: absolute;
-	left: 0;
+	left: -1px;
+	z-index: 5;
 	margin: 0;
 	padding: 0;
 }

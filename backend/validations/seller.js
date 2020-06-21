@@ -33,14 +33,14 @@ const shopSchema = Joi.object().keys({
 const newShopSchema = Joi.object().keys({
 	name: nameSchema.required(),
 	description: descriptionShema.required(),
-	email: emailSchema.required(),
-	tlf: Joi.number().integer().required(),
+	email: emailSchema,
+	tlf: Joi.number().integer(),
 
-	address_line1: Joi.string().required(),
+	address_line1: Joi.string(),
 	address_line2: Joi.string(),
-	city: Joi.string().required(),
+	city: Joi.string(),
 	state: Joi.string(),
-	country: Joi.string().required(),
+	country: Joi.string(),
 });
 
 const plateSchema = Joi.object().keys({
