@@ -35,11 +35,22 @@
 			<ul>
 				<li>
 					<img src="../assets/time.png" alt="time" width="160px" />
-					<p>Prepare your order before arriving for a quick visit</p>
+					<p v-show="lang==='en'">Prepare your order before arriving for a quick visit</p>
+					<p v-show="lang==='es'">Prepara tu orden antes de llegar para una visita rápida</p>
+					<p v-show="lang==='gl'">Prepara a tua orde antes de chegar para unha visita rápida</p>
 				</li>
+
 				<li>
 					<img src="../assets/food1.jpg" alt="Food" width="160px" />
-					<p>Eat in excelents restaurant even if you don't have the time to a long order</p>
+					<p
+						v-show="lang==='en'"
+					>Eat in excelents restaurant even if you don't have the time to a long order</p>
+					<p
+						v-show="lang==='es'"
+					>Come en restaurantes de calidad incluso si no tienes tiempo para un pedido largo</p>
+					<p
+						v-show="lang==='gl'"
+					>Come en restaurantes de calidade incluso si non tes tempo para un pedido longo</p>
 				</li>
 			</ul>
 
@@ -50,11 +61,22 @@
 			<ul>
 				<li>
 					<img src="../assets/menu.png" alt="Menu" width="160px" />
-					<p>Upload your menu to our platform and let every client consult it anywhere anytime</p>
+					<p
+						v-show="lang==='en'"
+					>Upload your menu to our platform and let every client consult it anywhere anytime</p>
+					<p
+						v-show="lang==='es'"
+					>Sube tu menu a nuestra plataform y permite a tus clientes consultarlo en cualquier momento</p>
+					<p
+						v-show="lang==='gl'"
+					>Sube o teu menu á nosa plataforma e permite aos teus clientes consultalo en calquera momento</p>
 				</li>
+
 				<li>
 					<img src="../assets/waiter.png" alt="Waiter" width="160px" />
-					<p>Let your client call your waiters from the tables</p>
+					<p v-show="lang==='en'">Let your client call your waiters from the tables</p>
+					<p v-show="lang==='es'">Permite a tus clientes llamar a tus camareros desde sus mesas</p>
+					<p v-show="lang==='gl'">Permite aos teus clientes chamar aos teus camareros dende as súas mesas</p>
 				</li>
 			</ul>
 		</main>

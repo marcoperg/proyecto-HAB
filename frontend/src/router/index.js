@@ -21,6 +21,11 @@ const routes = [
 		component: () => import('../views/Signup.vue')
 	},
 	{
+		path: '/:lang/profile',
+		name: 'Profile',
+		component: () => import('../views/Profile.vue')
+	},
+	{
 		path: '/:lang/cart',
 		name: 'Cart',
 		component: () => import('../views/About.vue')

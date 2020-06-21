@@ -23,7 +23,7 @@ export async function login(user, pass) {
 	return res;
 }
 
-// Login
+// Register
 export async function register(data) {
 	clean(data);
 	console.log(data);
@@ -36,15 +36,35 @@ export async function register(data) {
 	return res;
 }
 
+// Change user data
+export async function changeUserData(data, originalData) {
+	removeUnchanged(data, originalData);
+
+	const url = process.env.VUE_APP_BACKEND_URL + '/users/' + originalData.id;
+	if (data.line1 || data.line1 === '') {
+		data.address_line1 = data.line1;
+		delete data.line1;
+	}
+	if (data.line2 || data.line2 === '') {
+		data.address_line2 = data.line2;
+		delete data.line2;
+	}
+
+	const res = await axios.put(url, data, { headers: getHeader() }).catch(function(error) {
+		return error.response;
+	});
+
+	return res;
+}
+
 // Save token
 export function saveAuthToken(token) {
-	axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 	localStorage.setItem(AUTH_TOKEN_KEY, token);
 }
 
 // Logout function
 export function logout() {
-	axios.defaults.headers.common.Authorization = '';
+	axios.defaults.headers.common['Authorization'] = '';
 	localStorage.removeItem(AUTH_TOKEN_KEY);
 }
 
@@ -72,18 +92,33 @@ export function isLoggedIn() {
 	return !!authToken && !isTokenExpired(authToken);
 }
 
-// Get rol
-export function checkIsAdmin() {
+// Get user info
+export function getUserInfo() {
 	const authToken = localStorage.getItem(AUTH_TOKEN_KEY);
 	const decodedToken = jwt(authToken);
 
 	return decodedToken;
 }
 
-// Special function to clena data objects of empty keys
+// Get header
+export function getHeader() {
+	const token = localStorage.getItem(AUTH_TOKEN_KEY);
+	return { Authorization: `Bearer ${token}` };
+}
+
+// Special function to clean data objects of empty keys
 function clean(obj) {
 	for (const propName in obj) {
 		if (obj[propName] === null || obj[propName] === undefined || obj[propName] === '') {
+			delete obj[propName];
+		}
+	}
+}
+
+// Special function to delete unchanged entries of original and new object
+function removeUnchanged(obj, original) {
+	for (const propName in obj) {
+		if (obj[propName] === original[propName]) {
 			delete obj[propName];
 		}
 	}
