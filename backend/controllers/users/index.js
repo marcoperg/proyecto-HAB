@@ -318,7 +318,18 @@ async function changeUserData(req, res, next) {
 
 		// Update or insert address info
 		let addressId;
-		if (address_line1 || address_line2 || city || state || country) {
+		if (
+			address_line1 ||
+			address_line1 === "" ||
+			address_line2 ||
+			address_line2 === "" ||
+			city ||
+			city === "" ||
+			state ||
+			state === "" ||
+			country ||
+			country === ""
+		) {
 			// If already exists a address entry update it
 			if (userToChange[0].id_address) {
 				await connection.query(
