@@ -19,7 +19,7 @@ const userInfoSchema = Joi.object().keys({
 	last_name: Joi.string().valid(""),
 	email: emailSchema,
 	tlf: Joi.number().integer().valid(""),
-	birthday: Joi.date().valid(""),
+	birthday: Joi.date(),
 	address_line1: Joi.string().valid(""),
 	address_line2: Joi.string().valid(""),
 	city: Joi.string().valid(""),

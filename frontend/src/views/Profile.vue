@@ -74,7 +74,7 @@
 					<td v-if="lang==='es'">Fecha de nacimiento</td>
 					<td v-if="lang==='gl'">Data de nacimiento</td>
 
-					<td v-show="!edit">{{data.birthday}}</td>
+					<td v-show="!edit">{{birthday_formated}}</td>
 					<td v-show="edit">
 						<input type="date" v-model="data.birthday" />
 					</td>
@@ -104,7 +104,7 @@
 					<td v-if="lang==='es'">Fecha de creación</td>
 					<td v-if="lang==='gl'">Data de creación</td>
 
-					<td>{{data.creation_date}}</td>
+					<td>{{creation_date_formated}}</td>
 				</tr>
 			</table>
 
@@ -213,6 +213,7 @@ import { getUserInfo, getHeader, changeUserData } from '../auth';
 // Import modules
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import dateFormat from 'dateformat';
 
 // Import components
 import menucustom from '@/components/MenuCustom.vue';
@@ -234,6 +235,12 @@ export default {
 	computed: {
 		lang() {
 			return this.$route.params.lang;
+		},
+		birthday_formated() {
+			return dateFormat(this.data.birthday, 'mm/dd/yyyy');
+		},
+		creation_date_formated() {
+			return dateFormat(this.data.creation_date, 'mm/dd/yyyy');
 		}
 	},
 	methods: {

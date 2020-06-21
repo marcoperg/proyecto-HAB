@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
     "jwt-decode": "^2.2.0",
     "sweetalert2": "^9.15.1",
