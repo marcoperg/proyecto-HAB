@@ -57,6 +57,19 @@ export async function changeUserData(data, originalData) {
 	return res;
 }
 
+// Change pasword
+export async function changePassword(oldPass, newPass, id) {
+	const url = process.env.VUE_APP_BACKEND_URL + `/users/${id}/password`;
+
+	const res = await axios
+		.post(url, { old_password: oldPass, new_password: newPass }, { headers: getHeader() })
+		.catch(function(error) {
+			return error.response;
+		});
+
+	return res;
+}
+
 // Save token
 export function saveAuthToken(token) {
 	localStorage.setItem(AUTH_TOKEN_KEY, token);

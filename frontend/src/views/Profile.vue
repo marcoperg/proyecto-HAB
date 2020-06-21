@@ -5,10 +5,13 @@
 		<h1 v-if="lang==='es'">Detalles de la cuenta</h1>
 		<h1 v-if="lang==='gl'">Detalles da conta</h1>
 
-		<div class="profileData">
-			<h2 v-if="lang==='en'">General information</h2>
-			<h2 v-if="lang==='es'">Información general</h2>
-			<h2 v-if="lang==='gl'">Información general</h2>
+		<div class="profileData" :class="{editing: edit}">
+			<div class="h2">
+				<h2 v-if="lang==='en'">General information</h2>
+				<h2 v-if="lang==='es'">Información general</h2>
+				<h2 v-if="lang==='gl'">Información general</h2>
+				<button v-show="mobile" @click="edit = true" class="edit"></button>
+			</div>
 
 			<table>
 				<tr>
@@ -22,7 +25,7 @@
 					</td>
 
 					<td>
-						<button class="edit" @click="edit = true"></button>
+						<button v-show="!mobile" class="edit" @click="edit = true"></button>
 					</td>
 				</tr>
 
@@ -34,7 +37,7 @@
 					</td>
 
 					<td>
-						<button class="edit" @click="edit = true"></button>
+						<button v-show="!mobile" class="edit" @click="edit = true"></button>
 					</td>
 				</tr>
 
@@ -50,7 +53,7 @@
 					</td>
 
 					<td>
-						<button class="edit" @click="edit = true"></button>
+						<button v-show="!mobile" class="edit" @click="edit = true"></button>
 					</td>
 				</tr>
 
@@ -65,7 +68,7 @@
 					</td>
 
 					<td>
-						<button class="edit" @click="edit = true"></button>
+						<button v-show="!mobile" class="edit" @click="edit = true"></button>
 					</td>
 				</tr>
 
@@ -80,7 +83,21 @@
 					</td>
 
 					<td>
-						<button class="edit" @click="edit = true"></button>
+						<button v-show="!mobile" class="edit" @click="edit = true"></button>
+					</td>
+				</tr>
+
+				<tr>
+					<td v-if="lang==='en'">Password</td>
+					<td v-if="lang==='es'">Contraseña</td>
+					<td v-if="lang==='gl'">Contraseña</td>
+
+					<td>
+						<button @click="editPass = true" class="editPass">
+							<p v-if="lang==='en'">Change password</p>
+							<p v-if="lang==='es'">Cambiar contraseña</p>
+							<p v-if="lang==='gl'">Cambiar contrasional</p>
+						</button>
 					</td>
 				</tr>
 
@@ -89,14 +106,7 @@
 					<td v-if="lang==='es'">Tipo de cuenta</td>
 					<td v-if="lang==='gl'">Tipo de conta</td>
 
-					<td v-show="!edit">{{data.role}}</td>
-					<td v-show="edit">
-						<input type="text" v-model="data.role" />
-					</td>
-
-					<td>
-						<button class="edit" @click="edit = true"></button>
-					</td>
+					<td>{{data.role}}</td>
 				</tr>
 
 				<tr>
@@ -108,9 +118,13 @@
 				</tr>
 			</table>
 
-			<h2 v-if="lang==='en'">Address</h2>
-			<h2 v-if="lang==='es'">Dirección</h2>
-			<h2 v-if="lang==='gl'">Dirección</h2>
+			<div class="h2">
+				<h2 v-if="lang==='en'">Address</h2>
+				<h2 v-if="lang==='es'">Dirección</h2>
+				<h2 v-if="lang==='gl'">Dirección</h2>
+
+				<button v-show="mobile" @click="edit = true" class="edit"></button>
+			</div>
 
 			<table>
 				<tr>
@@ -124,7 +138,7 @@
 					</td>
 
 					<td>
-						<button class="edit" @click="edit = true"></button>
+						<button v-show="!mobile" class="edit" @click="edit = true"></button>
 					</td>
 				</tr>
 
@@ -139,7 +153,7 @@
 					</td>
 
 					<td>
-						<button class="edit" @click="edit = true"></button>
+						<button v-show="!mobile" class="edit" @click="edit = true"></button>
 					</td>
 				</tr>
 
@@ -154,7 +168,7 @@
 					</td>
 
 					<td>
-						<button class="edit" @click="edit = true"></button>
+						<button v-show="!mobile" class="edit" @click="edit = true"></button>
 					</td>
 				</tr>
 
@@ -169,7 +183,7 @@
 					</td>
 
 					<td>
-						<button class="edit" @click="edit = true"></button>
+						<button v-show="!mobile" class="edit" @click="edit = true"></button>
 					</td>
 				</tr>
 
@@ -184,7 +198,7 @@
 					</td>
 
 					<td>
-						<button class="edit" @click="edit = true"></button>
+						<button v-show="!mobile" class="edit" @click="edit = true"></button>
 					</td>
 				</tr>
 			</table>
@@ -202,6 +216,8 @@
 			<p v-if="lang==='gl'">Editar</p>
 		</button>
 
+		<changepassword v-show="editPass" v-on:cancel="hideChangePass" :id="data.id" :lang="lang" />
+
 		<footercustom />
 	</div>
 </template>
@@ -218,19 +234,23 @@ import dateFormat from 'dateformat';
 // Import components
 import menucustom from '@/components/MenuCustom.vue';
 import footercustom from '@/components/FooterCustom.vue';
+import changepassword from '@/components/user/ChangePass.vue';
 
 export default {
 	name: 'Profile',
 	data() {
 		return {
+			mobile: false,
 			edit: false,
+			editPass: false,
 			data: {},
 			originalData: {}
 		};
 	},
 	components: {
 		menucustom,
-		footercustom
+		footercustom,
+		changepassword
 	},
 	computed: {
 		lang() {
@@ -281,14 +301,25 @@ export default {
 				console.log(error.response);
 			}
 		},
+
 		async editPassword() {
 			console.log('pass');
 		},
+
+		hideChangePass() {
+			this.editPass = false;
+		},
 		cancel() {
 			location.reload();
+		},
+
+		// Function checking if on mobile
+		isMobile() {
+			return screen.width < 1000;
 		}
 	},
 	async created() {
+		this.mobile = this.isMobile();
 		this.data = await this.getData();
 		this.originalData = { ...this.data };
 	}

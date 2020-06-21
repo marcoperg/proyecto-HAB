@@ -545,8 +545,22 @@ export default {
 			return false;
 		},
 		emptyFields() {
+			this.role = '';
 			this.username = '';
+			this.email = '';
+			this.confirmEmail = '';
 			this.password = '';
+			this.firstName = '';
+			this.lastName = '';
+			this.tlf = '';
+			this.birthday = '';
+			this.addressLine1 = '';
+			this.addressLine2 = '';
+			this.city = '';
+			this.state = '';
+			this.country = '';
+			this.error = '';
+			this.errorIn = '';
 		}
 	}
 };

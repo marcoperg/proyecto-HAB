@@ -18,6 +18,12 @@ h1 {
 	padding-left: 5rem;
 }
 
+.h2 {
+	padding-top: 2rem;
+	display: flex;
+	justify-content: flex-end;
+}
+
 table {
 	border: 1px solid black;
 	border-bottom: 0;
@@ -36,6 +42,7 @@ td {
 	width: 100%;
 	height: 50px;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: flex-start;
 	align-items: center;
 }
@@ -54,17 +61,24 @@ button {
 	cursor: pointer;
 }
 
+button.editPass {
+	margin: 0;
+	width: 10rem;
+	height: 2.5rem;
+	border-radius: 1rem;
+}
+
 button.cta {
 	background: #777777;
 }
 
 button.edit {
-	width: 35px;
-	height: 35px;
+	width: 30px;
+	height: 30px;
 	border-radius: 0;
 	background: 0;
 	background-image: url('../assets/icons/edit.png');
-	background-size: 35px 35px;
+	background-size: 30px 30px;
 }
 
 button:focus {
@@ -79,7 +93,7 @@ input {
 @media (max-width: 1000px) {
 	.profileData {
 		grid-template-columns: 1fr;
-		margin: 0 1rem;
+		margin: 0 1rem 2rem;
 	}
 
 	tr {
@@ -89,9 +103,31 @@ input {
 
 	td {
 		margin: 0;
+		height: 70px;
 	}
 
-	td:nth-child(2) {
+	td:nth-child(2),
+	td:nth-child(3) {
 		justify-content: flex-end;
+	}
+
+	.h2 {
+		padding: 2rem 0 0 0.5rem;
+		display: flex;
+		justify-content: flex-start;
+	}
+
+	.editing tr {
+		grid-template-columns: 1fr 10fr auto;
+	}
+}
+
+@media (max-width: 600px) {
+	.profileData {
+		max-width: 340px;
+	}
+
+	input {
+		width: 10rem;
 	}
 }
