@@ -1,6 +1,6 @@
 <template>
 	<ul>
-		<li v-for="(plate, index) in plates" :key="plate.id">
+		<li v-for="plate in plates" :key="plate.id">
 			<figure>
 				<div v-for="photo in plate.photos" :key="photo.id">
 					<img :src="imgUrl + photo.name" alt="Plate picture" />
@@ -26,6 +26,12 @@
 					<p v-show="lang === 'es'">Editar</p>
 					<p v-show="lang === 'gl'">Editar</p>
 				</button>
+
+				<button @click="duplicate(plate)">
+					<p v-show="lang === 'en'">Duplicate</p>
+					<p v-show="lang === 'es'">Duplicar</p>
+					<p v-show="lang === 'gl'">Duplicar</p>
+				</button>
 			</nav>
 		</li>
 	</ul>
@@ -50,7 +56,6 @@ export default {
 	methods: {
 		async getPlates() {
 			const response = await axios.get(process.env.VUE_APP_BACKEND_URL + '/menu/' + this.shopId);
-			console.log(response.data.data);
 			return response.data.data;
 		},
 		remove(id) {
@@ -61,6 +66,10 @@ export default {
 		},
 		addPhoto(id) {
 			this.$emit('addPhoto', id);
+		},
+		duplicate(data) {
+			data.shopIndex = this.shopIndex;
+			this.$emit('duplicate', data);
 		}
 	},
 	async created() {
@@ -82,7 +91,7 @@ li {
 	padding: 1rem;
 	margin: 0.5rem;
 	background: #c4c4c4;
-	height: 375px;
+	height: 400px;
 	width: 265px;
 	border-radius: 1.5rem;
 }
@@ -116,11 +125,13 @@ p {
 
 nav {
 	display: flex;
-	justify-content: space-around;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
 	align-items: center;
 }
 
 button {
+	margin: 5px;
 	font-weight: bold;
 	background: #717171;
 	border: 0;

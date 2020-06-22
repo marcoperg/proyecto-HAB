@@ -2,39 +2,50 @@
 	<div class="plates">
 		<menucustom />
 		<sellermenu />
-
 		<main>
 			<ul>
 				<li v-for="(shop, index) in shops" :key="shop.id">
-					<h1>· {{shop.name}}:</h1>
+					<div>
+						<h1>· {{shop.name}}:</h1>
+						<button @click="toggleMenu(index)" :class="{active: showMenu[index]}">^</button>
+					</div>
 
-					<nav>
-						<button @click="addForm = shop.id">
-							<p v-show="lang === 'en'">Add a new plate to this menu</p>
-							<p v-show="lang === 'es'">Añadir un nuevo plato a este menu</p>
-							<p v-show="lang === 'gl'">Añadir un novo prato a este menu</p>
-						</button>
-					</nav>
-
-					<platescards
-						:shopId="shop.id"
-						:shopIndex="index"
-						:lang="lang"
-						v-on:remove="removePlate"
-						v-on:edit="activeEditPlateForm"
-						v-on:addPhoto="activeUploadImageForm"
-					/>
+					<div v-show="showMenu[index]">
+						<nav>
+							<button @click="add=true; dataProp.shopIndex=index">
+								<p v-show="lang === 'en'">Add a new plate to this menu</p>
+								<p v-show="lang === 'es'">Añadir un nuevo plato a este menu</p>
+								<p v-show="lang === 'gl'">Añadir un novo prato a este menu</p>
+							</button>
+						</nav>
+						<platescards
+							:shopId="shop.id"
+							:shopIndex="index"
+							:lang="lang"
+							v-on:remove="removePlate"
+							v-on:edit="activeEditPlateForm"
+							v-on:addPhoto="activeUploadImageForm"
+							v-on:duplicate="activeDuplicateForm"
+						/>
+					</div>
 				</li>
 			</ul>
 
-			<addform v-if="addForm !== null" v-on:add="addPlate" v-on:cancel="addForm = null" :lang="lang" />
+			<addform
+				v-if="add"
+				:dataProp="dataProp"
+				:shops="shops"
+				v-on:add="addPlate"
+				v-on:cancel="add = false; dataProp = {}"
+				:lang="lang"
+			/>
 
 			<editform
 				v-if="edit"
 				v-on:edit="editPlate"
-				v-on:cancel="editIndex = null"
+				v-on:cancel="edit = false"
 				:lang="lang"
-				:dataProp="editData"
+				:dataProp="dataProp"
 			/>
 
 			<uploadimage
@@ -82,10 +93,11 @@ export default {
 	data() {
 		return {
 			shops: [],
-			addForm: null,
+			add: null,
 			edit: false,
-			editData: null,
-			imageId: null
+			dataProp: {},
+			imageId: null,
+			showMenu: []
 		};
 	},
 	computed: {
@@ -109,9 +121,12 @@ export default {
 
 		async addPlate(data) {
 			try {
-				data.id_shop = this.addForm;
 				data.prize = Number(data.prize);
-				console.log(data);
+
+				data.id_shop = this.shops[data.shopIndex].id;
+				delete data.shopIndex;
+				delete data.photos;
+				delete data.id;
 
 				await axios.post(process.env.VUE_APP_BACKEND_URL + '/plate', data, {
 					headers: getHeader()
@@ -127,7 +142,7 @@ export default {
 					title = 'Plate añadido correctamente';
 				}
 
-				Swal.fire({
+				await Swal.fire({
 					title: title,
 					icon: 'success',
 					showConfirmButton: false,
@@ -163,7 +178,7 @@ export default {
 		},
 
 		async editPlate(data) {
-			const originalData = this.editData;
+			const originalData = this.dataProp;
 			clean(data);
 			removeUnchanged(data, originalData);
 
@@ -183,7 +198,7 @@ export default {
 				title = 'Restaurante editado correctamente';
 			}
 
-			Swal.fire({
+			await Swal.fire({
 				title: title,
 				icon: 'success',
 				showConfirmButton: false,
@@ -226,15 +241,26 @@ export default {
 
 		activeEditPlateForm(data) {
 			console.log(data);
-			this.editData = data;
+			this.dataProp = data;
 			this.edit = true;
 		},
 		activeUploadImageForm(id) {
 			this.imageId = id;
+		},
+		activeDuplicateForm(data) {
+			this.add = true;
+			this.dataProp = data;
+		},
+		toggleMenu(index) {
+			this.$set(this.showMenu, index, !this.showMenu[index]);
 		}
 	},
 	async created() {
 		this.shops = await this.getRestaurants();
+
+		for (let i = 0; i < this.shops.length; i++) {
+			this.showMenu[i] = true;
+		}
 	}
 };
 </script>
@@ -278,5 +304,24 @@ button {
 	background: #c4c4c4;
 
 	cursor: pointer;
+}
+
+li div:first-child {
+	display: flex;
+}
+
+li div:first-child button {
+	font-size: 2rem;
+	background: 0;
+	width: 2rem;
+	cursor: pointer;
+}
+
+li div:first-child button:focus {
+	outline: none;
+}
+
+li div:first-child button.active {
+	transform: rotate(180deg);
 }
 </style>

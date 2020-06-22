@@ -15,6 +15,11 @@
 
 				<form @submit.prevent>
 					<fieldset>
+						<label class="required" for="shop">Restaurant:</label>
+						<select id="shop" name="shop" :class="{errorHere: error}" v-model="data.shopIndex">
+							<option v-for="(shop, index) in shops" :key="shop.id" :value="index">{{shop.name}}</option>
+						</select>
+
 						<label class="required" for="name">Name:</label>
 						<input
 							v-model="data.name"
@@ -61,6 +66,11 @@
 
 				<form @submit.prevent>
 					<fieldset>
+						<label class="required" for="shop">Restaurante:</label>
+						<select id="shop" name="shop" :class="{errorHere: error}" v-model="data.shopIndex">
+							<option v-for="(shop, index) in shops" :key="shop.id" :value="index">{{shop.name}}</option>
+						</select>
+
 						<label class="required" for="name">Nombre:</label>
 						<input
 							v-model="data.name"
@@ -107,6 +117,11 @@
 
 				<form @submit.prevent>
 					<fieldset>
+						<label class="required" for="shop">Restaurante:</label>
+						<select id="shop" name="shop" :class="{errorHere: error}" v-model="data.shopIndex">
+							<option v-for="(shop, index) in shops" :key="shop.id" :value="index">{{shop.name}}</option>
+						</select>
+
 						<label class="required" for="name">Nome:</label>
 						<input
 							v-model="data.name"
@@ -157,7 +172,9 @@ export default {
 		};
 	},
 	props: {
-		lang: String
+		lang: String,
+		dataProp: Object,
+		shops: Array
 	},
 	methods: {
 		cancel() {
@@ -170,7 +187,7 @@ export default {
 		},
 
 		validateForm() {
-			if (!this.data.name || !this.data.prize) {
+			if (!this.data.name || !this.data.prize || !(this.data.shopIndex || this.data.shopIndex == 0)) {
 				let message = '';
 
 				if (this.lang === 'en') {
@@ -188,6 +205,9 @@ export default {
 			document.querySelector('.authForm').scrollTo(0, 0);
 			return false;
 		}
+	},
+	created() {
+		this.data = this.dataProp;
 	}
 };
 </script>
