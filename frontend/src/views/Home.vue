@@ -18,12 +18,12 @@
 
 			<!-- <SEARCH FORM> -->
 			<form @keypress.enter="sumbitSearch()">
-				<input type="text" v-model="search" placeholder="Search restaurant" v-show="lang==='en'" />
+				<input type="text" v-model="search" placeholder="Search restaurant" v-if="lang==='en'" />
 				<input
 					type="text"
 					v-model="search"
 					placeholder="Buscar restaurante"
-					v-show="lang==='es' || lang==='gl'"
+					v-if="lang==='es' || lang==='gl'"
 				/>
 			</form>
 			<!-- </SEARCH FORM> -->
@@ -107,6 +107,7 @@ export default {
 	},
 	methods: {
 		sumbitSearch() {
+			this.$router.push({ name: 'Search', query: { q: this.search } });
 			console.log(this.search);
 		}
 	}

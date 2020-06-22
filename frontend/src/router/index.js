@@ -53,6 +53,13 @@ const routes = [
 		component: () => import('../views/seller/Plates.vue')
 	},
 
+	// Client routes
+	{
+		path: '/:lang/search',
+		name: 'Search',
+		component: () => import('../views/client/Search.vue')
+	},
+
 	// To implement
 	{
 		path: '/:lang/cart',

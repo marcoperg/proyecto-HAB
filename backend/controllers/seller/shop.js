@@ -261,8 +261,7 @@ async function getShop(req, res, next) {
 		res.send({
 			status: "ok",
 			message: "Shop info",
-			data: { ...shop, average_rate: rate_average },
-			photos: photos,
+			data: { ...shop, average_rate: rate_average, photos: photos },
 		});
 	} catch (error) {
 		next(error);

@@ -17,10 +17,9 @@ async function getShops(req, res, next) {
 			connection = await getConnection();
 
 			// Get shops with that name
-			const [
-				shops,
-			] = await connection.query(
-				`SELECT * FROM shop WHERE name LIKE ? and active`,
+			const [shops] = await connection.query(
+				`SELECT id, name, description, email, tlf, id_address, id_seller
+				FROM shop WHERE name LIKE ? and active`,
 				[`%${name}%`]
 			);
 
