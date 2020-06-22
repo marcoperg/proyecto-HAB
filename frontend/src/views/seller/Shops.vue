@@ -5,6 +5,7 @@
 
 		<main>
 			<nav>
+				{{imageId}}
 				<button @click="addForm = true">
 					<p v-show="lang === 'en'">Add a new shop</p>
 					<p v-show="lang === 'es'">Añadir una nueva tienda</p>
@@ -12,15 +13,29 @@
 				</button>
 			</nav>
 
-			<shopcards :shops="data" :lang="lang" v-on:remove="removeShop" v-on:edit="activeEditShopForm" />
+			<shopcards
+				:shops="data"
+				:lang="lang"
+				v-on:remove="removeShop"
+				v-on:edit="activeEditShopForm"
+				v-on:addPhoto="activeUploadImageForm"
+			/>
+			<addform v-show="addForm" v-on:ad="addShop" v-on:cancel="addForm = false" :lang="lang" />
 
-			<addform v-show="addForm" v-on:add="addShop" v-on:cancel="addForm = false" :lang="lang" />
 			<editform
 				v-if="editIndex !== null"
 				v-on:edit="editShop"
 				v-on:cancel="editIndex = null"
 				:lang="lang"
 				:dataProp="{...data[editIndex]}"
+			/>
+
+			<uploadimage
+				v-if="imageId !== null"
+				v-on:upload="uploadImage"
+				v-on:cancel="imageId = null"
+				:lang="lang"
+				:id="imageId"
 			/>
 		</main>
 
@@ -43,6 +58,7 @@ import sellermenu from '@/components/seller/SellerMenu.vue';
 import shopcards from '@/components/seller/ShopCards.vue';
 import addform from '@/components/seller/AddShopForm.vue';
 import editform from '@/components/seller/EditShopForm.vue';
+import uploadimage from '@/components/seller/UploadImageShop.vue';
 
 export default {
 	name: 'SellerShops',
@@ -52,13 +68,15 @@ export default {
 		sellermenu,
 		shopcards,
 		addform,
-		editform
+		editform,
+		uploadimage
 	},
 	data() {
 		return {
 			data: [],
 			addForm: false,
-			editIndex: null
+			editIndex: null,
+			imageId: null
 		};
 	},
 	computed: {
@@ -171,8 +189,44 @@ export default {
 			location.reload();
 		},
 
+		async uploadImage(img) {
+			try {
+				const url = process.env.VUE_APP_BACKEND_URL + '/shops/' + this.imageId;
+
+				await axios.post(url, img, {
+					headers: {
+						'Content-Type': 'multipart/form-data',
+						...getHeader()
+					}
+				});
+
+				let title = '';
+
+				if (this.lang === 'en') {
+					title = 'Photo added successfully';
+				} else if (this.lang === 'es') {
+					title = 'Foto añadida correctamente';
+				} else if (this.lang === 'gl') {
+					title = 'Foto añadida correctamente';
+				}
+
+				Swal.fire({
+					title: title,
+					icon: 'success',
+					showConfirmButton: false,
+					timer: 1500
+				});
+				location.reload();
+			} catch (error) {
+				console.log(error.response);
+			}
+		},
+
 		activeEditShopForm(index) {
 			this.editIndex = index;
+		},
+		activeUploadImageForm(id) {
+			this.imageId = id;
 		}
 	},
 	async created() {
