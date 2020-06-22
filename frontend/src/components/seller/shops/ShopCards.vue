@@ -125,7 +125,7 @@ button {
 button.addPhoto {
 	width: 205px;
 	height: 115px;
-	background: url('../../assets/icons/add.png');
+	background: url('../../../assets/icons/add.png');
 	background-size: 50px 50px;
 	background-repeat: no-repeat;
 	background-position: center;

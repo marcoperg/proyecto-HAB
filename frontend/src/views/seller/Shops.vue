@@ -54,11 +54,12 @@ import Swal from 'sweetalert2';
 // Get components
 import menucustom from '@/components/MenuCustom.vue';
 import footercustom from '@/components/FooterCustom.vue';
+
 import sellermenu from '@/components/seller/SellerMenu.vue';
-import shopcards from '@/components/seller/ShopCards.vue';
-import addform from '@/components/seller/AddShopForm.vue';
-import editform from '@/components/seller/EditShopForm.vue';
-import uploadimage from '@/components/seller/UploadImageShop.vue';
+import shopcards from '@/components/seller/shops/ShopCards.vue';
+import addform from '@/components/seller/shops/AddShopForm.vue';
+import editform from '@/components/seller/shops/EditShopForm.vue';
+import uploadimage from '@/components/seller/shops/UploadImageShop.vue';
 
 export default {
 	name: 'SellerShops',
@@ -210,7 +211,7 @@ export default {
 					title = 'Foto añadida correctamente';
 				}
 
-				Swal.fire({
+				await Swal.fire({
 					title: title,
 					icon: 'success',
 					showConfirmButton: false,

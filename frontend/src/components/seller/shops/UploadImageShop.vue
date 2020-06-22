@@ -9,8 +9,9 @@
 			<p class="error">{{error}}</p>
 
 			<form @submit.prevent>
-				<label for="img">Select file</label>
-				<input type="file" id="img" name="image" @change="img = e.target.file[0]" multiple />
+				<label for="img">
+					<input type="file" id="img" ref="img" multiple @change="handleFilesUpload()" />
+				</label>
 
 				<button @click="uploadImage()">Upload</button>
 			</form>
@@ -23,8 +24,9 @@
 			<p class="error">{{error}}</p>
 
 			<form @submit.prevent>
-				<label for="img">Seleciona el archivo</label>
-				<input type="file" id="img" name="image" @change="img = e.target.file[0]" multiple />
+				<label for="img">
+					<input type="file" id="img" ref="img" multiple @change="handleFilesUpload()" />
+				</label>
 
 				<button @click="uploadImage()">Subir</button>
 			</form>
@@ -37,8 +39,9 @@
 			<p class="error">{{error}}</p>
 
 			<form @submit.prevent>
-				<label for="img">Seleciona o arquivo</label>
-				<input type="file" id="img" ref="img" multiple @change="handleFilesUpload()" />
+				<label for="img">
+					<input type="file" id="img" ref="img" multiple @change="handleFilesUpload()" />
+				</label>
 
 				<button @click="uploadImage()">Subir</button>
 			</form>
@@ -48,7 +51,7 @@
 
 <script>
 import Swal from 'sweetalert2';
-import { changePassword, logout } from '../../auth';
+import { changePassword, logout } from '@/auth';
 
 export default {
 	name: 'UploadImageShop',
@@ -81,12 +84,17 @@ export default {
 		},
 		handleFilesUpload() {
 			this.img = this.$refs.img.files;
+			console.log(this.img);
 		}
 	}
 };
 </script>
 
 <style scoped>
+h2 {
+	color: white;
+}
+
 .background {
 	position: fixed;
 	top: 0;
@@ -99,12 +107,12 @@ export default {
 
 main {
 	position: fixed;
-	top: calc(50% - 15rem);
-	left: calc(50% - 11rem);
+	top: calc(50% - 10rem);
+	left: calc(50% - 15rem);
 	z-index: 11;
-	background: #dddddd;
+	background: #797979;
 	height: 20rem;
-	width: 22rem;
+	width: 30rem;
 
 	padding: 1rem;
 }
@@ -129,35 +137,29 @@ button.cancel {
 	border-radius: 0;
 	margin: 0;
 	background: 0;
-	background-image: url('../../assets/icons/close.png');
+	background-image: url('../../../assets/icons/close.png');
 	background-size: 25px 25px;
 }
 
 form {
 	margin: 0 auto;
-	display: flex;
-	flex-wrap: wrap;
 }
 
 label {
-	margin: 2rem 0 0 1rem;
-	font-size: 1rem;
-	text-align: start;
+	display: block;
+	margin: 3rem auto;
 }
 
-input {
+label > input {
 	margin: 0 auto;
-	font-size: 1rem;
-	width: 20rem;
-	height: 2.5rem;
-	padding: 0 1rem;
-	background: #ffffff;
-	border: 0;
-}
+	padding: 1rem;
 
-.error {
-	margin: 1.4rem 3rem 0;
-	text-align: left;
-	color: red;
+	color: white;
+	background: #bbbbbb;
+
+	border-radius: 0.3rem;
+
+	text-align: center;
+	font-weight: bold;
 }
 </style>
