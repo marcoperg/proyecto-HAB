@@ -93,6 +93,14 @@ async function getMenu(req, res, next) {
 			[id]
 		);
 
+		for (const plate of menu) {
+			[
+				plate.photos,
+			] = await connection.query(`SELECT name FROM photos WHERE id_plate=?`, [
+				plate.id,
+			]);
+		}
+
 		res.send({ status: "ok", message: `Menu of shop ${id}`, data: menu });
 	} catch (error) {
 		next(error);

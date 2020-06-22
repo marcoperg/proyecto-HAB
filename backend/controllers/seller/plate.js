@@ -276,18 +276,13 @@ async function uploadPlatePhoto(req, res, next) {
 			throw generateError("This plate does not belong to you", 401);
 		}
 
-		// If the input is not an array turn it into one
-		if (!(req.files.photos instanceof Array)) {
-			req.files.photos = new Array(req.files.photos);
-		}
-
 		// For loop that repites the process for every photo on the req
-		for (const photo of req.files.photos) {
+		for (const photo in req.files) {
 			// Save photo
 
 			let savedFileName;
 			try {
-				savedFileName = await processAndSavePhoto(photo);
+				savedFileName = await processAndSavePhoto(req.files[photo]);
 			} catch (error) {
 				const imageError = new Error(
 					"Can not process upload image. Try again."

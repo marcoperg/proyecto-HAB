@@ -137,7 +137,7 @@ button.cancel {
 	border-radius: 0;
 	margin: 0;
 	background: 0;
-	background-image: url('../../../assets/icons/close.png');
+	background-image: url('../../assets/icons/close.png');
 	background-size: 25px 25px;
 }
 

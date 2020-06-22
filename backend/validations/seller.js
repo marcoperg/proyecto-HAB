@@ -52,7 +52,7 @@ const plateSchema = Joi.object().keys({
 
 const newPlateSchema = Joi.object().keys({
 	name: nameSchema.required(),
-	description: descriptionShema.required(),
+	description: descriptionShema,
 	prize: Joi.number().required(),
 	id_shop: Joi.number().integer().required(),
 });
