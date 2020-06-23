@@ -238,14 +238,19 @@ async function getShop(req, res, next) {
 		// Get ratings for average
 		const [
 			rates,
-		] = await connection.query(
-			`SELECT rating  FROM user_shop WHERE id_shop=?`,
-			[id]
-		);
+		] = await connection.query(`SELECT rating FROM user_shop WHERE id_shop=?`, [
+			id,
+		]);
 
-		const rate_average = rates.reduce((accum, currentVal) => {
-			return accum + currentVal.rating;
-		}, 0);
+		let rate_average;
+		if (rates.length) {
+			rate_average =
+				rates.reduce((accum, currentVal) => {
+					return accum + currentVal.rating;
+				}, 0) / rates.length;
+		} else {
+			rate_average = null;
+		}
 
 		// Get photos
 		const [

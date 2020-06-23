@@ -302,7 +302,6 @@ async function rateShop(req, res, next) {
 	} catch (error) {
 		next(error);
 	} finally {
-		console.log("hola");
 		if (connection) connection.release();
 	}
 }
