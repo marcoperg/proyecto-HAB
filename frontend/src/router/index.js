@@ -59,6 +59,11 @@ const routes = [
 		name: 'Search',
 		component: () => import('../views/client/Search.vue')
 	},
+	{
+		path: '/:lang/map',
+		name: 'SearchMap',
+		component: () => import('../views/client/SearchMap.vue')
+	},
 
 	// To implement
 	{

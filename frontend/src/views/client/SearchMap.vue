@@ -22,11 +22,21 @@
 			</form>
 			<!-- </SEARCH FORM> -->
 
-			<ul>
+			<!-- <ul>
 				<li v-for="shop in searchResults" :key="shop.id">
 					<shopcard :shop="shop" :lang="lang" />
 				</li>
-			</ul>
+			</ul>-->
+
+			<gmaps-map :options="mapOptions">
+				<ul>
+					<li v-for="shop in filteredResults" :key="shop.id">
+						<gmaps-info-window :options="{ position: {lat: shop.latitude, lng: shop.longitude} }">
+							<shopcard :shop="shop" :lang="lang" :onMap="true" />
+						</gmaps-info-window>
+					</li>
+				</ul>
+			</gmaps-map>
 		</main>
 		<footercustom />
 	</div>
@@ -44,23 +54,32 @@ import Swal from 'sweetalert2';
 import menucustom from '@/components/MenuCustom.vue';
 import footercustom from '@/components/FooterCustom.vue';
 import shopcard from '@/components/client/ShopCard.vue';
+import { gmapsMap, gmapsInfoWindow } from 'x5-gmaps';
 
 export default {
-	name: 'Search',
+	name: 'SearchMap',
 	components: {
 		menucustom,
 		footercustom,
-		shopcard
+		shopcard,
+		gmapsMap,
+		gmapsInfoWindow
 	},
 	data() {
 		return {
 			searchQuery: this.$route.query.q,
-			searchResults: []
+			searchResults: [],
+			mapOptions: { center: { lat: 43, lng: -8 }, zoom: 3 }
 		};
 	},
 	computed: {
 		lang() {
 			return this.$route.params.lang;
+		},
+		filteredResults() {
+			return this.searchResults.filter((item) => {
+				return !!item.latitude;
+			});
 		}
 	},
 	methods: {
@@ -73,14 +92,16 @@ export default {
 				this.searchResults = [];
 				const url = process.env.VUE_APP_BACKEND_URL + '/shops';
 
-				const results = await axios.get(url + '?name=' + this.searchQuery);
+				const results = await axios.get(url + '?city=' + this.searchQuery);
 
 				for (const shop of results.data.data) {
 					const extraInfo = await axios.get(url + '/' + shop.id);
+
 					this.searchResults.push(extraInfo.data.data);
 				}
 
 				console.log(this.searchResults);
+				console.log(this);
 			} catch (error) {
 				console.log(error.response);
 			}
@@ -96,6 +117,11 @@ export default {
 
 
 <style scoped>
+.gmaps-map {
+	width: 50rem;
+	height: 40rem;
+}
+
 .home {
 	position: relative;
 	min-height: 100vh;

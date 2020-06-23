@@ -3,6 +3,12 @@ const { getConnection } = require("../../helpers/db");
 
 const { shopSchema, newShopSchema } = require("../../validations/seller");
 const { generateError, processAndSavePhoto } = require("../../helpers");
+const nodeGeocoder = require("node-geocoder");
+
+const geocoder = nodeGeocoder({
+	provider: "opencage",
+	apiKey: "29aa9cabeb224983a182c71fe7b4bfcb",
+});
 
 // POST - /shops/
 async function newShop(req, res, next) {
@@ -40,11 +46,26 @@ async function newShop(req, res, next) {
 			throw generateError("You already added this shop", 400);
 		}
 
+		let latitude = null;
+		let longitude = null;
+
+		// Try get latitude and logitude by geocoding
+		try {
+			[{ latitude, longitude }] = await geocoder.geocode({
+				address: address_line1 + address_line2 + city,
+				country: country,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+
+		console.log(latitude, longitude);
+
 		// Add data to DB
 		const addressEntry = await connection.query(
-			`INSERT INTO address (line1, line2, city, state, country)
-			VALUES (?, ?, ?, ? , ?)`,
-			[address_line1, address_line2, city, state, country]
+			`INSERT INTO address (line1, line2, city, state, country, latitude, longitude)
+			VALUES (?, ?, ?, ?, ?, ?, ?)`,
+			[address_line1, address_line2, city, state, country, latitude, longitude]
 		);
 
 		await connection.query(
@@ -230,7 +251,8 @@ async function getShop(req, res, next) {
 		// Get data
 		const [[shop]] = await connection.query(
 			`SELECT s.id, s.name, s.description, s.email, s.tlf, 
-			a.line1, a.line2, a.city, a.state, a.country, s.id_seller
+			a.line1, a.line2, a.city, a.state, a.country, a.latitude, a.longitude, 
+			s.id_seller
 			FROM shop s left join address a on s.id_address=a.id WHERE s.id=? and active=1`,
 			[id]
 		);

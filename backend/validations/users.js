@@ -15,16 +15,16 @@ const emailSchema = Joi.string()
 // Compound schemas
 const userInfoSchema = Joi.object().keys({
 	nick: Joi.string(),
-	first_name: Joi.string().valid(""),
-	last_name: Joi.string().valid(""),
+	first_name: Joi.string().allow(""),
+	last_name: Joi.string().allow(""),
 	email: emailSchema,
-	tlf: Joi.number().integer().valid(""),
+	tlf: Joi.number().integer().allow(""),
 	birthday: Joi.date(),
-	address_line1: Joi.string().valid(""),
-	address_line2: Joi.string().valid(""),
-	city: Joi.string().valid(""),
-	state: Joi.string().valid(""),
-	country: Joi.string().valid(""),
+	address_line1: Joi.string().allow(""),
+	address_line2: Joi.string().allow(""),
+	city: Joi.string().allow(""),
+	state: Joi.string().allow(""),
+	country: Joi.string().allow(""),
 });
 
 const registrationSchema = userInfoSchema.append({

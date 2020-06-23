@@ -1,6 +1,6 @@
 <template>
-	<article>
-		<figure>
+	<article :class="{onMap: onMap}">
+		<figure v-show="shop.photos.length">
 			<button @click="leftImg()" class="left"></button>
 
 			<div v-if="shop.photos[imgSelector]">
@@ -8,6 +8,7 @@
 			</div>
 			<button @click="rightImg()" class="right"></button>
 		</figure>
+		<p v-show="shop.photos.length">{{imgSelector + 1}} / {{shop.photos.length }}</p>
 		<h1>{{shop.name}}</h1>
 
 		<p>{{shop.description}}</p>
@@ -35,7 +36,8 @@
 export default {
 	name: 'ShopCard',
 	props: {
-		shop: Object
+		shop: Object,
+		onMap: false
 	},
 	data() {
 		return {
@@ -47,11 +49,15 @@ export default {
 		leftImg() {
 			if (this.shop.photos[this.imgSelector - 1]) {
 				this.imgSelector--;
+			} else if (this.imgSelector === 0) {
+				this.imgSelector = this.shop.photos.length - 1;
 			}
 		},
 		rightImg() {
 			if (this.shop.photos[this.imgSelector + 1]) {
 				this.imgSelector++;
+			} else if (this.imgSelector === this.shop.photos.length - 1) {
+				this.imgSelector = 0;
 			}
 		}
 	}
@@ -59,12 +65,16 @@ export default {
 </script>
 
 <style scoped>
+article.onMap {
+	background: white;
+}
+
 article {
 	padding: 1rem;
 	margin: 1rem;
 	background: #c4c4c4;
 	max-height: 600px;
-	width: 265px;
+	width: 310px;
 	border-radius: 1.5rem;
 }
 
@@ -94,8 +104,12 @@ p {
 
 nav {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
+}
+
+nav p {
+	font-size: 1rem;
 }
 
 .stars span {
@@ -113,10 +127,13 @@ nav p {
 .left,
 .right {
 	border: 0;
-	width: 30px;
-	height: 30px;
-	background: 0;
+	width: 40px;
+	height: 40px;
+	padding: 10px;
+	background: rgba(255, 255, 255, 0.1);
 	background-size: 30px 30px;
+	background-repeat: no-repeat;
+	background-position: center;
 	position: absolute;
 	top: calc(50% - 15px);
 	cursor: pointer;

@@ -1,12 +1,6 @@
 require("dotenv").config();
 const { getConnection } = require("../../helpers/db");
 const { generateError } = require("../../helpers");
-const nodeGeocoder = require("node-geocoder");
-
-const geocoder = nodeGeocoder({
-	provider: "opencage",
-	apiKey: "29aa9cabeb224983a182c71fe7b4bfcb",
-});
 
 // GET - /shops
 async function getShops(req, res, next) {
@@ -30,36 +24,12 @@ async function getShops(req, res, next) {
 			// Get list of shops with that city
 			const [shops] = await connection.query(
 				`SELECT s.* FROM shop s JOIN address a 
-			ON a.id = s.id_address WHERE a.city=? and s.active`,
-				[city]
+				ON a.id = s.id_address WHERE a.city=? and s.active`,
+				[city.toLowerCase()]
 			);
 
+			console.log(shops);
 			res.send({ status: "ok", data: shops });
-		} else {
-			connection = await getConnection();
-
-			// Get list of addresses with shops
-			const [addresses] = await connection.query(
-				`SELECT * FROM address WHERE id in (
-				SELECT id_address FROM shop WHERE active
-			)`
-			);
-
-			const coords = [];
-
-			for (const address of addresses) {
-				coords.push(
-					await geocoder.geocode(
-						(address.line1 || " ") +
-							(address.line2 || " ") +
-							(address.city || " ") +
-							(address.state || " ") +
-							(address.country || " ")
-					)
-				);
-			}
-
-			res.send({ status: "ok", data: coords });
 		}
 	} catch (error) {
 		next(error);
