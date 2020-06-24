@@ -22,20 +22,20 @@
 			</form>
 			<!-- </SEARCH FORM> -->
 
-			<ul>
-				<li v-for="shop in searchResults" :key="shop.id">
-					<shopcard :shop="shop" :lang="lang" v-on:menu="displayMenu" />
-				</li>
-			</ul>
+			<div class="display">
+				<nav></nav>
+				<ul>
+					<li v-for="shop in searchResults" :key="shop.id">
+						<shopcard :shop="shop" :lang="lang" v-on:menu="displayMenu" />
+					</li>
+				</ul>
+			</div>
 		</main>
 		<footercustom />
 	</div>
 </template>
 
 <script>
-// Get auth functions
-import { getHeader, getUserInfo, clean, removeUnchanged } from '@/auth';
-
 // Import modules
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -113,6 +113,7 @@ main {
 input {
 	font-size: 1rem;
 
+	margin: 1rem 0 2rem;
 	padding: 0 4rem;
 	width: 40rem;
 	height: 3rem;
@@ -122,6 +123,60 @@ input {
 
 	border: 0;
 	border-radius: 1rem;
+}
+
+.display {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	background: rgb(233, 233, 233);
+	min-height: 100vh;
+	padding: 1rem;
+}
+
+.display nav {
+	border: 1px solid #bfbfbf;
+	background: white;
+	box-shadow: 0.2px 0.2px 0.2px #aaaaaa;
+	border-radius: 10px;
+	width: 20rem;
+	background: white;
+}
+
+ul {
+	margin: 1rem;
+	list-style: none;
+}
+
+li {
+	padding-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+	h1 {
+		width: 90%;
+	}
+
+	input {
+		width: 80%;
+	}
+
+	ul {
+		width: 90%;
+	}
+
+	h2 {
+		width: 90%;
+		padding: 1rem;
+	}
+
+	h2.organize::after {
+		vertical-align: text-top;
+	}
+
+	h2.organize::before {
+		vertical-align: sub;
+	}
 }
 
 /* <Title with middle lines styles> */
@@ -156,45 +211,4 @@ h2:after {
 	margin-right: -50%;
 }
 /* </Title with middle lines styles> */
-ul {
-	background: rgb(233, 233, 233);
-	display: flex;
-	flex-wrap: wrap;
-	list-style: none;
-	justify-content: space-evenly;
-	min-height: 100vh;
-	margin: 2rem auto 0;
-	padding: 1rem 5rem;
-}
-
-li {
-	padding-bottom: 1rem;
-}
-
-@media (max-width: 600px) {
-	h1 {
-		width: 90%;
-	}
-
-	input {
-		width: 80%;
-	}
-
-	ul {
-		width: 90%;
-	}
-
-	h2 {
-		width: 90%;
-		padding: 1rem;
-	}
-
-	h2.organize::after {
-		vertical-align: text-top;
-	}
-
-	h2.organize::before {
-		vertical-align: sub;
-	}
-}
 </style>

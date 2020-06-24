@@ -5,9 +5,9 @@
 			:style="{'background-image': `url(${imgUrl + shop.photos[imgSelector].name})`}"
 		>
 			<button @click="leftImg()" class="left"></button>
-
-			<div></div>
 			<button @click="rightImg()" class="right"></button>
+
+			<router-link :to="{name: 'ShopInfo', params: {lang: lang, id: shop.id}}"></router-link>
 
 			<p v-show="shop.photos.length">{{imgSelector + 1}} / {{shop.photos.length }}</p>
 		</figure>
@@ -15,28 +15,17 @@
 		<figure v-if="!shop.photos.length"></figure>
 
 		<main>
-			<h1>{{shop.name}}</h1>
+			<router-link :to="{name: 'ShopInfo', params: {lang: lang, id: shop.id}}">
+				<h1>{{shop.name}}</h1>
+			</router-link>
 
-			<nav class="stars">
-				<div>
-					<span :class="{active: shop.average_rate >= 1}">★</span>
-					<span :class="{active: shop.average_rate >= 2}">★</span>
-					<span :class="{active: shop.average_rate >= 3}">★</span>
-					<span :class="{active: shop.average_rate >= 4}">★</span>
-					<span :class="{active: shop.average_rate >= 5}">★</span>
-				</div>
-				<p v-show="shop.average_rate !== null">{{round(shop.average_rate, 1)}}</p>
-
-				<p v-show="shop.average_rate === null">---</p>
-			</nav>
+			<starrate :rate="shop.average_rate" />
 
 			<div class="text">
 				<p class="description">{{shop.description}}</p>
 
 				<p class="address">
-					<span v-show="lang==='en'">Address:</span>
-					<span v-show="lang==='es'">Dirección:</span>
-					<span v-show="lang==='gl'">Dirección:</span>
+					<img src="@/assets/icons/pin.png" alt />
 					{{shop.line1}} {{shop.line2}} {{shop.city}} {{shop.state}} {{shop.country}}
 				</p>
 
@@ -55,24 +44,23 @@
 					<p v-show="lang==='es'">No hay comentarios</p>
 					<p v-show="lang==='gl'">Non hai comentarios</p>
 				</div>
-
-				<button @click="edit(index)">
-					<p v-show="lang === 'en'">More info</p>
-					<p v-show="lang === 'es'">Más info</p>
-					<p v-show="lang === 'gl'">Máis info</p>
-				</button>
 			</div>
 		</main>
 	</article>
 </template>
 
 <script>
+import starrate from '@/components/StarRate.vue';
+
 export default {
 	name: 'ShopCard',
 	props: {
 		shop: Object,
 		onMap: Boolean,
 		lang: String
+	},
+	components: {
+		starrate
 	},
 	data() {
 		return {
@@ -95,16 +83,9 @@ export default {
 				this.imgSelector = 0;
 			}
 		},
-		menu() {
-			this.$emit('menu', this.shop.id);
-		},
+
 		random(min, max) {
 			return Math.floor(Math.random() * max) + min;
-		},
-		round(value, decimals) {
-			if (value) {
-				return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-			}
 		}
 	}
 };
@@ -114,7 +95,7 @@ export default {
 article {
 	display: flex;
 	flex-wrap: wrap;
-	width: 45rem;
+	width: 55rem;
 	padding: 1rem;
 
 	border: 1px solid #bfbfbf;
@@ -158,6 +139,10 @@ p.address {
 	border-bottom: 1px solid lightgrey;
 }
 
+p.address img {
+	width: 1rem;
+}
+
 .comments img {
 	position: relative;
 	top: -5px;
@@ -174,59 +159,10 @@ p.address {
 	margin-bottom: 1rem;
 }
 
-/* <STAR RATES STYLES> */
-nav.stars {
-	display: flex;
-
-	justify-content: flex-start;
-	align-items: center;
-}
-
-nav.stars p {
-	font-size: 1.2rem;
-	margin-left: 5px;
-}
-
-.stars span {
-	font-size: 1.5rem;
-}
-
-.stars .active {
-	color: lightgreen;
-}
-
-nav p {
-	font-size: 2rem;
-}
-
-button p {
-	font-size: 1rem;
-}
-
-button {
-	font-weight: bold;
-	background: #717171;
-	border: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 0.5rem;
-	height: 33px;
-	width: 120px;
-
-	cursor: pointer;
-}
-
-button:focus {
-	outline: none;
-}
-/* </STAR RATES STYLES> */
-
 @media (max-width: 600px) {
 	article {
 		width: 320px;
 	}
 }
 </style>
-
 <style scoped src="@/styles/gallery.css"></style>

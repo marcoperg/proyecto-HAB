@@ -258,10 +258,10 @@ async function getShop(req, res, next) {
 		);
 
 		// Get ratings for average
-		const [
-			rates,
-		] = await connection.query(
-			`SELECT rating, comment FROM user_shop WHERE id_shop=?`,
+		const [rates] = await connection.query(
+			`SELECT us.rating, us.comment, us.date, u.nick, u.avatar
+			 FROM user_shop us join users u on us.id_user=u.id
+			 WHERE us.id_shop=? and us.rating is not NULL LIMIT 100`,
 			[id]
 		);
 
@@ -293,7 +293,7 @@ async function getShop(req, res, next) {
 				...shop,
 				average_rate: rate_average,
 				photos: photos,
-				rates: rates,
+				rates: rates.reverse(),
 			},
 		});
 	} catch (error) {

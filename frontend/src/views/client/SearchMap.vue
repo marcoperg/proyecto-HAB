@@ -22,12 +22,6 @@
 			</form>
 			<!-- </SEARCH FORM> -->
 
-			<!-- <ul>
-				<li v-for="shop in searchResults" :key="shop.id">
-					<shopcard :shop="shop" :lang="lang" />
-				</li>
-			</ul>-->
-
 			<gmaps-map :options="mapOptions">
 				<ul>
 					<li v-for="shop in filteredResults" :key="shop.id">

@@ -3,9 +3,9 @@
 figure {
 	display: flex;
 	justify-content: center;
-	align-items: flex-end;
+	flex-direction: column;
+	align-items: center;
 
-	color: ;
 	width: 270px;
 	height: 220px;
 	background: #363636;
@@ -14,6 +14,20 @@ figure {
 	background-image: url('../assets/none.png');
 	background-size: cover;
 	background-position: center;
+}
+
+figure a {
+	width: 270px;
+	height: 195px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: black;
 }
 
 .left,
