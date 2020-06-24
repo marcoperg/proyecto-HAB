@@ -24,7 +24,7 @@
 
 			<ul>
 				<li v-for="shop in searchResults" :key="shop.id">
-					<shopcard :shop="shop" :lang="lang" />
+					<shopcard :shop="shop" :lang="lang" v-on:menu="displayMenu" />
 				</li>
 			</ul>
 		</main>
@@ -84,8 +84,13 @@ export default {
 			} catch (error) {
 				console.log(error.response);
 			}
+		},
+
+		displayMenu(id) {
+			console.log(id);
 		}
 	},
+
 	async created() {
 		if (this.searchQuery) {
 			this.search();
@@ -151,6 +156,20 @@ h2:after {
 	margin-right: -50%;
 }
 /* </Title with middle lines styles> */
+ul {
+	background: rgb(233, 233, 233);
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	justify-content: space-evenly;
+	min-height: 100vh;
+	margin: 2rem auto 0;
+	padding: 1rem 5rem;
+}
+
+li {
+	padding-bottom: 1rem;
+}
 
 @media (max-width: 600px) {
 	h1 {
@@ -177,12 +196,5 @@ h2:after {
 	h2.organize::before {
 		vertical-align: sub;
 	}
-}
-ul {
-	display: flex;
-	flex-wrap: wrap;
-	list-style: none;
-	align-items: center;
-	justify-content: space-evenly;
 }
 </style>

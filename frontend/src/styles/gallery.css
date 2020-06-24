@@ -1,0 +1,47 @@
+/* Gallery interactive styles */
+
+figure {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+
+	color: ;
+	width: 270px;
+	height: 220px;
+	background: #363636;
+	position: relative;
+
+	background-image: url('../assets/none.png');
+	background-size: cover;
+	background-position: center;
+}
+
+.left,
+.right {
+	border: 0;
+	width: 40px;
+	height: 40px;
+	padding: 10px;
+	background: rgba(255, 255, 255, 0.1);
+	background-size: 30px 30px;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: absolute;
+	top: 10000px;
+	cursor: pointer;
+}
+
+figure:hover .left,
+figure:hover .right {
+	top: calc(50% - 15px);
+}
+
+.left {
+	background-image: url('../assets/icons/left.png');
+	left: 0;
+}
+
+.right {
+	background-image: url('../assets/icons/right.png');
+	right: 0;
+}

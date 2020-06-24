@@ -1,34 +1,68 @@
 <template>
 	<article :class="{onMap: onMap}">
-		<figure v-show="shop.photos.length">
+		<figure
+			v-if="shop.photos.length"
+			:style="{'background-image': `url(${imgUrl + shop.photos[imgSelector].name})`}"
+		>
 			<button @click="leftImg()" class="left"></button>
 
-			<div v-if="shop.photos[imgSelector]">
-				<img :src="imgUrl + shop.photos[imgSelector].name" alt="Shop picture" />
-			</div>
+			<div></div>
 			<button @click="rightImg()" class="right"></button>
+
+			<p v-show="shop.photos.length">{{imgSelector + 1}} / {{shop.photos.length }}</p>
 		</figure>
-		<p v-show="shop.photos.length">{{imgSelector + 1}} / {{shop.photos.length }}</p>
-		<h1>{{shop.name}}</h1>
 
-		<p>{{shop.description}}</p>
+		<figure v-if="!shop.photos.length"></figure>
 
-		<p>{{shop.line1}} {{shop.line2}} {{shop.city}} {{shop.state}} {{shop.country}}</p>
+		<main>
+			<h1>{{shop.name}}</h1>
 
-		<nav>
-			<div class="stars" v-show="shop.average_rate !== null">
-				<span :class="{active: shop.average_rate >= 1}">★</span>
-				<span :class="{active: shop.average_rate >= 2}">★</span>
-				<span :class="{active: shop.average_rate >= 3}">★</span>
-				<span :class="{active: shop.average_rate >= 4}">★</span>
-				<span :class="{active: shop.average_rate >= 5}">★</span>
+			<nav class="stars">
+				<div>
+					<span :class="{active: shop.average_rate >= 1}">★</span>
+					<span :class="{active: shop.average_rate >= 2}">★</span>
+					<span :class="{active: shop.average_rate >= 3}">★</span>
+					<span :class="{active: shop.average_rate >= 4}">★</span>
+					<span :class="{active: shop.average_rate >= 5}">★</span>
+				</div>
+				<p v-show="shop.average_rate !== null">{{round(shop.average_rate, 1)}}</p>
+
+				<p v-show="shop.average_rate === null">---</p>
+			</nav>
+
+			<div class="text">
+				<p class="description">{{shop.description}}</p>
+
+				<p class="address">
+					<span v-show="lang==='en'">Address:</span>
+					<span v-show="lang==='es'">Dirección:</span>
+					<span v-show="lang==='gl'">Dirección:</span>
+					{{shop.line1}} {{shop.line2}} {{shop.city}} {{shop.state}} {{shop.country}}
+				</p>
+
+				<p class="comments" v-if="shop.rates.length">
+					<img src="@/assets/quote.png" alt="Doble quotes" width="10px" height="10px" />
+					"{{shop.rates[random(0, shop.rates.length-1)].comment}}"
+				</p>
+
+				<p class="comments" v-if="shop.rates.length">
+					<img src="@/assets/quote.png" alt="Doble quotes" width="10px" height="10px" />
+					"{{shop.rates[random(0, shop.rates.length-1)].comment}}"
+				</p>
+
+				<div class="comments" v-if="!shop.rates.length">
+					<p v-show="lang==='en'">None comments</p>
+					<p v-show="lang==='es'">No hay comentarios</p>
+					<p v-show="lang==='gl'">Non hai comentarios</p>
+				</div>
+
+				<button @click="edit(index)">
+					<p v-show="lang === 'en'">More info</p>
+					<p v-show="lang === 'es'">Más info</p>
+					<p v-show="lang === 'gl'">Máis info</p>
+				</button>
 			</div>
-			<p>{{shop.average_rate}}</p>
-
-			<div v-show="shop.average_rate === null">
-				<p></p>
-			</div>
-		</nav>
+		</main>
 	</article>
 </template>
 
@@ -37,7 +71,8 @@ export default {
 	name: 'ShopCard',
 	props: {
 		shop: Object,
-		onMap: false
+		onMap: Boolean,
+		lang: String
 	},
 	data() {
 		return {
@@ -59,97 +94,139 @@ export default {
 			} else if (this.imgSelector === this.shop.photos.length - 1) {
 				this.imgSelector = 0;
 			}
+		},
+		menu() {
+			this.$emit('menu', this.shop.id);
+		},
+		random(min, max) {
+			return Math.floor(Math.random() * max) + min;
+		},
+		round(value, decimals) {
+			if (value) {
+				return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+			}
 		}
 	}
 };
 </script>
 
 <style scoped>
-article.onMap {
-	background: white;
-}
-
 article {
+	display: flex;
+	flex-wrap: wrap;
+	width: 45rem;
 	padding: 1rem;
-	margin: 1rem;
-	background: #c4c4c4;
-	max-height: 600px;
-	width: 310px;
-	border-radius: 1.5rem;
+
+	border: 1px solid #bfbfbf;
+	background: white;
+	box-shadow: 0.2px 0.2px 0.2px #aaaaaa;
+	border-radius: 10px;
 }
 
-article figure {
-	max-width: 300px;
-	max-height: 200px;
-	background: #363636;
-	margin: 1rem auto;
-	position: relative;
+figure {
+	margin-right: 16px;
 }
 
-article figure div {
-	max-width: 300px;
-	max-height: 200px;
+h1 {
+	color: black;
+	text-align: left;
+	margin: 5px 0;
 }
 
-article figure div img {
-	max-width: 300px;
-	max-height: 200px;
+main {
+	flex-grow: 1;
+	display: flex;
+	flex-wrap: wrap;
+
+	flex-direction: column;
 }
 
-h1,
-p {
+.text {
+	width: 100%;
+	flex-grow: 1;
+}
+
+p.description {
+	font-size: 1.1rem;
 	color: black;
 	margin: 1rem 0;
 }
 
-nav {
+p.address {
+	text-align: start;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid lightgrey;
+}
+
+.comments img {
+	position: relative;
+	top: -5px;
+	margin-right: 5px;
+}
+
+.comments {
+	height: 20px;
+	text-align: left;
+}
+
+.comments:last-of-type {
+	border-bottom: 1px solid lightgrey;
+	margin-bottom: 1rem;
+}
+
+/* <STAR RATES STYLES> */
+nav.stars {
 	display: flex;
-	justify-content: center;
+
+	justify-content: flex-start;
 	align-items: center;
 }
 
-nav p {
-	font-size: 1rem;
+nav.stars p {
+	font-size: 1.2rem;
+	margin-left: 5px;
 }
 
 .stars span {
-	font-size: 2rem;
+	font-size: 1.5rem;
 }
 
 .stars .active {
-	color: yellow;
+	color: lightgreen;
 }
 
 nav p {
 	font-size: 2rem;
 }
 
-.left,
-.right {
+button p {
+	font-size: 1rem;
+}
+
+button {
+	font-weight: bold;
+	background: #717171;
 	border: 0;
-	width: 40px;
-	height: 40px;
-	padding: 10px;
-	background: rgba(255, 255, 255, 0.1);
-	background-size: 30px 30px;
-	background-repeat: no-repeat;
-	background-position: center;
-	position: absolute;
-	top: calc(50% - 15px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0.5rem;
+	height: 33px;
+	width: 120px;
+
 	cursor: pointer;
 }
 
 button:focus {
 	outline: none;
 }
+/* </STAR RATES STYLES> */
 
-.left {
-	background-image: url('../../assets/icons/left.png');
-	left: 0;
-}
-
-.right {
-	background-image: url('../../assets/icons/right.png');
-	right: 0;
+@media (max-width: 600px) {
+	article {
+		width: 320px;
+	}
 }
 </style>
+
+<style scoped src="@/styles/gallery.css"></style>

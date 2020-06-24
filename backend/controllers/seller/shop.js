@@ -260,9 +260,10 @@ async function getShop(req, res, next) {
 		// Get ratings for average
 		const [
 			rates,
-		] = await connection.query(`SELECT rating FROM user_shop WHERE id_shop=?`, [
-			id,
-		]);
+		] = await connection.query(
+			`SELECT rating, comment FROM user_shop WHERE id_shop=?`,
+			[id]
+		);
 
 		let rate_average;
 		if (rates.length) {
@@ -288,7 +289,12 @@ async function getShop(req, res, next) {
 		res.send({
 			status: "ok",
 			message: "Shop info",
-			data: { ...shop, average_rate: rate_average, photos: photos },
+			data: {
+				...shop,
+				average_rate: rate_average,
+				photos: photos,
+				rates: rates,
+			},
 		});
 	} catch (error) {
 		next(error);
