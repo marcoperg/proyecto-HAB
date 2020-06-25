@@ -4,21 +4,33 @@ const { getConnection } = require("../../helpers/db");
 const { addPlateSchema, ratingSchema } = require("../../validations/client");
 
 // GET - /visits/
-
 async function getCart(req, res, next) {
 	let connection;
 	try {
 		connection = await getConnection();
 
 		// Get menu active on the user account
-		const [menu] = await connection.query(
-			`SELECT cp.id_plate, cp.ammount, cp.prize FROM 
-			cart c join cart_plates cp on cp.id_cart=c.id
-			WHERE c.id_user=? and active`,
+		const [cart] = await connection.query(
+			`SELECT p.name, p.id_shop, cp.id_plate, cp.ammount, cp.prize FROM 
+			cart c JOIN cart_plates cp on cp.id_cart=c.id
+			JOIN plates p on cp.id_plate=p.id
+			WHERE c.id_user=? and cp.ammount<>0 and active`,
 			[req.auth.id]
 		);
 
-		res.send({ status: "ok", data: menu });
+		// Get one photo for each plate
+		for (const plate of cart) {
+			const [
+				[photo],
+			] = await connection.query(`SELECT name FROM photos WHERE id_plate=?`, [
+				plate.id_plate,
+			]);
+
+			if (photo) plate.photo = photo.name;
+			else plate.photo = null;
+		}
+
+		res.send({ status: "ok", data: cart });
 	} catch (error) {
 		next(error);
 	} finally {
@@ -102,9 +114,9 @@ async function addPlate(req, res, next) {
 		if (existingPlateOnCart) {
 			await connection.query(
 				`UPDATE cart_plates SET
-				ammount= COALESCE(ammount, 0) + ?
-				WHERE id_plate=?`,
-				[ammount, plate.id]
+				ammount= ?
+				WHERE id_plate=? and id_cart=?`,
+				[ammount, plate.id, cartId]
 			);
 		} else {
 			await connection.query(
@@ -137,7 +149,7 @@ async function deleteCartWithoutCheckout(req, res, next) {
 		);
 
 		if (!cart) {
-			throw generateError("There is no active cart to checkout", 404);
+			throw generateError("There is no active cart to delete", 404);
 		}
 
 		// Get prizes of the cart
