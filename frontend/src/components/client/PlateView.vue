@@ -28,7 +28,7 @@
 					<button @click="increaseAmmount" class="number">+</button>
 				</div>
 
-				<button @click="add">
+				<button @click="add" class="add">
 					<span v-show="lang==='en'">Add {{ammount}} to cart</span>
 					<span v-show="lang==='es'">Añadir {{ammount}} al carrito</span>
 					<span v-show="lang==='gl'">Añadir {{ammount}} ao carrito</span>
@@ -162,6 +162,7 @@ button.number {
 }
 
 nav div {
+	margin: 0 auto;
 	display: flex;
 	align-content: center;
 }
@@ -185,6 +186,29 @@ button.cancel {
 	background-size: 15px 15px;
 	background-position: center;
 	background-repeat: no-repeat;
+}
+
+@media (max-width: 600px) {
+	main {
+		top: 20px;
+		left: calc(50% - 155px);
+		width: 310px;
+		padding-bottom: 0.5rem;
+	}
+
+	nav {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	nav button span {
+		width: 230px;
+	}
+
+	button.add {
+		margin: 0.1rem auto;
+		width: 95%;
+	}
 }
 </style>
 

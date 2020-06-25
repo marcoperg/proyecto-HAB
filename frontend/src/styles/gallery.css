@@ -70,3 +70,9 @@ figure:hover .right {
 	background-image: url('../assets/icons/right.png');
 	right: 0;
 }
+
+@media (max-width: 600px) {
+	figure.big {
+		height: 300px;
+	}
+}
