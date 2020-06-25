@@ -69,12 +69,15 @@ const routes = [
 		name: 'ShopInfo',
 		component: () => import('../views/client/ShopInfo.vue')
 	},
-
-	// To implement
+	{
+		path: '/:lang/shop/:id/menu',
+		name: 'Menu',
+		component: () => import('../views/client/Menu.vue')
+	},
 	{
 		path: '/:lang/cart',
 		name: 'Cart',
-		component: () => import('../views/About.vue')
+		component: () => import('../views/client/Cart.vue')
 	}
 ];
 

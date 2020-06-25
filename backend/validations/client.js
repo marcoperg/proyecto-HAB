@@ -5,6 +5,7 @@ const { generateError } = require("../helpers");
 // Compound schemas
 const addPlateSchema = Joi.object().keys({
 	plate_id: Joi.number().integer().required(),
+	ammount: Joi.number().integer().required(),
 });
 
 const ratingSchema = Joi.object().keys({

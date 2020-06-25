@@ -46,6 +46,7 @@ const {
 
 // Client controllers
 const {
+	getCart,
 	addPlate,
 	deleteCartWithoutCheckout,
 	reducePlateOnCart,
@@ -97,6 +98,7 @@ app.post("/plate/:id", userIsAuthenticated, userIsSeller, uploadPlatePhoto);
 app.get("/shops", getShops);
 app.get("/menu/:id", getMenu);
 
+app.get("/visits/", userIsAuthenticated, getCart);
 app.post("/visits/", userIsAuthenticated, addPlate);
 app.delete("/visits", userIsAuthenticated, deleteCartWithoutCheckout);
 app.delete("/visits/:id/remove", userIsAuthenticated, reducePlateOnCart);

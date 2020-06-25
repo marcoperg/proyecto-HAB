@@ -1,39 +1,38 @@
 <template>
 	<div class="shopInfo">
 		<menucustom />
-		<main>
-			<header>
-				<div class="titleAndReviews">
-					<h1>{{shop.name}}</h1>
-					<div class="reviews">
-						<starrate :rate="shop.average_rate" />
-						<p>
-							{{numberOfReviews}}
-							<span v-show="lang==='en'">reviews</span>
-							<span v-show="lang==='es'">opiniones</span>
-							<span v-show="lang==='gl'">opinións</span>
-						</p>
-					</div>
+		<header>
+			<div class="titleAndReviews">
+				<h1>{{shop.name}}</h1>
+				<div class="reviews">
+					<starrate :rate="shop.average_rate" />
+					<p>
+						{{numberOfReviews}}
+						<span v-show="lang==='en'">reviews</span>
+						<span v-show="lang==='es'">opiniones</span>
+						<span v-show="lang==='gl'">opinións</span>
+					</p>
 				</div>
+			</div>
 
-				<p class="address info">
-					<a :href="`http://maps.google.com/maps?q=${shop.latitude},${shop.longitude}`" target="_blank">
-						<img src="@/assets/icons/pin.png" alt="map ping" />
-						{{shop.line1}} {{shop.line2}} {{shop.city}} {{shop.state}} {{shop.country}}
-					</a>
-				</p>
+			<p class="address info">
+				<a :href="`http://maps.google.com/maps?q=${shop.latitude},${shop.longitude}`" target="_blank">
+					<img src="@/assets/icons/pin.png" alt="map ping" />
+					{{shop.line1}} {{shop.line2}} {{shop.city}} {{shop.state}} {{shop.country}}
+				</a>
+			</p>
 
-				<p class="phone info">
-					<img src="@/assets/icons/phone.png" alt="phone" />
-					<a :href="'tel:' + shop.tlf">{{shop.tlf}}</a>
-				</p>
+			<p class="phone info">
+				<img src="@/assets/icons/phone.png" alt="phone" />
+				<a :href="'tel:' + shop.tlf">{{shop.tlf}}</a>
+			</p>
 
-				<p class="email info">
-					<img src="@/assets/icons/email.png" alt="phone" />
-					<a :href="'mailto:' + shop.email">{{shop.email}}</a>
-				</p>
-			</header>
-
+			<p class="email info">
+				<img src="@/assets/icons/email.png" alt="phone" />
+				<a :href="'mailto:' + shop.email">{{shop.email}}</a>
+			</p>
+		</header>
+		<main>
 			<lightbox :imgs="imgsArray" :visible="visible" :index="index" @hide="visible = false"></lightbox>
 			<ul class="images">
 				<li class="image" v-for="(photo, index) in shop.photos" :key="photo.id">
@@ -66,18 +65,20 @@
 						</p>
 					</article>
 
-					<article class="menu">
-						<h2 v-show="lang==='en'">Menu</h2>
-						<h2 v-show="lang==='es'">Menú</h2>
-						<h2 v-show="lang==='gl'">Menú</h2>
+					<router-link class="menu" :to="{name: 'Menu', params: {lang: lang, id: shop.id}}">
+						<article class="menu">
+							<h2 v-show="lang==='en'">Menu</h2>
+							<h2 v-show="lang==='es'">Menú</h2>
+							<h2 v-show="lang==='gl'">Menú</h2>
 
-						<ul>
-							<li v-for="plate in menu" :key="plate.id">
-								<p>{{plate.name}}</p>
-								<p>{{plate.prize}}€</p>
-							</li>
-						</ul>
-					</article>
+							<ul>
+								<li v-for="plate in menu" :key="plate.id">
+									<p>{{plate.name}}</p>
+									<p>{{plate.prize}}€</p>
+								</li>
+							</ul>
+						</article>
+					</router-link>
 				</div>
 
 				<article class="location">

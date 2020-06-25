@@ -3,7 +3,7 @@ a {
 	text-decoration: none;
 }
 
-a:hover {
+a:hover:not(.menu) {
 	text-decoration: underline;
 }
 
@@ -19,6 +19,14 @@ header {
 	align-items: flex-end;
 	flex-wrap: wrap;
 	max-width: 1280px;
+	background: white;
+}
+
+main {
+	border: 1px solid #bfbfbf;
+	box-shadow: 0.2px 0.2px 0.2px #aaaaaa;
+	padding-top: 1px;
+	background: rgb(233, 233, 233);
 }
 
 .titleAndReviews {
@@ -69,8 +77,8 @@ article {
 	min-height: 115px;
 	padding: 1rem;
 
-	border: 1px solid #bfbfbf;
 	background: white;
+	border: 1px solid #bfbfbf;
 	box-shadow: 0.2px 0.2px 0.2px #aaaaaa;
 	border-radius: 10px;
 }

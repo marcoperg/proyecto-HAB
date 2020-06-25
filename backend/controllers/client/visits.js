@@ -3,13 +3,40 @@ const { generateError } = require("../../helpers/");
 const { getConnection } = require("../../helpers/db");
 const { addPlateSchema, ratingSchema } = require("../../validations/client");
 
+// GET - /visits/
+
+async function getCart(req, res, next) {
+	let connection;
+	try {
+		connection = await getConnection();
+
+		// Get menu active on the user account
+		const [menu] = await connection.query(
+			`SELECT cp.id_plate, cp.ammount, cp.prize FROM 
+			cart c join cart_plates cp on cp.id_cart=c.id
+			WHERE c.id_user=? and active`,
+			[req.auth.id]
+		);
+
+		res.send({ status: "ok", data: menu });
+	} catch (error) {
+		next(error);
+	} finally {
+		if (connection) connection.release();
+	}
+}
+
 // POST - /visits/
 async function addPlate(req, res, next) {
 	let connection;
 	try {
 		// Validate body
 		addPlateSchema.validate(req.body);
-		const { plate_id } = req.body;
+		let { plate_id, ammount } = req.body;
+
+		if (ammount < 1) {
+			ammount = "1";
+		}
 
 		connection = await getConnection();
 
@@ -64,7 +91,7 @@ async function addPlate(req, res, next) {
 			)[0].insertId;
 		}
 
-		// If the id_plate already exist ingrese ammoun, else add plate to DB
+		// If the id_plate already exist increse ammount, else add plate to DB
 		const [
 			[existingPlateOnCart],
 		] = await connection.query(
@@ -75,15 +102,15 @@ async function addPlate(req, res, next) {
 		if (existingPlateOnCart) {
 			await connection.query(
 				`UPDATE cart_plates SET
-				ammount= COALESCE(ammount, 0) + 1
+				ammount= COALESCE(ammount, 0) + ?
 				WHERE id_plate=?`,
-				[plate.id]
+				[ammount, plate.id]
 			);
 		} else {
 			await connection.query(
-				`INSERT INTO cart_plates (id_cart, id_plate, prize)
-				VALUES(?, ?, ?)`,
-				[cartId, plate.id, plate.prize]
+				`INSERT INTO cart_plates (id_cart, id_plate, prize, ammount)
+				VALUES(?, ?, ?, ?)`,
+				[cartId, plate.id, plate.prize, ammount]
 			);
 		}
 
@@ -307,6 +334,7 @@ async function rateShop(req, res, next) {
 }
 
 module.exports = {
+	getCart,
 	addPlate,
 	deleteCartWithoutCheckout,
 	reducePlateOnCart,

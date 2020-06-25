@@ -14,15 +14,12 @@
 	bottom: 0;
 
 	background: white;
+	background: rgb(233, 233, 233);
 }
 
 #nav a {
 	font-weight: bold;
 	color: black;
-}
-
-#nav a.router-link-exact-active {
-	color: #42b983;
 }
 
 .menu {

@@ -203,6 +203,8 @@ export default {
 	right: 0;
 	width: 100%;
 	height: 100vh;
+	z-index: 9;
+
 	background: rgba(0, 0, 0, 0.7);
 }
 
@@ -213,6 +215,7 @@ main {
 	background: #dddddd;
 	height: 30rem;
 	width: 22rem;
+	z-index: 10;
 
 	padding: 1rem;
 }
