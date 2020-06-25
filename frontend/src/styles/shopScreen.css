@@ -94,6 +94,11 @@ h2 {
 	margin-bottom: 16px;
 }
 
+.location p {
+	text-align: start;
+	width: 50%;
+}
+
 .menu {
 	height: 299px;
 	overflow-y: scroll;
@@ -184,6 +189,10 @@ ul.images li:nth-child(2) {
 	ul.images li:nth-child(1),
 	ul.images li:nth-child(2) {
 		grid-row: auto/auto;
+	}
+
+	.location p {
+		width: auto;
 	}
 }
 

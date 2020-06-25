@@ -86,7 +86,7 @@
 					<h2 v-show="lang==='gl'">Ubicación</h2>
 
 					<gmaps-map class="map" :options="mapOptions">
-						<gmaps-marker :position="markerPosition" :label="shop.name" />
+						<gmaps-marker :visible="visibleMarker" :position="markerPosition" :label="shop.name" />
 					</gmaps-map>
 
 					<p class="address location">
@@ -94,6 +94,19 @@
 							<img src="@/assets/icons/pin.png" alt="map ping" />
 							{{shop.line1}} {{shop.line2}} {{shop.city}} {{shop.state}} {{shop.country}}
 						</a>
+					</p>
+
+					<p v-if="geo" class="distance">
+						<img src="@/assets/icons/distance.png" alt="map ping" />
+
+						<span v-show="lang==='es'">A</span>
+						<span v-show="lang==='gl'">A</span>
+						{{distance(geo.latitude, geo.longitude, shop.latitude, shop.longitude)}}km
+						<span
+							v-show="lang==='en'"
+						>from you</span>
+						<span v-show="lang==='es'">de ti</span>
+						<span v-show="lang==='gl'">de ti</span>
 					</p>
 				</article>
 
@@ -158,6 +171,8 @@ export default {
 			shop: {},
 			menu: [],
 
+			visibleMarker: false,
+
 			newReview: false,
 			index: 0,
 			imgsArray: [],
@@ -167,7 +182,9 @@ export default {
 				center: { lat: 0, lng: 0 },
 				zoom: 13
 			},
-			markerPosition: { lat: 0, lng: 0 }
+			markerPosition: { lat: 0, lng: 0 },
+
+			geo: null
 		};
 	},
 	computed: {
@@ -218,9 +235,21 @@ export default {
 		displayPhoto(index) {
 			this.index = index;
 			this.visible = true;
+		},
+
+		distance(lat1, lon1, lat2, lon2) {
+			let p = 0.017453292519943295; // Math.PI / 180
+			let c = Math.cos;
+			let a = 0.5 - c((lat2 - lat1) * p) / 2 + (c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))) / 2;
+
+			return Math.round(12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
 		}
 	},
 	async created() {
+		navigator.geolocation.getCurrentPosition((location) => {
+			this.geo = location.coords;
+		});
+
 		this.shop = await this.getShopInfo();
 		this.imgsArray = this.formatMedia();
 		this.menu = await this.getMenuFromShop();
@@ -230,7 +259,10 @@ export default {
 		this.markerPosition.lat = this.shop.latitude;
 		this.markerPosition.lng = this.shop.longitude;
 
+		this.visibleMarker = true;
+
 		console.log(this.shop);
+		console.log(this.geo);
 	}
 };
 </script>
