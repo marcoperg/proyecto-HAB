@@ -9,8 +9,20 @@ async function getCart(req, res, next) {
 	try {
 		connection = await getConnection();
 
+		// Check if there is an active cart
+		let [
+			[cart],
+		] = await connection.query(
+			`SELECT id FROM cart WHERE id_user=? and active=1`,
+			[req.auth.id]
+		);
+
+		if (!cart) {
+			throw generateError("There is no active cart to delete", 404);
+		}
+
 		// Get menu active on the user account
-		const [cart] = await connection.query(
+		[cart] = await connection.query(
 			`SELECT p.name, p.id_shop, cp.id_plate, cp.ammount, cp.prize FROM 
 			cart c JOIN cart_plates cp on cp.id_cart=c.id
 			JOIN plates p on cp.id_plate=p.id
@@ -30,6 +42,10 @@ async function getCart(req, res, next) {
 			else plate.photo = null;
 		}
 
+		// if (!cart.length) {
+		// 	throw generateError("There is no active cart", 404);
+		// }
+
 		res.send({ status: "ok", data: cart });
 	} catch (error) {
 		next(error);
@@ -47,7 +63,7 @@ async function addPlate(req, res, next) {
 		let { plate_id, ammount } = req.body;
 
 		if (ammount < 1) {
-			ammount = "1";
+			ammount = "0";
 		}
 
 		connection = await getConnection();

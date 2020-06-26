@@ -19,7 +19,6 @@
 
 #nav a {
 	font-weight: bold;
-	color: black;
 }
 
 .menu {
@@ -35,7 +34,7 @@
 	width: 216px;
 }
 
-.login {
+/* .login {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -44,6 +43,17 @@
 	width: 10rem;
 	border-radius: 1rem;
 	background: #c4c4c4;
+} */
+
+a.login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	height: 3rem;
+	width: 10rem;
+	background: black;
+	color: white;
 }
 
 .logout {

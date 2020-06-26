@@ -3,8 +3,9 @@
 		<menucustom />
 		<header>
 			<h1>Menu</h1>
-			<router-link :to="{name: 'Cart', params: {lang: lang}}">
-				<img src="@/assets/icons/cart.png" alt="cart" />
+			<router-link :to="{name: 'Cart', params: {lang: lang}}" :class="{empty: !cart.size}">
+				<img src="@/assets/icons/cart.png" alt="cart" v-show="!cart.size" />
+				<img src="@/assets/icons/cartFull.png" alt="cart" v-show="cart.size" />
 				{{cart.size}}
 			</router-link>
 		</header>
@@ -115,11 +116,11 @@ export default {
 			let title = '';
 
 			if (this.lang === 'en') {
-				title = 'Review upload successfully';
+				title = 'Plate added successfully';
 			} else if (this.lang === 'es') {
-				title = 'Opinión subida correctamente';
+				title = 'Plato añadido correctamente';
 			} else if (this.lang === 'gl') {
-				title = 'Opinión subida correctamente';
+				title = 'Prato añadido correctamente';
 			}
 
 			Swal.fire({
@@ -163,7 +164,7 @@ export default {
 }
 
 .inCart {
-	border: 2.5px solid rgb(46, 185, 46);
+	border: 2.5px solid #2eb92e;
 	position: relative;
 }
 
@@ -173,7 +174,7 @@ export default {
 }
 
 .inCart h3 {
-	background: rgb(46, 185, 46);
+	background: #2eb92e;
 	padding: 5px;
 	position: absolute;
 	top: 0;
@@ -256,6 +257,16 @@ li:hover {
 }
 
 li.inCart:hover {
-	border: 4px solid rgb(46, 185, 46);
+	border: 4px solid #2eb92e;
+}
+
+li:hover figure {
+	width: 152px;
+	height: 152px;
+}
+
+a:not(.empty) {
+	font-weight: 900;
+	color: #2eb92e;
 }
 </style>

@@ -42,37 +42,17 @@ nav.stars p {
 }
 
 .stars span {
+	color: grey;
 	font-size: 1.5rem;
 }
 
 .stars .active {
-	color: lightgreen;
+	color: #3ee054;
 }
 
 nav p {
 	font-size: 2rem;
 }
 
-button p {
-	font-size: 1rem;
-}
-
-button {
-	font-weight: bold;
-	background: #717171;
-	border: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 0.5rem;
-	height: 33px;
-	width: 120px;
-
-	cursor: pointer;
-}
-
-button:focus {
-	outline: none;
-}
 /* </STAR RATES STYLES> */
 </style>

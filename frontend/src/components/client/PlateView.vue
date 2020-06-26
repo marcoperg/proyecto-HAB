@@ -64,7 +64,7 @@ export default {
 		},
 
 		decreaseAmmount() {
-			if (this.ammount > 1) {
+			if (this.ammount >= 1) {
 				this.ammount--;
 			}
 		},
