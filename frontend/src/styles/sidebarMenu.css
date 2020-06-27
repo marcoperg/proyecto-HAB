@@ -12,6 +12,21 @@
 		padding: 0 1rem;
 	}
 
+	header div {
+		position: relative;
+		justify-content: center;
+		width: auto;
+		height: 49px;
+	}
+
+	header div.active {
+		right: 2rem;
+	}
+
+	header div button.closemenu {
+		position: unset;
+	}
+
 	button {
 		text-align: center;
 		border: 0;
@@ -19,14 +34,6 @@
 
 	button.openmenu {
 		background: url('../assets/icons/open-menu.png') no-repeat;
-		background-size: contain;
-
-		width: 31px;
-		height: 31px;
-	}
-
-	button.search {
-		background: url('../assets/icons/search.png') no-repeat;
 		background-size: contain;
 
 		width: 31px;
@@ -43,10 +50,6 @@
 		top: 10px;
 		right: 10px;
 		z-index: 11;
-	}
-
-	button:focus {
-		outline: none;
 	}
 
 	.menu {

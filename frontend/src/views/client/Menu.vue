@@ -164,7 +164,7 @@ export default {
 }
 
 .inCart {
-	border: 2.5px solid #2eb92e;
+	border: 2.5px solid #4c9141;
 	position: relative;
 }
 
@@ -174,7 +174,7 @@ export default {
 }
 
 .inCart h3 {
-	background: #2eb92e;
+	background: #4c9141;
 	padding: 5px;
 	position: absolute;
 	top: 0;
@@ -257,7 +257,7 @@ li:hover {
 }
 
 li.inCart:hover {
-	border: 4px solid #2eb92e;
+	border: 4px solid #4c9141;
 }
 
 li:hover figure {
@@ -267,6 +267,6 @@ li:hover figure {
 
 a:not(.empty) {
 	font-weight: 900;
-	color: #2eb92e;
+	color: #4c9141;
 }
 </style>

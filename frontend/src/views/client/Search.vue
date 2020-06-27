@@ -23,7 +23,9 @@
 			<!-- </SEARCH FORM> -->
 
 			<div class="display">
-				<nav></nav>
+				<nav>
+					<mapsearch :lang="lang" :shops="searchResults" />
+				</nav>
 				<ul>
 					<li v-for="shop in searchResults" :key="shop.id">
 						<shopcard :shop="shop" :lang="lang" v-on:menu="displayMenu" />
@@ -44,13 +46,15 @@ import Swal from 'sweetalert2';
 import menucustom from '@/components/MenuCustom.vue';
 import footercustom from '@/components/FooterCustom.vue';
 import shopcard from '@/components/client/ShopCard.vue';
+import mapsearch from '@/components/client/MapSearch.vue';
 
 export default {
 	name: 'Search',
 	components: {
 		menucustom,
 		footercustom,
-		shopcard
+		shopcard,
+		mapsearch
 	},
 	data() {
 		return {
@@ -77,6 +81,10 @@ export default {
 
 				for (const shop of results.data.data) {
 					const extraInfo = await axios.get(url + '/' + shop.id);
+
+					extraInfo.data.data.latitude -= Math.random() * 3;
+					extraInfo.data.data.longitude += Math.random() * 3;
+
 					this.searchResults.push(extraInfo.data.data);
 				}
 
@@ -155,6 +163,7 @@ li {
 @media (max-width: 600px) {
 	h1 {
 		width: 90%;
+		margin: 0 auto;
 	}
 
 	input {
@@ -162,7 +171,11 @@ li {
 	}
 
 	ul {
-		width: 90%;
+		width: 100%;
+	}
+
+	.display {
+		padding: 0;
 	}
 
 	h2 {
@@ -178,6 +191,13 @@ li {
 		vertical-align: sub;
 	}
 }
+
+/* <Side nav styles> */
+.display > nav > div {
+	margin: 1rem;
+	border-bottom: 1px solid black;
+}
+/* </Side nav styles> */
 
 /* <Title with middle lines styles> */
 h2 {

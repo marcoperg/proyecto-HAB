@@ -108,7 +108,6 @@ export default {
 	methods: {
 		sumbitSearch() {
 			this.$router.push({ name: 'Search', query: { q: this.search } });
-			console.log(this.search);
 		}
 	}
 };

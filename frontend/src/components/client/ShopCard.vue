@@ -163,6 +163,10 @@ p.address img {
 	article {
 		width: 320px;
 	}
+
+	figure {
+		margin: 0 auto;
+	}
 }
 </style>
 <style scoped src="@/styles/gallery.css"></style>

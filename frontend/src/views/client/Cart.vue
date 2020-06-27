@@ -339,7 +339,9 @@ export default {
 	min-height: 100vh;
 	color: black;
 }
-
+main {
+	padding-bottom: 1px;
+}
 main > div > p {
 	width: 89%;
 
@@ -450,7 +452,7 @@ nav input {
 	border: 3px solid black;
 	height: 3rem;
 	font-size: 1.5rem;
-	margin: 1rem 10rem;
+	margin: 1rem 100%;
 }
 
 nav button {

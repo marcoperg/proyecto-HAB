@@ -52,13 +52,15 @@ a:hover {
 	background-repeat: no-repeat;
 	background-position: center;
 	position: absolute;
-	top: 10000px;
+	top: calc(50% - 15px);
 	cursor: pointer;
+
+	display: none;
 }
 
 figure:hover .left,
 figure:hover .right {
-	top: calc(50% - 15px);
+	display: block;
 }
 
 .left {

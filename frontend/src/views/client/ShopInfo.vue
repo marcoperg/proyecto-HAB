@@ -111,21 +111,35 @@
 					</p>
 				</article>
 
-				<article>
-					<h2 v-show="lang==='en'">Reviews</h2>
-					<h2 v-show="lang==='es'">Opiniones</h2>
-					<h2 v-show="lang==='gl'">Opinións</h2>
+				<div>
+					<article>
+						<h2 v-show="lang==='en'">Reviews</h2>
+						<h2 v-show="lang==='es'">Opiniones</h2>
+						<h2 v-show="lang==='gl'">Opinións</h2>
 
-					<div class="reviews">
-						<starrate :rate="shop.average_rate" />
-						<p>
-							{{numberOfReviews}}
-							<span v-show="lang==='en'">reviews</span>
-							<span v-show="lang==='es'">opiniones</span>
-							<span v-show="lang==='gl'">opinións</span>
-						</p>
-					</div>
-				</article>
+						<div class="reviews">
+							<starrate :rate="shop.average_rate" />
+							<p>
+								{{numberOfReviews}}
+								<span v-show="lang==='en'">reviews</span>
+								<span v-show="lang==='es'">opiniones</span>
+								<span v-show="lang==='gl'">opinións</span>
+							</p>
+						</div>
+					</article>
+
+					<article class="order">
+						<h2 v-show="lang==='en'">Make an order</h2>
+						<h2 v-show="lang==='es'">Realizar un pedido</h2>
+						<h2 v-show="lang==='gl'">Realizar un pedido</h2>
+
+						<router-link :to="{name: 'Menu', params: {lang: lang, id: shop.id}}">
+							<span v-show="lang==='en'">Make an order</span>
+							<span v-show="lang==='es'">Realizar un pedido</span>
+							<span v-show="lang==='gl'">Realizar un pedido</span>
+						</router-link>
+					</article>
+				</div>
 			</div>
 			<shopreviews
 				:numberOfReviews="numberOfReviews"

@@ -2,13 +2,25 @@
 	<div id="nav">
 		<header>
 			<!-- Botton for toogle menu (only available on mobile) -->
-			<button v-show="isMobile()" @click="menu = !menu" class="openmenu"></button>
+			<button v-show="isMobile()" @click="menu = !menu; search=false" class="openmenu"></button>
 
-			<router-link :to="{ name: 'Home', params: { lang: lang } }" class="logo">
+			<router-link
+				:to="{ name: 'Home', params: { lang: lang } }"
+				class="logo"
+				v-show="!isMobile() || !search"
+			>
 				<img src="@/assets/logo/side_by_side_transparent.png" alt="Logo" />
 			</router-link>
 
-			<button v-show="isMobile()" @click="menu = !menu" class="search"></button>
+			<div :class="{active: search}">
+				<button @click="search = !search" v-show="!search" class="search"></button>
+
+				<form @keypress.enter="sumbitSearch()">
+					<input type="text" v-show="search" v-model="searchQuery" />
+				</form>
+
+				<button v-show="search" @click="search = !search" class="closemenu"></button>
+			</div>
 		</header>
 
 		<transition name="slide-fade">
@@ -45,13 +57,14 @@
 				<!-- </Languge selector> -->
 
 				<!-- <User options> -->
-				<div class="userOptions">
+
+				<!-- <div class="userOptions">
 					<button class="logout" v-show="logged" @click="logout()">
 						<p v-show="lang === 'en'">Log out</p>
 						<p v-show="lang === 'es'">Cerrar Sesión</p>
 						<p v-show="lang === 'gl'">Pechar sesión</p>
 					</button>
-				</div>
+				</div>-->
 
 				<router-link v-show="!logged" class="login" :to="{ name: 'Login', params: { lang: lang } }">
 					<p v-show="lang === 'en'">Log in</p>
@@ -62,6 +75,32 @@
 					<p v-show="lang === 'en'">Cart</p>
 					<p v-show="lang === 'es' || lang === 'gl'">Carrito</p>
 				</router-link>
+
+				<div class="background" v-show="userMenu" @click="userMenu = false"></div>
+
+				<div class="useroptions" v-show="logged">
+					<h1 @click="userMenu = !userMenu"></h1>
+
+					<transition name="fade">
+						<ul v-if="userMenu">
+							<li class="linkButton">
+								<router-link :to="{name: 'Profile'}">
+									<p v-show="lang === 'en'">Profile</p>
+									<p v-show="lang === 'es'">Perfil</p>
+									<p v-show="lang === 'gl'">Pechar sesión</p>
+								</router-link>
+							</li>
+
+							<li class="linkButton">
+								<button @click="logout()">
+									<p v-show="lang === 'en'">Log out</p>
+									<p v-show="lang === 'es'">Cerrar Sesión</p>
+									<p v-show="lang === 'gl'">Pechar sesión</p>
+								</button>
+							</li>
+						</ul>
+					</transition>
+				</div>
 
 				<!-- </User options> -->
 			</div>
@@ -79,7 +118,10 @@ export default {
 	data() {
 		return {
 			languageHover: false,
-			menu: !this.isMobile()
+			userMenu: false,
+			menu: !this.isMobile(),
+			search: false,
+			searchQuery: ''
 		};
 	},
 	computed: {
@@ -100,6 +142,10 @@ export default {
 		// Function checking if on mobile
 		isMobile() {
 			return screen.width < 700;
+		},
+
+		sumbitSearch() {
+			this.$router.push({ name: 'Search', query: { q: this.searchQuery } });
 		}
 	}
 };

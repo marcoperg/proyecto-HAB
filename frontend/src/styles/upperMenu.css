@@ -13,16 +13,22 @@
 	left: 0;
 	bottom: 0;
 
-	background: white;
 	background: rgb(233, 233, 233);
+	background: white;
 }
 
 #nav a {
 	font-weight: bold;
 }
 
+header {
+	width: 75%;
+	display: flex;
+	justify-content: space-between;
+}
+
 .menu {
-	width: 80%;
+	width: 25%;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
@@ -34,17 +40,6 @@
 	width: 216px;
 }
 
-/* .login {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-decoration: none;
-	height: 3rem;
-	width: 10rem;
-	border-radius: 1rem;
-	background: #c4c4c4;
-} */
-
 a.login {
 	display: flex;
 	justify-content: center;
@@ -52,17 +47,138 @@ a.login {
 	text-decoration: none;
 	height: 3rem;
 	width: 10rem;
+	margin-right: 1rem;
 	background: black;
 	color: white;
+	border-radius: 0.4em;
 }
 
-.logout {
-	width: ;
+button {
+	text-align: center;
 	border: 0;
-	background: 0;
-	font-weight: bold;
-	font-size: 0.9rem;
-	text-decoration: underline;
 	cursor: pointer;
+	background: 0;
 }
+
+button:focus,
+input:focus {
+	outline: none;
+}
+
+header div {
+	width: 216px;
+	display: flex;
+	align-items: center;
+	position: relative;
+	justify-content: space-between;
+}
+
+header :not(.active) {
+	justify-content: flex-end;
+}
+
+button.search {
+	background: url('../assets/icons/search.png') no-repeat;
+	background-size: contain;
+	width: 31px;
+	height: 31px;
+	/* margin: auto 1rem auto 0; */
+}
+
+header input {
+	width: 216px;
+	font-size: 1rem;
+	height: 1.7rem;
+	border: 0;
+	border-bottom: 1px solid black;
+}
+
+button.closemenu {
+	width: 14px;
+	height: 14px;
+
+	background: url('../assets/icons/close.png') no-repeat;
+	background-size: contain;
+	position: absolute;
+	top: 15px;
+	right: 10px;
+	z-index: 1;
+}
+
+/* <User menu styles> */
+
+.useroptions {
+	z-index: 10;
+	background: white;
+}
+
+.useroptions h1 {
+	background-image: url('../assets/icons/user.png');
+	background-position: center;
+	background-size: 1.8rem 1.8rem;
+	background-repeat: no-repeat;
+	border-radius: 100%;
+	border: 1px solid lightgrey;
+	cursor: pointer;
+
+	width: 2.8rem;
+	height: 2.8rem;
+}
+
+.useroptions ul {
+	z-index: 10;
+
+	top: 2.5rem;
+	left: -7.4rem;
+	border: 1px solid lightgrey;
+	background: white;
+	border-radius: 0.4rem;
+}
+
+.useroptions li a,
+.useroptions li button {
+	color: black;
+	font-weight: bold;
+	font-size: 0.95rem;
+	text-decoration: none;
+	text-align: left;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	padding: 0 3rem;
+}
+
+.useroptions li {
+	border: 0;
+	width: 10rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	border-radius: 0.4rem;
+}
+
+.useroptions li:last-child {
+	background-image: url('../assets/icons/logout.png');
+	background-repeat: no-repeat;
+	background-size: 1.2rem 1.2rem;
+	background-position-x: 10px;
+	background-position-y: center;
+}
+
+.useroptions li:hover {
+	background-color: rgb(226, 226, 226);
+}
+
+.background {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 9;
+	background: 0;
+}
+/* </User menu styles> */
+
 /* </Upper menu for computer styles> */

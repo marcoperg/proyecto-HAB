@@ -2,11 +2,13 @@
 .lang {
 	border: 1px solid black;
 
-	margin: 0 4rem;
+	margin: 0 2rem 0 2rem;
 }
 
 .lang,
-.lang li {
+.lang li,
+.useroptions,
+.useroptions ul {
 	background: #c4c4c4;
 	display: block;
 	z-index: 5;
@@ -15,7 +17,8 @@
 	padding: 3px;
 }
 
-.lang ul {
+.lang ul,
+.useroptions ul {
 	border: 1px solid black;
 	list-style: none;
 	position: absolute;
