@@ -67,7 +67,7 @@
 					<p v-show="lang === 'es' || lang === 'gl'">Carrito</p>
 				</router-link>
 
-				<div class="background" v-show="userMenu" @click="userMenu = false"></div>
+				<div class="background" v-show="userMenu || search" @click="userMenu=false; search=fasle"></div>
 
 				<div class="useroptions" v-show="logged">
 					<h1 @click="userMenu = !userMenu" v-show="!isMobile()"></h1>
