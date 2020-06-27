@@ -68,7 +68,7 @@
 
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-end;
+		justify-content: space-between;
 
 		-webkit-transition: all 0.25s;
 	}
@@ -116,6 +116,24 @@
 	.slide-fade-leave-to {
 		transform: translateX(-100rem);
 		opacity: 0;
+	}
+
+	.useroptions {
+		order: -2;
+		background: 0;
+		align-self: flex-start;
+	}
+
+	.useroptions ul {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		height: 20rem;
+		width: 288px;
+		border: 0;
+		background: 0;
+		top: 0;
+		left: 0;
 	}
 }
 

@@ -57,15 +57,6 @@
 				<!-- </Languge selector> -->
 
 				<!-- <User options> -->
-
-				<!-- <div class="userOptions">
-					<button class="logout" v-show="logged" @click="logout()">
-						<p v-show="lang === 'en'">Log out</p>
-						<p v-show="lang === 'es'">Cerrar Sesión</p>
-						<p v-show="lang === 'gl'">Pechar sesión</p>
-					</button>
-				</div>-->
-
 				<router-link v-show="!logged" class="login" :to="{ name: 'Login', params: { lang: lang } }">
 					<p v-show="lang === 'en'">Log in</p>
 					<p v-show="lang === 'es' || lang === 'gl'">Iniciar Sesión</p>
@@ -79,10 +70,10 @@
 				<div class="background" v-show="userMenu" @click="userMenu = false"></div>
 
 				<div class="useroptions" v-show="logged">
-					<h1 @click="userMenu = !userMenu"></h1>
+					<h1 @click="userMenu = !userMenu" v-show="!isMobile()"></h1>
 
 					<transition name="fade">
-						<ul v-if="userMenu">
+						<ul v-show="userMenu  ||isMobile() ">
 							<li class="linkButton">
 								<router-link :to="{name: 'Profile'}">
 									<p v-show="lang === 'en'">Profile</p>
