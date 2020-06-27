@@ -102,7 +102,12 @@ export function isTokenExpired(token) {
 export function isLoggedIn() {
 	const authToken = localStorage.getItem(AUTH_TOKEN_KEY);
 
-	return !!authToken && !isTokenExpired(authToken);
+	if (!authToken) return { logged: false };
+
+	const decodedToken = jwt(authToken);
+
+	const bool = !!authToken && !isTokenExpired(authToken);
+	return { id: decodedToken.id, role: decodedToken.role, logged: bool };
 }
 
 // Get user info

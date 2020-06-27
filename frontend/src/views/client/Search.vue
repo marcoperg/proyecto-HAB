@@ -23,7 +23,7 @@
 			<!-- </SEARCH FORM> -->
 
 			<div class="display">
-				<nav>
+				<nav v-show="searchResults.length">
 					<mapsearch :lang="lang" :shops="searchResults" />
 				</nav>
 				<ul>

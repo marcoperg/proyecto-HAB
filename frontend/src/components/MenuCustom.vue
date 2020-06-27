@@ -3,7 +3,6 @@
 		<header>
 			<!-- Botton for toogle menu (only available on mobile) -->
 			<button v-show="isMobile()" @click="menu = !menu; search=false" class="openmenu"></button>
-
 			<router-link
 				:to="{ name: 'Home', params: { lang: lang } }"
 				class="logo"
@@ -57,19 +56,27 @@
 				<!-- </Languge selector> -->
 
 				<!-- <User options> -->
-				<router-link v-show="!logged" class="login" :to="{ name: 'Login', params: { lang: lang } }">
+				<router-link
+					v-show="!userData.logged"
+					class="login"
+					:to="{ name: 'Login', params: { lang: lang } }"
+				>
 					<p v-show="lang === 'en'">Log in</p>
 					<p v-show="lang === 'es' || lang === 'gl'">Iniciar Sesión</p>
 				</router-link>
 
-				<router-link v-show="logged" class="login" :to="{ name: 'Cart', params: { lang: lang } }">
+				<router-link
+					v-show="userData.logged"
+					class="login"
+					:to="{ name: 'Cart', params: { lang: lang } }"
+				>
 					<p v-show="lang === 'en'">Cart</p>
 					<p v-show="lang === 'es' || lang === 'gl'">Carrito</p>
 				</router-link>
 
 				<div class="background" v-show="userMenu || search" @click="userMenu=false; search=fasle"></div>
 
-				<div class="useroptions" v-show="logged">
+				<div class="useroptions" v-show="userData.logged">
 					<h1 @click="userMenu = !userMenu" v-show="!isMobile()"></h1>
 
 					<transition name="fade">
@@ -79,6 +86,22 @@
 									<p v-show="lang === 'en'">Profile</p>
 									<p v-show="lang === 'es'">Perfil</p>
 									<p v-show="lang === 'gl'">Pechar sesión</p>
+								</router-link>
+							</li>
+
+							<li class="linkButton" v-show="userData.role === 'seller'">
+								<router-link :to="{name: 'SellerShops'}">
+									<p v-show="lang === 'en'">My restaurants</p>
+									<p v-show="lang === 'es'">Mis Restaurantes</p>
+									<p v-show="lang === 'gl'">Os meus restaurantes</p>
+								</router-link>
+							</li>
+
+							<li class="linkButton" v-show="userData.role === 'seller'">
+								<router-link :to="{name: 'SellerPlates'}">
+									<p v-show="lang === 'en'">My menus</p>
+									<p v-show="lang === 'es'">Mis menús</p>
+									<p v-show="lang === 'gl'">Os meus menús</p>
 								</router-link>
 							</li>
 
@@ -119,7 +142,7 @@ export default {
 		lang() {
 			return this.$route.params.lang;
 		},
-		logged() {
+		userData() {
 			return isLoggedIn();
 		}
 	},

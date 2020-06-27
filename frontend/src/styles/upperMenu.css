@@ -132,8 +132,9 @@ button.closemenu {
 .useroptions ul {
 	z-index: 10;
 
-	top: 2.5rem;
-	left: -7.4rem;
+	width: 14rem;
+	top: 3rem;
+	left: -10rem;
 	border: 1px solid lightgrey;
 	background: white;
 	border-radius: 0.4rem;
