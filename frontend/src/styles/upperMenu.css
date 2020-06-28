@@ -1,6 +1,6 @@
 /* <Upper menu for computer styles> */
 #nav {
-	border-bottom: 1px solid black;
+	box-shadow: 0.2px 0.2px 0.2px #8b8b8b;
 	padding: 5px 3rem;
 	display: flex;
 	justify-content: flex-end;
