@@ -38,6 +38,8 @@ export default {
 main {
 	margin: 1rem auto;
 	width: 70%;
+	border-radius: 0.4rem;
+	border: 1px solid black;
 }
 
 ul {

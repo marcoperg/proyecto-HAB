@@ -1,15 +1,15 @@
 <template>
 	<div class="sellermenu">
-		<router-link :to="{name: 'SellerShops'}">
-			<p v-show="lang==='en'">Restaurants</p>
-			<p v-show="lang==='es'">Restaurantes</p>
-			<p v-show="lang==='gl'">Restaurantes</p>
+		<router-link :to="{ name: 'SellerShops' }">
+			<p v-show="lang === 'en'">Restaurants</p>
+			<p v-show="lang === 'es'">Restaurantes</p>
+			<p v-show="lang === 'gl'">Restaurantes</p>
 		</router-link>
 
-		<router-link :to="{name: 'SellerPlates'}">
-			<p v-show="lang==='en'">Plates and menus</p>
-			<p v-show="lang==='es'">Platos y menús</p>
-			<p v-show="lang==='gl'">Pratos e menús</p>
+		<router-link :to="{ name: 'SellerPlates' }">
+			<p v-show="lang === 'en'">Plates and menus</p>
+			<p v-show="lang === 'es'">Platos y menús</p>
+			<p v-show="lang === 'gl'">Pratos e menús</p>
 		</router-link>
 	</div>
 </template>
@@ -31,7 +31,8 @@ export default {
 	height: 3rem;
 	background: #c4c4c4;
 
-	border-bottom: 1px solid black;
+	box-shadow: 0.2px 0.2px 0.2px #8b8b8b;
+
 	padding: 0 10rem;
 	display: grid;
 	grid-template-columns: repeat(2, auto) 1fr;
@@ -52,13 +53,13 @@ export default {
 
 	font-weight: bold;
 	color: black;
-	border-right: 1px solid black;
+	border-right: 1px solid grey;
 
 	text-decoration: none;
 }
 
 .sellermenu a:first-child {
-	border-left: 1px solid black;
+	border-left: 1px solid grey;
 }
 
 .sellermenu a.router-link-exact-active {

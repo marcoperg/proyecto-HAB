@@ -8,11 +8,11 @@
 				<button @click="addPhoto(shop.id)" class="addPhoto"></button>
 			</figure>
 
-			<h1>{{shop.name}}</h1>
+			<h1>{{ shop.name }}</h1>
 
-			<p>{{shop.description}}</p>
+			<p>{{ shop.description }}</p>
 
-			<p>{{shop.line1}} {{shop.line2}}, {{shop.city}} {{shop.state}}, {{shop.country}}</p>
+			<p>{{ shop.line1 }} {{ shop.line2 }}, {{ shop.city }} {{ shop.state }}, {{ shop.country }}</p>
 
 			<nav>
 				<button @click="remove(shop.id)">
@@ -26,6 +26,12 @@
 					<p v-show="lang === 'es'">Editar</p>
 					<p v-show="lang === 'gl'">Editar</p>
 				</button>
+
+				<router-link :to="{ name: 'Notifications', params: { lang: lang, id: shop.id } }">
+					<p v-show="lang === 'en'">Watch notifications</p>
+					<p v-show="lang === 'es'">Ver notificaciones</p>
+					<p v-show="lang === 'gl'">Ver notificaciones</p>
+				</router-link>
 			</nav>
 		</li>
 	</ul>
@@ -70,7 +76,7 @@ li {
 	padding: 1rem;
 	margin: 1rem;
 	background: #c4c4c4;
-	height: 375px;
+	height: 450px;
 	width: 265px;
 	border-radius: 1.5rem;
 }
@@ -104,11 +110,14 @@ p {
 
 nav {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-around;
 	align-items: center;
 }
 
-button {
+button,
+a {
+	font-size: 13.3333px;
 	font-weight: bold;
 	background: #717171;
 	border: 0;
@@ -118,6 +127,8 @@ button {
 	border-radius: 0.5rem;
 	height: 33px;
 	width: 80px;
+	margin: 1rem;
+	text-decoration: none;
 
 	cursor: pointer;
 }
@@ -129,5 +140,9 @@ button.addPhoto {
 	background-size: 50px 50px;
 	background-repeat: no-repeat;
 	background-position: center;
+}
+
+a {
+	width: 150px;
 }
 </style>

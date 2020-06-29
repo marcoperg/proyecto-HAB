@@ -123,14 +123,7 @@ export default {
 				title = 'Prato añadido correctamente';
 			}
 
-			Swal.fire({
-				title: title,
-				icon: 'success',
-				showConfirmButton: false,
-				timer: 1500
-			}).then(() => {
-				location.reload();
-			});
+			location.reload();
 
 			console.log(data);
 		}

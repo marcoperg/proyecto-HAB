@@ -28,5 +28,6 @@ div {
 	margin: 0 auto;
 	width: 15rem;
 	border: 1px solid black;
+	border-radius: 0.4rem;
 }
 </style>
