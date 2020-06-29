@@ -3,10 +3,10 @@
 		<menucustom />
 		<header>
 			<h1>Menu</h1>
-			<router-link :to="{name: 'Cart', params: {lang: lang}}" :class="{empty: !cart.size}">
+			<router-link :to="{ name: 'Cart', params: { lang: lang } }" :class="{ empty: !cart.size }">
 				<img src="@/assets/icons/cart.png" alt="cart" v-show="!cart.size" />
 				<img src="@/assets/icons/cartFull.png" alt="cart" v-show="cart.size" />
-				{{cart.size}}
+				{{ cart.size }}
 			</router-link>
 		</header>
 
@@ -16,17 +16,17 @@
 					v-for="(plate, index) in menu"
 					:key="plate.id"
 					@click="displayPlate(index)"
-					:class="{inCart: plate.cart_ammount}"
+					:class="{ inCart: plate.cart_ammount }"
 				>
 					<div>
-						<h2>{{plate.name}}</h2>
-						<p>{{plate.description}}</p>
-						<h3>{{plate.cart_ammount}}</h3>
+						<h2>{{ plate.name }}</h2>
+						<p>{{ plate.description }}</p>
+						<h3>{{ plate.cart_ammount }}</h3>
 					</div>
 
 					<figure
 						v-if="plate.photos.length"
-						:style="{'background-image': `url(${imgUrl + plate.photos[0].name})`}"
+						:style="{ 'background-image': `url(${imgUrl + plate.photos[0].name})` }"
 					></figure>
 
 					<figure v-if="!plate.photos.length"></figure>
@@ -37,7 +37,7 @@
 				:imgUrl="imgUrl"
 				:lang="lang"
 				:plate="menu[fullViewIndex]"
-				@cancel="fullView=false"
+				@cancel="fullView = false"
 				@add="addToCart"
 			/>
 		</main>

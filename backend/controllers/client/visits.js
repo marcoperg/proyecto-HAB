@@ -322,9 +322,6 @@ async function checkout(req, res, next) {
 // POST - /visits/paid
 async function paid() {}
 
-// POST - /visits/call
-async function callWaiter() {}
-
 // POST - /shop/:id/rate
 async function rateShop(req, res, next) {
 	let connection;
@@ -368,6 +365,5 @@ module.exports = {
 	reducePlateOnCart,
 	checkout,
 	paid,
-	callWaiter,
 	rateShop,
 };

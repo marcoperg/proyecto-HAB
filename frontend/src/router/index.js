@@ -52,6 +52,11 @@ const routes = [
 		name: 'SellerPlates',
 		component: () => import('../views/seller/Plates.vue')
 	},
+	{
+		path: '/:lang/seller/notifications/:id',
+		name: 'Notifications',
+		component: () => import('../views/seller/Notifications.vue')
+	},
 
 	// Client routes
 	{
@@ -73,6 +78,11 @@ const routes = [
 		path: '/:lang/cart',
 		name: 'Cart',
 		component: () => import('../views/client/Cart.vue')
+	},
+	{
+		path: '/:lang/inshop/:id',
+		name: 'InShopPanel',
+		component: () => import('../views/client/InShopPanel.vue')
 	}
 ];
 

@@ -10,6 +10,7 @@ const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT;
+const expressWs = require("express-ws")(app);
 
 // CONTROLLER
 // User controllers
@@ -52,10 +53,12 @@ const {
 	reducePlateOnCart,
 	checkout,
 	paid,
-	callWaiter,
 	rateShop,
 } = require("./controllers/client/visits");
 const { getShops, getMenu } = require("./controllers/client/search");
+
+// Client controller
+const { websocket } = require("./controllers/websocket");
 
 // Miscellaneous ccontrollers
 const {
@@ -104,8 +107,10 @@ app.delete("/visits", userIsAuthenticated, deleteCartWithoutCheckout);
 app.delete("/visits/:id/remove", userIsAuthenticated, reducePlateOnCart);
 app.post("/visits/checkout", userIsAuthenticated, checkout);
 app.post("/visits/paid", userIsAuthenticated, paid);
-app.post("/visits/call", userIsAuthenticated, callWaiter);
 app.post("/shop/:id/rate", userIsAuthenticated, rateShop);
+
+// Websocket routes
+app.ws("/", websocket);
 
 // Error middleware
 app.use(errorMiddleware);

@@ -2,74 +2,74 @@
 	<div class="cart">
 		<menucustom />
 		<header v-if="cart !== null">
-			<h1 v-show="lang==='en'">Cart</h1>
-			<h1 v-show="lang==='es'">Carrito</h1>
-			<h1 v-show="lang==='gl'">Carrito</h1>
+			<h1 v-show="lang === 'en'">Cart</h1>
+			<h1 v-show="lang === 'es'">Carrito</h1>
+			<h1 v-show="lang === 'gl'">Carrito</h1>
 
-			<router-link :to="{name: 'Home'}" v-show="cart.length === 0" :class="{error: errorIn==='empty'}">
-				<h1 v-show="lang==='en'">Add items to cart</h1>
-				<h1 v-show="lang==='es'">Añade platos al carro</h1>
-				<h1 v-show="lang==='gl'">Añade pratos ao carrito</h1>
+			<router-link :to="{ name: 'Home' }" v-show="cart.length === 0" :class="{ error: errorIn === 'empty' }">
+				<h1 v-show="lang === 'en'">Add items to cart</h1>
+				<h1 v-show="lang === 'es'">Añade platos al carro</h1>
+				<h1 v-show="lang === 'gl'">Añade pratos ao carrito</h1>
 			</router-link>
 		</header>
 
 		<header v-if="cart === null">
-			<router-link :to="{name: 'Home'}">
-				<h1 v-show="lang==='en'">Add items to cart</h1>
-				<h1 v-show="lang==='es'">Añade platos al carro</h1>
-				<h1 v-show="lang==='gl'">Añade pratos ao carrito</h1>
+			<router-link :to="{ name: 'Home' }">
+				<h1 v-show="lang === 'en'">Add items to cart</h1>
+				<h1 v-show="lang === 'es'">Añade platos al carro</h1>
+				<h1 v-show="lang === 'gl'">Añade pratos ao carrito</h1>
 			</router-link>
 		</header>
 
 		<main v-if="cart !== null">
 			<nav>
 				<label for="table">
-					<span v-show="lang==='en'">Table number:</span>
-					<span v-show="lang==='es'">Número de la mesa:</span>
-					<span v-show="lang==='gl'">Número da mesa:</span>
+					<span v-show="lang === 'en'">Table number:</span>
+					<span v-show="lang === 'es'">Número de la mesa:</span>
+					<span v-show="lang === 'gl'">Número da mesa:</span>
 				</label>
 				<input
 					type="Number"
 					min="1"
-					:class="{errorHere: errorIn === 'tableNumber'}"
+					:class="{ errorHere: errorIn === 'tableNumber' }"
 					name="table"
 					id="table"
 					v-model="tableNumber"
 				/>
 
 				<button class="submit" @click="checkout()">
-					<span v-show="lang==='en'">Checkout cart</span>
-					<span v-show="lang==='es'">Realizar pedido</span>
-					<span v-show="lang==='gl'">Realizar pedido</span>
+					<span v-show="lang === 'en'">Checkout cart</span>
+					<span v-show="lang === 'es'">Realizar pedido</span>
+					<span v-show="lang === 'gl'">Realizar pedido</span>
 				</button>
 
 				<button class="cancel" @click="deleteCart()">
-					<span v-show="lang==='en'">Cancel cart</span>
-					<span v-show="lang==='es'">Cancelar pedido</span>
-					<span v-show="lang==='gl'">Cancelar pedido</span>
+					<span v-show="lang === 'en'">Cancel cart</span>
+					<span v-show="lang === 'es'">Cancelar pedido</span>
+					<span v-show="lang === 'gl'">Cancelar pedido</span>
 				</button>
-				<p class="error" v-show="this.error">{{error}}</p>
+				<p class="error" v-show="this.error">{{ error }}</p>
 			</nav>
 
 			<div v-show="cart.length > 0">
-				<p v-show="lang==='en'">Price</p>
-				<p v-show="lang==='es'">Precio</p>
-				<p v-show="lang==='gl'">Precio</p>
+				<p v-show="lang === 'en'">Price</p>
+				<p v-show="lang === 'es'">Precio</p>
+				<p v-show="lang === 'gl'">Precio</p>
 			</div>
 
 			<ul>
 				<li v-for="plate in cart" :key="plate.id">
-					<figure v-if="plate.photo" :style="{'background-image': `url(${imgUrl + plate.photo})`}">
-						<router-link :to="{name: 'Menu', params: {lang: lang, id: plate.id_shop}}"></router-link>
+					<figure v-if="plate.photo" :style="{ 'background-image': `url(${imgUrl + plate.photo})` }">
+						<router-link :to="{ name: 'Menu', params: { lang: lang, id: plate.id_shop } }"></router-link>
 					</figure>
 
 					<figure v-if="!plate.photo">
-						<router-link :to="{name: 'Menu', params: {lang: lang, id: plate.id_shop}}"></router-link>
+						<router-link :to="{ name: 'Menu', params: { lang: lang, id: plate.id_shop } }"></router-link>
 					</figure>
 
 					<div class="text">
-						<router-link :to="{name: 'Menu', params: {lang: lang, id: plate.id_shop}}">
-							<h2>{{plate.name}}</h2>
+						<router-link :to="{ name: 'Menu', params: { lang: lang, id: plate.id_shop } }">
+							<h2>{{ plate.name }}</h2>
 						</router-link>
 
 						<div>
@@ -79,71 +79,71 @@
 								@change="updatePlateAmmount(plate.id_plate, plate.ammount)"
 							>
 								<option value="1">
-									<span v-if="lang==='en'">Ammo.: 1</span>
-									<span v-if="lang==='es'">Cant.: 1</span>
-									<span v-if="lang==='gl'">Cant.: 1</span>
+									<span v-if="lang === 'en'">Ammo.: 1</span>
+									<span v-if="lang === 'es'">Cant.: 1</span>
+									<span v-if="lang === 'gl'">Cant.: 1</span>
 								</option>
 								<option value="2">
-									<span v-if="lang==='en'">Ammo.: 2</span>
-									<span v-if="lang==='es'">Cant.: 2</span>
-									<span v-if="lang==='gl'">Cant.: 2</span>
+									<span v-if="lang === 'en'">Ammo.: 2</span>
+									<span v-if="lang === 'es'">Cant.: 2</span>
+									<span v-if="lang === 'gl'">Cant.: 2</span>
 								</option>
 								<option value="3">
-									<span v-if="lang==='en'">Ammo.: 3</span>
-									<span v-if="lang==='es'">Cant.: 3</span>
-									<span v-if="lang==='gl'">Cant.: 3</span>
+									<span v-if="lang === 'en'">Ammo.: 3</span>
+									<span v-if="lang === 'es'">Cant.: 3</span>
+									<span v-if="lang === 'gl'">Cant.: 3</span>
 								</option>
 								<option value="4">
-									<span v-if="lang==='en'">Ammo.: 4</span>
-									<span v-if="lang==='es'">Cant.: 4</span>
-									<span v-if="lang==='gl'">Cant.: 4</span>
+									<span v-if="lang === 'en'">Ammo.: 4</span>
+									<span v-if="lang === 'es'">Cant.: 4</span>
+									<span v-if="lang === 'gl'">Cant.: 4</span>
 								</option>
 								<option value="5">
-									<span v-if="lang==='en'">Ammo.: 5</span>
-									<span v-if="lang==='es'">Cant.: 5</span>
-									<span v-if="lang==='gl'">Cant.: 5</span>
+									<span v-if="lang === 'en'">Ammo.: 5</span>
+									<span v-if="lang === 'es'">Cant.: 5</span>
+									<span v-if="lang === 'gl'">Cant.: 5</span>
 								</option>
 								<option value="6">
-									<span v-if="lang==='en'">Ammo.: 6</span>
-									<span v-if="lang==='es'">Cant.: 6</span>
-									<span v-if="lang==='gl'">Cant.: 6</span>
+									<span v-if="lang === 'en'">Ammo.: 6</span>
+									<span v-if="lang === 'es'">Cant.: 6</span>
+									<span v-if="lang === 'gl'">Cant.: 6</span>
 								</option>
 								<option value="7">
-									<span v-if="lang==='en'">Ammo.: 7</span>
-									<span v-if="lang==='es'">Cant.: 7</span>
-									<span v-if="lang==='gl'">Cant.: 7</span>
+									<span v-if="lang === 'en'">Ammo.: 7</span>
+									<span v-if="lang === 'es'">Cant.: 7</span>
+									<span v-if="lang === 'gl'">Cant.: 7</span>
 								</option>
 								<option value="8">
-									<span v-if="lang==='en'">Ammo.: 8</span>
-									<span v-if="lang==='es'">Cant.: 8</span>
-									<span v-if="lang==='gl'">Cant.: 8</span>
+									<span v-if="lang === 'en'">Ammo.: 8</span>
+									<span v-if="lang === 'es'">Cant.: 8</span>
+									<span v-if="lang === 'gl'">Cant.: 8</span>
 								</option>
 								<option value="9">
-									<span v-if="lang==='en'">Ammo.: 9</span>
-									<span v-if="lang==='es'">Cant.: 9</span>
-									<span v-if="lang==='gl'">Cant.: 9</span>
+									<span v-if="lang === 'en'">Ammo.: 9</span>
+									<span v-if="lang === 'es'">Cant.: 9</span>
+									<span v-if="lang === 'gl'">Cant.: 9</span>
 								</option>
 								<option value>
-									<span v-if="lang==='en'">Ammo.: >10</span>
-									<span v-if="lang==='es'">Cant.: >10</span>
-									<span v-if="lang==='gl'">Cant.: >10</span>
+									<span v-if="lang === 'en'">Ammo.: >10</span>
+									<span v-if="lang === 'es'">Cant.: >10</span>
+									<span v-if="lang === 'gl'">Cant.: >10</span>
 								</option>
 							</select>
 							<form>
 								<input v-show="input" type="number" min="0" v-model="plate.ammount" placeholder="?" />
 								<button v-show="input" @click="updatePlateAmmount(plate.id_plate, plate.ammount)">
-									<p v-show="lang==='en'">Update</p>
-									<p v-show="lang==='es'">Actualizar</p>
-									<p v-show="lang==='gl'">Actualizar</p>
+									<p v-show="lang === 'en'">Update</p>
+									<p v-show="lang === 'es'">Actualizar</p>
+									<p v-show="lang === 'gl'">Actualizar</p>
 								</button>
 							</form>
 
-							<p @click="deletePlate(plate.id_plate)" v-show="lang==='en'">Delete</p>
-							<p @click="deletePlate(plate.id_plate)" v-show="lang==='es'">Eliminar</p>
-							<p @click="deletePlate(plate.id_plate)" v-show="lang==='gl'">Eliminar</p>
+							<p @click="deletePlate(plate.id_plate)" v-show="lang === 'en'">Delete</p>
+							<p @click="deletePlate(plate.id_plate)" v-show="lang === 'es'">Eliminar</p>
+							<p @click="deletePlate(plate.id_plate)" v-show="lang === 'gl'">Eliminar</p>
 						</div>
 
-						<h3>{{plate.prize}}€</h3>
+						<h3>{{ plate.prize }}€</h3>
 					</div>
 				</li>
 			</ul>
@@ -250,8 +250,12 @@ export default {
 						icon: 'success',
 						showConfirmButton: false,
 						timer: 1500
-					}).then(() => {
-						location.reload();
+					}).then(async () => {
+						await this.sendorder();
+						this.$router.push({
+							name: 'InShopPanel',
+							params: { lang: this.lang, id: this.cart[0].id_shop, tableNumber: this.tableNumber }
+						});
 					});
 				}
 			} catch (error) {
@@ -317,6 +321,30 @@ export default {
 			} catch (error) {
 				console.log(error.response);
 			}
+		},
+
+		async sendorder() {
+			console.log('object');
+
+			const connection = await new Promise(function(resolve, reject) {
+				var server = new WebSocket(process.env.VUE_APP_BACKEND_WEBSOCKET_URL);
+				server.onopen = function() {
+					resolve(server);
+				};
+				server.onerror = function(err) {
+					reject(err);
+				};
+			});
+
+			console.log(this.cart[0].id_shop);
+			connection.send(
+				JSON.stringify({
+					type: 'order',
+					shopId: this.cart[0].id_shop,
+					plates: [...this.cart],
+					tableNumber: this.tableNumber
+				})
+			);
 		}
 	},
 	async created() {
