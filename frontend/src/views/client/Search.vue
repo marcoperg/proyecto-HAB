@@ -3,21 +3,21 @@
 		<menucustom />
 		<main>
 			<!-- <UPPER TEXT (one tittle for language)> -->
-			<h1 v-show="lang==='en'">Search restaurants in your region</h1>
+			<h1 v-show="lang === 'en'">Search restaurants in your region</h1>
 
-			<h1 v-show="lang==='es'">Busca restaurantes en tu región</h1>
+			<h1 v-show="lang === 'es'">Busca restaurantes en tu región</h1>
 
-			<h1 v-show="lang==='gl'">Busca restaurantes na túa rexión</h1>
+			<h1 v-show="lang === 'gl'">Busca restaurantes na túa rexión</h1>
 			<!-- </UPPER TEXT> -->
 
 			<!-- <SEARCH FORM> -->
 			<form @keypress.enter="search()">
-				<input type="text" v-model="searchQuery" placeholder="Search restaurant" v-show="lang==='en'" />
+				<input type="text" v-model="searchQuery" placeholder="Search restaurant" v-show="lang === 'en'" />
 				<input
 					type="text"
 					v-model="searchQuery"
 					placeholder="Buscar restaurante"
-					v-show="lang==='es' || lang==='gl'"
+					v-show="lang === 'es' || lang === 'gl'"
 				/>
 			</form>
 			<!-- </SEARCH FORM> -->
@@ -106,7 +106,6 @@ export default {
 	}
 };
 </script>
-
 
 <style scoped>
 .home {

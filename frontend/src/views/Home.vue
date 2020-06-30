@@ -1,82 +1,82 @@
 <template>
 	<div class="home">
 		<menucustom />
-		<main>
+		<header>
 			<!-- <UPPER TEXT (one tittle for language)> -->
-			<h1
-				v-show="lang==='en'"
-			>Discover the restaurants and cofee shops of your region and ask for your order from your phone.</h1>
+			<h1 v-show="lang === 'en'">
+				Discover the restaurants and cofee shops of your region and ask for your order from your phone.
+			</h1>
 
-			<h1
-				v-show="lang==='es'"
-			>Descubre los restaurantes y cafeterías de tu zona y realiza tu pedido desde tu móvil</h1>
+			<h1 v-show="lang === 'es'">
+				Descubre los restaurantes y cafeterías de tu zona y realiza tu pedido desde tu móvil
+			</h1>
 
-			<h1
-				v-show="lang==='gl'"
-			>Descobre os restaurantes e cafeterías da túa zona e realiza o teu pedido dende o teu móbil</h1>
+			<h1 v-show="lang === 'gl'">
+				Descobre os restaurantes e cafeterías da túa zona e realiza o teu pedido dende o teu móbil
+			</h1>
 			<!-- </UPPER TEXT> -->
 
 			<!-- <SEARCH FORM> -->
-			<form @keypress.enter="sumbitSearch()">
-				<input type="text" v-model="search" placeholder="Search restaurant" v-if="lang==='en'" />
+			<form @keypress.enter="sumbitSearch()" :class="{ focus: searchFocus }">
+				<input type="text" v-model="search" placeholder="Search restaurant" v-if="lang === 'en'" />
 				<input
 					type="text"
+					@focus="searchFocus = true"
+					@blur="searchFocus = false"
 					v-model="search"
 					placeholder="Buscar restaurante"
-					v-if="lang==='es' || lang==='gl'"
+					v-if="lang === 'es' || lang === 'gl'"
 				/>
+				<div class="searchRecomendations" v-show="searchFocus"></div>
 			</form>
-			<!-- </SEARCH FORM> -->
 
-			<h2 v-show="lang==='en'">Save your time</h2>
-			<h2 v-show="lang==='es'">Ahorra tiempo</h2>
-			<h2 v-show="lang==='gl'">Aforra tempo</h2>
+			<div class="background" v-show="searchFocus"></div>
+			<!-- </SEARCH FORM> -->
+		</header>
+		<main>
+			<h2 v-show="lang === 'en'">Save your time</h2>
+			<h2 v-show="lang === 'es'">Ahorra tiempo</h2>
+			<h2 v-show="lang === 'gl'">Aforra tempo</h2>
 
 			<ul>
 				<li>
 					<img src="../assets/time.png" alt="time" width="160px" />
-					<p v-show="lang==='en'">Prepare your order before arriving for a quick visit</p>
-					<p v-show="lang==='es'">Prepara tu orden antes de llegar para una visita rápida</p>
-					<p v-show="lang==='gl'">Prepara a tua orde antes de chegar para unha visita rápida</p>
+					<p v-show="lang === 'en'">Prepare your order before arriving for a quick visit</p>
+					<p v-show="lang === 'es'">Prepara tu orden antes de llegar para una visita rápida</p>
+					<p v-show="lang === 'gl'">Prepara a tua orde antes de chegar para unha visita rápida</p>
 				</li>
 
 				<li>
 					<img src="../assets/food1.jpg" alt="Food" width="160px" />
-					<p
-						v-show="lang==='en'"
-					>Eat in excelents restaurant even if you don't have the time to a long order</p>
-					<p
-						v-show="lang==='es'"
-					>Come en restaurantes de calidad incluso si no tienes tiempo para un pedido largo</p>
-					<p
-						v-show="lang==='gl'"
-					>Come en restaurantes de calidade incluso si non tes tempo para un pedido longo</p>
+					<p v-show="lang === 'en'">Eat in excelents restaurant even if you don't have the time to a long order</p>
+					<p v-show="lang === 'es'">Come en restaurantes de calidad incluso si no tienes tiempo para un pedido largo</p>
+					<p v-show="lang === 'gl'">Come en restaurantes de calidade incluso si non tes tempo para un pedido longo</p>
 				</li>
 			</ul>
 
-			<h2 class="organize" v-show="lang==='en'">Organize your establishment</h2>
-			<h2 class="organize" v-show="lang==='es'">Organiza tu establecimiento</h2>
-			<h2 class="organize" v-show="lang==='gl'">Organiza a teu establecemento</h2>
+			<h2 class="organize" v-show="lang === 'en'">Organize your establishment</h2>
+			<h2 class="organize" v-show="lang === 'es'">Organiza tu establecimiento</h2>
+			<h2 class="organize" v-show="lang === 'gl'">Organiza a teu establecemento</h2>
 
 			<ul>
 				<li>
 					<img src="../assets/menu.png" alt="Menu" width="160px" />
-					<p
-						v-show="lang==='en'"
-					>Upload your menu to our platform and let every client consult it anywhere anytime</p>
-					<p
-						v-show="lang==='es'"
-					>Sube tu menu a nuestra plataform y permite a tus clientes consultarlo en cualquier momento</p>
-					<p
-						v-show="lang==='gl'"
-					>Sube o teu menu á nosa plataforma e permite aos teus clientes consultalo en calquera momento</p>
+					<p v-show="lang === 'en'">
+						Upload your menu to our platform and let every client consult it anywhere anytime
+					</p>
+					<p v-show="lang === 'es'">
+						Sube tu menu a nuestra plataform y permite a tus clientes consultarlo en cualquier momento
+					</p>
+					<p v-show="lang === 'gl'">
+						Sube o teu menu á nosa plataforma e permite aos teus clientes consultalo en calquera momento
+					</p>
 				</li>
 
 				<li>
 					<img src="../assets/waiter.png" alt="Waiter" width="160px" />
-					<p v-show="lang==='en'">Let your client call your waiters from the tables</p>
-					<p v-show="lang==='es'">Permite a tus clientes llamar a tus camareros desde sus mesas</p>
-					<p v-show="lang==='gl'">Permite aos teus clientes chamar aos teus camareros dende as súas mesas</p>
+					<p v-show="lang === 'en'">Let your client call your waiters from the tables</p>
+					<p v-show="lang === 'es'">Permite a tus clientes llamar a tus camareros desde sus mesas</p>
+					<p v-show="lang === 'gl'">Permite aos teus clientes chamar aos teus camareros dende as súas mesas</p>
 				</li>
 			</ul>
 		</main>
@@ -97,7 +97,8 @@ export default {
 	},
 	data() {
 		return {
-			search: ''
+			search: '',
+			searchFocus: false
 		};
 	},
 	computed: {
@@ -113,7 +114,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .home {
 	position: relative;
@@ -128,7 +128,27 @@ h1 {
 	color: black;
 	font-size: 20px;
 	width: 35rem;
-	margin: 2rem auto;
+	margin: 0 auto;
+}
+
+header {
+	padding: 9rem 0;
+	height: 30rem;
+	background: #699b61;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+/* <SEARCH FORM STYLES> */
+.background {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 9;
+	background: rgba(0, 0, 0, 0.7);
 }
 
 input {
@@ -144,6 +164,34 @@ input {
 	border: 0;
 	border-radius: 1rem;
 }
+
+form.focus input {
+	border-radius: 1rem 1rem 0 0;
+	background-color: white;
+}
+
+form {
+	margin: 0 auto;
+	width: 40rem;
+
+	position: relative;
+	z-index: 10;
+}
+
+input:focus {
+	outline: none;
+}
+
+.searchRecomendations {
+	border-radius: 0 0 1rem 1rem;
+
+	position: absolute;
+	background: white;
+	height: 10rem;
+	width: 40rem;
+	z-index: 5;
+}
+/* </SEARCH FORM STYLES> */
 
 /* <Cards styles> */
 ul {

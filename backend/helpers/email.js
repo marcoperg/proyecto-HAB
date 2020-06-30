@@ -7,7 +7,7 @@ async function sendEmail({ email, title, content }) {
 
 	const msg = {
 		to: email,
-		from: "hipniusF@protonmail.com",
+		from: "marco@marcopg.com",
 		subject: title,
 		text: content,
 		html: `<div>
