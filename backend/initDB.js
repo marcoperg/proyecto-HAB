@@ -1,7 +1,7 @@
 const { getConnection } = require("./helpers/db");
 const fs = require("fs-extra");
 const path = require("path");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 async function getQuery(file) {
 	return await fs.readFile(path.resolve(file), "utf-8");
