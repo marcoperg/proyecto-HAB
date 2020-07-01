@@ -48,7 +48,7 @@
 					<img src="../assets/time.png" alt="time" width="160px" />
 					<p v-show="lang === 'en'">Prepare your order before arriving for a quick visit</p>
 					<p v-show="lang === 'es'">Prepara tu orden antes de llegar para una visita rápida</p>
-					<p v-show="lang === 'gl'">Prepara a tua orde antes de chegar para unha visita rápida</p>
+					<p v-show="lang === 'gl'">Prepara a túa orde antes de chegar para unha visita rápida</p>
 				</li>
 
 				<li>
@@ -152,7 +152,7 @@ header {
 	right: 0;
 	width: 100%;
 	height: 100vh;
-	z-index: 9;
+	z-index: 1;
 	background: rgba(0, 0, 0, 0.7);
 }
 
@@ -180,7 +180,7 @@ form {
 	width: 40rem;
 
 	position: relative;
-	z-index: 10;
+	z-index: 7;
 }
 
 input:focus {

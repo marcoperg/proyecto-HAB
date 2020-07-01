@@ -2,16 +2,19 @@
 	<div id="nav">
 		<header>
 			<!-- Botton for toogle menu (only available on mobile) -->
-			<button v-show="isMobile()" @click="menu = !menu; search=false" class="openmenu"></button>
-			<router-link
-				:to="{ name: 'Home', params: { lang: lang } }"
-				class="logo"
-				v-show="!isMobile() || !search"
-			>
+			<button
+				v-show="isMobile()"
+				@click="
+					menu = !menu;
+					search = false;
+				"
+				class="openmenu"
+			></button>
+			<router-link :to="{ name: 'Home', params: { lang: lang } }" class="logo" v-show="!isMobile() || !search">
 				<img src="@/assets/logo/side_by_side_transparent.png" alt="Logo" />
 			</router-link>
 
-			<div :class="{active: search}">
+			<div :class="{ active: search }">
 				<button @click="search = !search" v-show="!search" class="search"></button>
 
 				<form @keypress.enter="sumbitSearch()">
@@ -56,33 +59,32 @@
 				<!-- </Languge selector> -->
 
 				<!-- <User options> -->
-				<router-link
-					v-show="!userData.logged"
-					class="login"
-					:to="{ name: 'Login', params: { lang: lang } }"
-				>
+				<router-link v-show="!userData.logged" class="login" :to="{ name: 'Login', params: { lang: lang } }">
 					<p v-show="lang === 'en'">Log in</p>
 					<p v-show="lang === 'es' || lang === 'gl'">Iniciar Sesión</p>
 				</router-link>
 
-				<router-link
-					v-show="userData.logged"
-					class="login"
-					:to="{ name: 'Cart', params: { lang: lang } }"
-				>
+				<router-link v-show="userData.logged" class="login" :to="{ name: 'Cart', params: { lang: lang } }">
 					<p v-show="lang === 'en'">Cart</p>
 					<p v-show="lang === 'es' || lang === 'gl'">Carrito</p>
 				</router-link>
 
-				<div class="background" v-show="userMenu || search" @click="userMenu=false; search=false"></div>
+				<div
+					class="background"
+					v-show="userMenu || search"
+					@click="
+						userMenu = false;
+						search = false;
+					"
+				></div>
 
 				<div class="useroptions" v-show="userData.logged">
 					<h1 @click="userMenu = !userMenu" v-show="!isMobile()"></h1>
 
 					<transition name="fade">
-						<ul v-show="userMenu  ||isMobile() ">
+						<ul v-show="userMenu || isMobile()">
 							<li class="linkButton">
-								<router-link :to="{name: 'Profile'}">
+								<router-link :to="{ name: 'Profile' }">
 									<p v-show="lang === 'en'">Profile</p>
 									<p v-show="lang === 'es'">Perfil</p>
 									<p v-show="lang === 'gl'">Pechar sesión</p>
@@ -90,7 +92,7 @@
 							</li>
 
 							<li class="linkButton" v-show="userData.role === 'seller'">
-								<router-link :to="{name: 'SellerShops'}">
+								<router-link :to="{ name: 'SellerShops' }">
 									<p v-show="lang === 'en'">My restaurants</p>
 									<p v-show="lang === 'es'">Mis Restaurantes</p>
 									<p v-show="lang === 'gl'">Os meus restaurantes</p>
@@ -98,7 +100,7 @@
 							</li>
 
 							<li class="linkButton" v-show="userData.role === 'seller'">
-								<router-link :to="{name: 'SellerPlates'}">
+								<router-link :to="{ name: 'SellerPlates' }">
 									<p v-show="lang === 'en'">My menus</p>
 									<p v-show="lang === 'es'">Mis menús</p>
 									<p v-show="lang === 'gl'">Os meus menús</p>

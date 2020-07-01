@@ -19,14 +19,14 @@
 				v-on:edit="activeEditShopForm"
 				v-on:addPhoto="activeUploadImageForm"
 			/>
-			<addform v-show="addForm" v-on:ad="addShop" v-on:cancel="addForm = false" :lang="lang" />
+			<addform v-show="addForm" v-on:add="addShop" v-on:cancel="addForm = false" :lang="lang" />
 
 			<editform
 				v-if="editIndex !== null"
 				v-on:edit="editShop"
 				v-on:cancel="editIndex = null"
 				:lang="lang"
-				:dataProp="{...data[editIndex]}"
+				:dataProp="{ ...data[editIndex] }"
 			/>
 
 			<uploadimage
