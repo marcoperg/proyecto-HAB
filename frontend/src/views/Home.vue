@@ -18,11 +18,16 @@
 
 			<!-- <SEARCH FORM> -->
 			<form @keypress.enter="sumbitSearch()" :class="{ focus: searchFocus }">
-				<input type="text" v-model="search" placeholder="Search restaurant" v-if="lang === 'en'" />
 				<input
 					type="text"
 					@focus="searchFocus = true"
-					@blur="searchFocus = false"
+					v-model="search"
+					placeholder="Search restaurant"
+					v-if="lang === 'en'"
+				/>
+				<input
+					type="text"
+					@focus="searchFocus = true"
 					v-model="search"
 					placeholder="Buscar restaurante"
 					v-if="lang === 'es' || lang === 'gl'"
@@ -30,7 +35,7 @@
 				<div class="searchRecomendations" v-show="searchFocus"></div>
 			</form>
 
-			<div class="background" v-show="searchFocus"></div>
+			<div class="background" @click="searchFocus = false" v-show="searchFocus"></div>
 			<!-- </SEARCH FORM> -->
 		</header>
 		<main>
