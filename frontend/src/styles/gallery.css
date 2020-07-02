@@ -13,6 +13,7 @@ figure {
 
 	background-image: url('../assets/none.png');
 	background-size: cover;
+	background-repeat: no-repeat;
 	background-position: center;
 }
 

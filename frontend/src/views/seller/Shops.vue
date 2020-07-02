@@ -13,6 +13,7 @@
 			</nav>
 
 			<shopcards
+				v-if="data.length"
 				:shops="data"
 				:lang="lang"
 				v-on:remove="removeShop"
@@ -92,7 +93,6 @@ export default {
 					headers: getHeader()
 				});
 
-				console.log(data.data.data);
 				return data.data.data;
 			} catch (e) {
 				console.log(e.response);

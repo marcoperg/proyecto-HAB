@@ -22,7 +22,8 @@
 			</form>
 			<!-- </SEARCH FORM> -->
 
-			<div class="display">
+			<loadingspinner v-show="loading" />
+			<div class="display" v-show="!loading">
 				<nav v-show="searchResults.length">
 					<mapsearch :lang="lang" :shops="searchResults" />
 				</nav>
@@ -47,6 +48,7 @@ import menucustom from '@/components/MenuCustom.vue';
 import footercustom from '@/components/FooterCustom.vue';
 import shopcard from '@/components/client/ShopCard.vue';
 import mapsearch from '@/components/client/MapSearch.vue';
+import loadingspinner from '@/components/LoadingSpinner.vue';
 
 export default {
 	name: 'Search',
@@ -54,12 +56,14 @@ export default {
 		menucustom,
 		footercustom,
 		shopcard,
-		mapsearch
+		mapsearch,
+		loadingspinner
 	},
 	data() {
 		return {
 			searchQuery: this.$route.query.q,
-			searchResults: []
+			searchResults: [],
+			loading: false
 		};
 	},
 	computed: {
@@ -82,9 +86,6 @@ export default {
 				for (const shop of results.data.data) {
 					const extraInfo = await axios.get(url + '/' + shop.id);
 
-					extraInfo.data.data.latitude -= Math.random() * 3;
-					extraInfo.data.data.longitude += Math.random() * 3;
-
 					this.searchResults.push(extraInfo.data.data);
 				}
 
@@ -101,7 +102,9 @@ export default {
 
 	async created() {
 		if (this.searchQuery) {
-			this.search();
+			this.loading = true;
+			await this.search();
+			this.loading = false;
 		}
 	}
 };
@@ -111,6 +114,7 @@ export default {
 .home {
 	position: relative;
 	min-height: 100vh;
+	color: black;
 }
 
 main {

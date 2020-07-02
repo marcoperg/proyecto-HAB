@@ -1,48 +1,47 @@
 <template>
-	<article :class="{onMap: onMap}">
-		<figure
-			v-if="shop.photos.length"
-			:style="{'background-image': `url(${imgUrl + shop.photos[imgSelector].name})`}"
-		>
+	<article :class="{ onMap: onMap }">
+		<figure v-if="shop.photos.length" :style="{ 'background-image': `url(${imgUrl + shop.photos[imgSelector].name})` }">
 			<button @click="leftImg()" class="left"></button>
 			<button @click="rightImg()" class="right"></button>
 
-			<router-link :to="{name: 'ShopInfo', params: {lang: lang, id: shop.id}}"></router-link>
+			<router-link :to="{ name: 'ShopInfo', params: { lang: lang, id: shop.id } }"></router-link>
 
-			<p v-show="shop.photos.length">{{imgSelector + 1}} / {{shop.photos.length }}</p>
+			<p v-show="shop.photos.length">{{ imgSelector + 1 }} / {{ shop.photos.length }}</p>
 		</figure>
 
-		<figure v-if="!shop.photos.length"></figure>
+		<figure v-if="!shop.photos.length">
+			<router-link :to="{ name: 'ShopInfo', params: { lang: lang, id: shop.id } }"></router-link>
+		</figure>
 
 		<main>
-			<router-link :to="{name: 'ShopInfo', params: {lang: lang, id: shop.id}}">
-				<h1>{{shop.name}}</h1>
+			<router-link :to="{ name: 'ShopInfo', params: { lang: lang, id: shop.id } }">
+				<h1>{{ shop.name }}</h1>
 			</router-link>
 
 			<starrate :rate="shop.average_rate" />
 
 			<div class="text">
-				<p class="description">{{shop.description}}</p>
+				<p class="description">{{ shop.description }}</p>
 
 				<p class="address">
 					<img src="@/assets/icons/pin.png" alt />
-					{{shop.line1}} {{shop.line2}} {{shop.city}} {{shop.state}} {{shop.country}}
+					{{ shop.line1 }} {{ shop.line2 }} {{ shop.city }} {{ shop.state }} {{ shop.country }}
 				</p>
 
 				<p class="comments" v-if="shop.rates.length">
 					<img src="@/assets/quote.png" alt="Doble quotes" width="10px" height="10px" />
-					"{{shop.rates[random(0, shop.rates.length-1)].comment}}"
+					"{{ shop.rates[random(0, shop.rates.length - 1)].comment }}"
 				</p>
 
 				<p class="comments" v-if="shop.rates.length">
 					<img src="@/assets/quote.png" alt="Doble quotes" width="10px" height="10px" />
-					"{{shop.rates[random(0, shop.rates.length-1)].comment}}"
+					"{{ shop.rates[random(0, shop.rates.length - 1)].comment }}"
 				</p>
 
 				<div class="comments" v-if="!shop.rates.length">
-					<p v-show="lang==='en'">None comments</p>
-					<p v-show="lang==='es'">No hay comentarios</p>
-					<p v-show="lang==='gl'">Non hai comentarios</p>
+					<p v-show="lang === 'en'">None comments</p>
+					<p v-show="lang === 'es'">No hay comentarios</p>
+					<p v-show="lang === 'gl'">Non hai comentarios</p>
 				</div>
 			</div>
 		</main>

@@ -32,6 +32,8 @@
 					<figure v-if="!plate.photos.length"></figure>
 				</li>
 			</ul>
+			<loadingspinner v-show="loading" />
+
 			<plateview
 				v-if="fullView"
 				:imgUrl="imgUrl"
@@ -55,6 +57,7 @@ import Swal from 'sweetalert2';
 // Components
 import menucustom from '@/components/MenuCustom.vue';
 import footercustom from '@/components/FooterCustom.vue';
+import loadingspinner from '@/components/LoadingSpinner.vue';
 import plateview from '@/components/client/PlateView.vue';
 
 export default {
@@ -62,7 +65,8 @@ export default {
 	components: {
 		menucustom,
 		footercustom,
-		plateview
+		plateview,
+		loadingspinner
 	},
 	computed: {
 		lang() {
@@ -78,7 +82,8 @@ export default {
 			menu: [],
 			cart: [],
 			fullViewIndex: null,
-			fullView: false
+			fullView: false,
+			loading: false
 		};
 	},
 	methods: {
@@ -113,16 +118,7 @@ export default {
 
 			this.error = '';
 
-			let title = '';
-
-			if (this.lang === 'en') {
-				title = 'Plate added successfully';
-			} else if (this.lang === 'es') {
-				title = 'Plato añadido correctamente';
-			} else if (this.lang === 'gl') {
-				title = 'Prato añadido correctamente';
-			}
-
+			this.loading = true;
 			location.reload();
 
 			console.log(data);
@@ -176,14 +172,20 @@ export default {
 }
 
 header {
-	margin: 1rem auto;
-	padding: 0 1rem;
+	padding: 1rem 10rem;
 	display: flex;
 	align-items: flex-end;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	max-width: 1280px;
 	background: white;
+	box-shadow: 0.2px 0.2px 0.2px #aaaaaa;
+
+	position: -webkit-sticky;
+	position: sticky;
+	top: 61.19px;
+	left: 0;
+	bottom: 0;
+	z-index: 7;
 }
 
 header img {
@@ -211,7 +213,7 @@ ul {
 	flex-wrap: wrap;
 	justify-content: center;
 	max-width: 100%;
-	margin: 0 auto;
+	margin: 1rem auto 0;
 }
 
 li {

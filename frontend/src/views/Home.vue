@@ -4,7 +4,7 @@
 		<header>
 			<!-- <UPPER TEXT (one tittle for language)> -->
 			<h1 v-show="lang === 'en'">
-				Discover the restaurants and cofee shops of your region and ask for your order from your phone.
+				Discover the restaurants and coffee shops of your region and ask for your order from your phone.
 			</h1>
 
 			<h1 v-show="lang === 'es'">
@@ -53,7 +53,7 @@
 
 				<li>
 					<img src="../assets/food1.jpg" alt="Food" width="160px" />
-					<p v-show="lang === 'en'">Eat in excelents restaurant even if you don't have the time to a long order</p>
+					<p v-show="lang === 'en'">Eat in excellent restaurant even if you don't have the time to a long order</p>
 					<p v-show="lang === 'es'">Come en restaurantes de calidad incluso si no tienes tiempo para un pedido largo</p>
 					<p v-show="lang === 'gl'">Come en restaurantes de calidade incluso si non tes tempo para un pedido longo</p>
 				</li>
@@ -70,10 +70,10 @@
 						Upload your menu to our platform and let every client consult it anywhere anytime
 					</p>
 					<p v-show="lang === 'es'">
-						Sube tu menu a nuestra plataform y permite a tus clientes consultarlo en cualquier momento
+						Sube tu menú a nuestra plataforma y permite a tus clientes consultarlo en cualquier momento
 					</p>
 					<p v-show="lang === 'gl'">
-						Sube o teu menu á nosa plataforma e permite aos teus clientes consultalo en calquera momento
+						Sube o teu menú á nosa plataforma e permite aos teus clientes consultalo en calquera momento
 					</p>
 				</li>
 
@@ -81,7 +81,7 @@
 					<img src="../assets/waiter.png" alt="Waiter" width="160px" />
 					<p v-show="lang === 'en'">Let your client call your waiters from the tables</p>
 					<p v-show="lang === 'es'">Permite a tus clientes llamar a tus camareros desde sus mesas</p>
-					<p v-show="lang === 'gl'">Permite aos teus clientes chamar aos teus camareros dende as súas mesas</p>
+					<p v-show="lang === 'gl'">Permite aos teus clientes chamar aos teus camareiros dende as súas mesas</p>
 				</li>
 			</ul>
 		</main>
@@ -152,7 +152,7 @@ header {
 	right: 0;
 	width: 100%;
 	height: 100vh;
-	z-index: 1;
+	z-index: 15;
 	background: rgba(0, 0, 0, 0.7);
 }
 
@@ -180,7 +180,10 @@ form {
 	width: 40rem;
 
 	position: relative;
-	z-index: 7;
+}
+
+form.focus {
+	z-index: 20;
 }
 
 input:focus {
@@ -194,7 +197,6 @@ input:focus {
 	background: white;
 	height: 10rem;
 	width: 40rem;
-	z-index: 5;
 }
 /* </SEARCH FORM STYLES> */
 

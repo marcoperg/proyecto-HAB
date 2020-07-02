@@ -11,13 +11,13 @@
 					<img src="@/assets/icons/back.png" alt="Logo" />
 				</a>
 
-				<p class="error">{{error}}</p>
+				<p class="error">{{ error }}</p>
 
 				<form @submit.prevent>
 					<fieldset>
 						<label class="required" for="shop">Restaurant:</label>
-						<select id="shop" name="shop" :class="{errorHere: error}" v-model="data.shopIndex">
-							<option v-for="(shop, index) in shops" :key="shop.id" :value="index">{{shop.name}}</option>
+						<select id="shop" name="shop" :class="{ errorHere: error }" v-model="data.shopIndex">
+							<option v-for="(shop, index) in shops" :key="shop.id" :value="index">{{ shop.name }}</option>
 						</select>
 
 						<label class="required" for="name">Name:</label>
@@ -27,7 +27,7 @@
 							id="name"
 							name="name"
 							placeholder="Type the plate's name..."
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 						/>
 
 						<label class="required" for="prize">Prize:</label>
@@ -36,7 +36,7 @@
 							type="prize"
 							id="prize"
 							name="number"
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 							placeholder="Type the prize of the plate..."
 						/>
 
@@ -62,13 +62,13 @@
 					<img src="@/assets/icons/back.png" alt="Logo" />
 				</a>
 
-				<p class="error">{{error}}</p>
+				<p class="error">{{ error }}</p>
 
 				<form @submit.prevent>
 					<fieldset>
 						<label class="required" for="shop">Restaurante:</label>
-						<select id="shop" name="shop" :class="{errorHere: error}" v-model="data.shopIndex">
-							<option v-for="(shop, index) in shops" :key="shop.id" :value="index">{{shop.name}}</option>
+						<select id="shop" name="shop" :class="{ errorHere: error }" v-model="data.shopIndex">
+							<option v-for="(shop, index) in shops" :key="shop.id" :value="index">{{ shop.name }}</option>
 						</select>
 
 						<label class="required" for="name">Nombre:</label>
@@ -78,7 +78,7 @@
 							id="name"
 							name="name"
 							placeholder="Ingresa el nombre del plato..."
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 						/>
 
 						<label class="required" for="prize">Precio:</label>
@@ -87,7 +87,7 @@
 							type="prize"
 							id="prize"
 							name="number"
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 							placeholder="Ingresa el precio del plato..."
 						/>
 
@@ -113,13 +113,13 @@
 					<img src="@/assets/icons/back.png" alt="Logo" />
 				</a>
 
-				<p class="error">{{error}}</p>
+				<p class="error">{{ error }}</p>
 
 				<form @submit.prevent>
 					<fieldset>
 						<label class="required" for="shop">Restaurante:</label>
-						<select id="shop" name="shop" :class="{errorHere: error}" v-model="data.shopIndex">
-							<option v-for="(shop, index) in shops" :key="shop.id" :value="index">{{shop.name}}</option>
+						<select id="shop" name="shop" :class="{ errorHere: error }" v-model="data.shopIndex">
+							<option v-for="(shop, index) in shops" :key="shop.id" :value="index">{{ shop.name }}</option>
 						</select>
 
 						<label class="required" for="name">Nome:</label>
@@ -129,7 +129,7 @@
 							id="name"
 							name="name"
 							placeholder="Ingresa o nome do prato..."
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 						/>
 
 						<label class="required" for="prize">Prezo:</label>
@@ -138,7 +138,7 @@
 							type="prize"
 							id="prize"
 							name="number"
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 							placeholder="Ingresa o prezo do..."
 						/>
 

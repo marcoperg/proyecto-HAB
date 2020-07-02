@@ -1,23 +1,23 @@
 <template>
 	<div>
-		<nav @click="completeView=true">
+		<nav @click="completeView = true">
 			<img src="@/assets/map.png" alt />
 
 			<button class="submit">
-				<span v-show="lang==='en'">See map</span>
-				<span v-show="lang==='es'">Ver mapa</span>
-				<span v-show="lang==='gl'">Ver mapa</span>
+				<span v-show="lang === 'en'">See map</span>
+				<span v-show="lang === 'es'">Ver mapa</span>
+				<span v-show="lang === 'gl'">Ver mapa</span>
 			</button>
 		</nav>
 
-		<div class="background" v-show="completeView" @click="completeView=false"></div>
-		<button v-show="completeView" class="close" @click="completeView=false"></button>
+		<div class="background" v-show="completeView" @click="completeView = false"></div>
+		<button v-show="completeView" class="close" @click="completeView = false"></button>
 		<gmaps-map v-show="completeView" id="map" :options="mapOptions">
 			<gmaps-marker
 				v-for="shop in shops"
 				:key="shop.id"
 				:visible="true"
-				:position="{lat: shop.latitude, lng: shop.longitude}"
+				:position="{ lat: shop.latitude, lng: shop.longitude }"
 				:label="shop.name"
 				@click="toShop(shop.id)"
 			/>

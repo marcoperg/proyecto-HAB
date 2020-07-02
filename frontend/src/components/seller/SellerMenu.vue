@@ -28,7 +28,7 @@ export default {
 <style scoped>
 .sellermenu {
 	width: 100%;
-	height: 3rem;
+	min-height: 3rem;
 	background: #c4c4c4;
 
 	box-shadow: 0.2px 0.2px 0.2px #8b8b8b;
@@ -39,10 +39,10 @@ export default {
 
 	position: -webkit-sticky;
 	position: sticky;
-	top: 0;
+	top: 61.19px;
 	left: 0;
 	bottom: 0;
-	z-index: 0;
+	z-index: 7;
 }
 
 .sellermenu a {
@@ -69,6 +69,7 @@ export default {
 @media (max-width: 600px) {
 	.sellermenu {
 		padding: 0 1rem;
+		top: 49px;
 	}
 }
 </style>

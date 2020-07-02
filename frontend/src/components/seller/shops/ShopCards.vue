@@ -1,12 +1,27 @@
 <template>
 	<ul>
 		<li v-for="(shop, index) in shops" :key="shop.id">
-			<figure>
+			<figure
+				v-if="shop.photos.length"
+				:style="{ 'background-image': `url(${imgUrl + shop.photos[imgSelector[index]].name})` }"
+			>
+				<button @click="leftImg(index)" class="left"></button>
+				<button @click="rightImg(index)" class="right"></button>
+
+				<button @click="addPhoto(shop.id)" class="addPhoto"></button>
+				<p v-show="shop.photos.length">{{ imgSelector[index] + 1 }} / {{ shop.photos.length }}</p>
+			</figure>
+
+			<figure v-if="!shop.photos.length">
+				<button @click="addPhoto(shop.id)" class="addPhoto"></button>
+			</figure>
+
+			<!-- <figure>
 				<div v-for="photo in shop.photos" :key="photo.id">
 					<img :src="imgUrl + photo.name" alt="Shop picture" />
 				</div>
 				<button @click="addPhoto(shop.id)" class="addPhoto"></button>
-			</figure>
+			</figure> -->
 
 			<h1>{{ shop.name }}</h1>
 
@@ -42,7 +57,8 @@ export default {
 	name: 'ShopCards',
 	data() {
 		return {
-			imgUrl: process.env.VUE_APP_BACKEND_URL + '/uploads/'
+			imgUrl: process.env.VUE_APP_BACKEND_URL + '/uploads/',
+			imgSelector: new Array(this.shops.length).fill(0)
 		};
 	},
 	props: {
@@ -50,6 +66,21 @@ export default {
 		lang: String
 	},
 	methods: {
+		leftImg(i) {
+			if (this.shops[i].photos[this.imgSelector[i] - 1]) {
+				this.$set(this.imgSelector, i, this.imgSelector[i] - 1);
+			} else if (this.imgSelector[i] === 0) {
+				this.$set(this.imgSelector, i, this.shops[i].photos.length - 1);
+			}
+		},
+		rightImg(i) {
+			if (this.shops[i].photos[this.imgSelector[i] + 1]) {
+				this.$set(this.imgSelector, i, this.imgSelector[i] + 1);
+			} else if (this.imgSelector[i] === this.shops[i].photos.length - 1) {
+				this.$set(this.imgSelector, i, 0);
+			}
+		},
+
 		remove(id) {
 			this.$emit('remove', id);
 		},
@@ -68,6 +99,8 @@ ul {
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
+	color: black;
+
 	align-items: center;
 	justify-content: space-evenly;
 }
@@ -75,24 +108,26 @@ ul {
 li {
 	padding: 1rem;
 	margin: 1rem;
-	background: #c4c4c4;
-	height: 450px;
+	/* background: #c4c4c4; */
+	background: #54805a;
+
+	min-height: 450px;
 	width: 265px;
 	border-radius: 1.5rem;
 }
 
 li figure {
 	width: 205px;
-	height: 115px;
-	background: #363636;
+	height: 130px;
+	background-color: #363636;
 	margin: 1rem auto;
 
-	overflow-y: scroll;
+	/* overflow-y: scroll;
 	overflow-x: hidden;
-	scrollbar-width: 1px;
+	scrollbar-width: 1px; */
 }
 
-li figure div {
+/* li figure div {
 	width: 205px;
 	height: 115px;
 }
@@ -100,12 +135,16 @@ li figure div {
 li figure div img {
 	max-width: 100%;
 	max-height: 100%;
-}
+} */
 
 h1,
 p {
-	color: black;
 	margin: 1rem 0;
+}
+
+button p,
+a p {
+	color: white;
 }
 
 nav {
@@ -119,7 +158,9 @@ button,
 a {
 	font-size: 13.3333px;
 	font-weight: bold;
-	background: #717171;
+	/* background: #717171; */
+	background: #000000;
+
 	border: 0;
 	display: flex;
 	align-items: center;
@@ -137,12 +178,14 @@ button.addPhoto {
 	width: 205px;
 	height: 115px;
 	background: url('../../../assets/icons/add.png');
-	background-size: 50px 50px;
+	background-size: 40px 40px;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: 3px 1px;
 }
 
 a {
 	width: 150px;
 }
 </style>
+
+<style scoped src="@/styles/gallery.css"></style>

@@ -6,13 +6,18 @@
 			<ul>
 				<li v-for="(shop, index) in shops" :key="shop.id">
 					<div>
-						<h1>· {{shop.name}}:</h1>
-						<button @click="toggleMenu(index)" :class="{active: showMenu[index]}">^</button>
+						<h1>· {{ shop.name }}:</h1>
+						<button @click="toggleMenu(index)" :class="{ active: showMenu[index] }">^</button>
 					</div>
 
 					<div v-show="showMenu[index]">
 						<nav>
-							<button @click="add=true; dataProp.shopIndex=index">
+							<button
+								@click="
+									add = true;
+									dataProp.shopIndex = index;
+								"
+							>
 								<p v-show="lang === 'en'">Add a new plate to this menu</p>
 								<p v-show="lang === 'es'">Añadir un nuevo plato a este menu</p>
 								<p v-show="lang === 'gl'">Añadir un novo prato a este menu</p>
@@ -36,17 +41,14 @@
 				:dataProp="dataProp"
 				:shops="shops"
 				v-on:add="addPlate"
-				v-on:cancel="add = false; dataProp = {}"
+				v-on:cancel="
+					add = false;
+					dataProp = {};
+				"
 				:lang="lang"
 			/>
 
-			<editform
-				v-if="edit"
-				v-on:edit="editPlate"
-				v-on:cancel="edit = false"
-				:lang="lang"
-				:dataProp="dataProp"
-			/>
+			<editform v-if="edit" v-on:edit="editPlate" v-on:cancel="edit = false" :lang="lang" :dataProp="dataProp" />
 
 			<uploadimage
 				v-if="imageId !== null"

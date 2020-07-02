@@ -1,18 +1,26 @@
 <template>
 	<ul>
-		<li v-for="plate in plates" :key="plate.id">
-			<figure>
-				<div v-for="photo in plate.photos" :key="photo.id">
-					<img :src="imgUrl + photo.name" alt="Plate picture" />
-				</div>
+		<li v-for="(plate, index) in plates" :key="plate.id">
+			<figure
+				v-if="plate.photos.length"
+				:style="{ 'background-image': `url(${imgUrl + plate.photos[imgSelector[index]].name})` }"
+			>
+				<button @click="leftImg(index)" class="left"></button>
+				<button @click="rightImg(index)" class="right"></button>
+
+				<button @click="addPhoto(plate.id)" class="addPhoto"></button>
+				<p v-show="plate.photos.length">{{ imgSelector[index] + 1 }} / {{ plate.photos.length }}</p>
+			</figure>
+
+			<figure v-if="!plate.photos.length">
 				<button @click="addPhoto(plate.id)" class="addPhoto"></button>
 			</figure>
 
-			<h1>{{plate.name}}</h1>
+			<h1>{{ plate.name }}</h1>
 
-			<p>{{plate.description}}</p>
+			<p>{{ plate.description }}</p>
 
-			<h2>{{plate.prize}}€</h2>
+			<h2>{{ plate.prize }}€</h2>
 			<br />
 			<nav>
 				<button @click="remove(plate.id)">
@@ -45,6 +53,7 @@ export default {
 	data() {
 		return {
 			imgUrl: process.env.VUE_APP_BACKEND_URL + '/uploads/',
+			imgSelector: [],
 			plates: []
 		};
 	},
@@ -58,6 +67,22 @@ export default {
 			const response = await axios.get(process.env.VUE_APP_BACKEND_URL + '/menu/' + this.shopId);
 			return response.data.data;
 		},
+
+		leftImg(i) {
+			if (this.plates[i].photos[this.imgSelector[i] - 1]) {
+				this.$set(this.imgSelector, i, this.imgSelector[i] - 1);
+			} else if (this.imgSelector[i] === 0) {
+				this.$set(this.imgSelector, i, this.plates[i].photos.length - 1);
+			}
+		},
+		rightImg(i) {
+			if (this.plates[i].photos[this.imgSelector[i] + 1]) {
+				this.$set(this.imgSelector, i, this.imgSelector[i] + 1);
+			} else if (this.imgSelector[i] === this.plates[i].photos.length - 1) {
+				this.$set(this.imgSelector, i, 0);
+			}
+		},
+
 		remove(id) {
 			this.$emit('remove', id);
 		},
@@ -74,6 +99,8 @@ export default {
 	},
 	async created() {
 		this.plates = await this.getPlates();
+
+		this.imgSelector = new Array(this.plates.length).fill(0);
 	}
 };
 </script>
@@ -83,6 +110,8 @@ ul {
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
+	color: black;
+
 	align-items: center;
 	justify-content: flex-start;
 }
@@ -90,8 +119,9 @@ ul {
 li {
 	padding: 1rem;
 	margin: 0.5rem;
-	background: #c4c4c4;
-	height: 400px;
+	/* background: #c4c4c4; */
+	background: #54805a;
+	min-height: 400px;
 	width: 265px;
 	border-radius: 1.5rem;
 }
@@ -99,28 +129,17 @@ li {
 li figure {
 	width: 205px;
 	height: 115px;
-	background: #363636;
+	background-color: #363636;
 	margin: 1rem auto;
-
-	overflow-y: scroll;
-	overflow-x: hidden;
-	scrollbar-width: 1px;
-}
-
-li figure div {
-	width: 205px;
-	height: 115px;
-}
-
-li figure div img {
-	max-width: 100%;
-	max-height: 100%;
 }
 
 h1,
 p {
-	color: black;
 	margin: 1rem 0;
+}
+
+button p {
+	color: white;
 }
 
 nav {
@@ -133,7 +152,8 @@ nav {
 button {
 	margin: 5px;
 	font-weight: bold;
-	background: #717171;
+	/* background: #717171;*/
+	background: #000000;
 	border: 0;
 	display: flex;
 	align-items: center;
@@ -149,8 +169,14 @@ button.addPhoto {
 	width: 205px;
 	height: 115px;
 	background: url('../../../assets/icons/add.png');
-	background-size: 50px 50px;
+	background-size: 40px 40px;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: 3px 1px;
+}
+
+button:focus {
+	outline: none;
 }
 </style>
+
+<style scoped src="@/styles/gallery.css"></style>

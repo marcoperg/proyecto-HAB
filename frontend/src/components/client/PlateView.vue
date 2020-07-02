@@ -8,31 +8,31 @@
 			<figure
 				class="big"
 				v-if="plate.photos.length"
-				:style="{'background-image': `url(${imgUrl + plate.photos[imgSelector].name})`}"
+				:style="{ 'background-image': `url(${imgUrl + plate.photos[imgSelector].name})` }"
 			>
 				<button @click="leftImg()" class="left"></button>
 				<button @click="rightImg()" class="right"></button>
 
-				<p v-show="plate.photos.length">{{imgSelector + 1}} / {{plate.photos.length }}</p>
+				<p v-show="plate.photos.length">{{ imgSelector + 1 }} / {{ plate.photos.length }}</p>
 			</figure>
 
 			<figure class="big" v-if="!plate.photos.length"></figure>
 
-			<h1>{{plate.name}}</h1>
-			<p>{{plate.description}}</p>
+			<h1>{{ plate.name }}</h1>
+			<p>{{ plate.description }}</p>
 
 			<nav>
 				<div>
 					<button @click="decreaseAmmount()" class="number">-</button>
-					<p>{{ammount}}</p>
+					<p>{{ ammount }}</p>
 					<button @click="increaseAmmount" class="number">+</button>
 				</div>
 
 				<button @click="add" class="add">
-					<span v-show="lang==='en'">Add {{ammount}} to cart</span>
-					<span v-show="lang==='es'">Añadir {{ammount}} al carrito</span>
-					<span v-show="lang==='gl'">Añadir {{ammount}} ao carrito</span>
-					<p>{{ammount * plate.prize}} €</p>
+					<span v-show="lang === 'en'">Add {{ ammount }} to cart</span>
+					<span v-show="lang === 'es'">Añadir {{ ammount }} al carrito</span>
+					<span v-show="lang === 'gl'">Añadir {{ ammount }} ao carrito</span>
+					<p>{{ ammount * plate.prize }} €</p>
 				</button>
 			</nav>
 		</main>
@@ -108,10 +108,10 @@ main {
 	position: fixed;
 	top: calc(50% - 25rem);
 	left: calc(50% - 20rem);
+	z-index: 10;
 	background: white;
 	height: auto;
 	width: 40rem;
-	z-index: 10;
 }
 
 h1 {

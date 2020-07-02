@@ -87,7 +87,7 @@
 								<router-link :to="{ name: 'Profile' }">
 									<p v-show="lang === 'en'">Profile</p>
 									<p v-show="lang === 'es'">Perfil</p>
-									<p v-show="lang === 'gl'">Pechar sesión</p>
+									<p v-show="lang === 'gl'">Perfil</p>
 								</router-link>
 							</li>
 
