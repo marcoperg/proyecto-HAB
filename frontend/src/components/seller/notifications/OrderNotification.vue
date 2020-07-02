@@ -4,6 +4,10 @@
 			<h2 v-show="lang === 'en'">Order</h2>
 			<h2 v-show="lang === 'es'">Pedido</h2>
 			<h2 v-show="lang === 'gl'">Pedido</h2>
+			<br />
+			<h2 v-show="lang === 'en'">Table: {{ data.tableNumber }}</h2>
+			<h2 v-show="lang === 'es'">Mesa: {{ data.tableNumber }}</h2>
+			<h2 v-show="lang === 'gl'">Mesa: {{ data.tableNumber }}</h2>
 
 			<ul>
 				<li v-for="plate in data.plates" :key="plate.id">

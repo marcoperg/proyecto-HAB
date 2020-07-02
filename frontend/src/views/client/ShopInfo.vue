@@ -36,16 +36,19 @@
 
 		<loadingspinner v-show="loading" />
 
-		<main v-show="!loading">
+		<main v-if="!loading">
+			<!-- <PHOTOS PANTEL> -->
 			<lightbox :imgs="imgsArray" :visible="visible" :index="index" @hide="visible = false"></lightbox>
 			<ul class="images" v-show="shop.photos.length">
 				<li class="image" v-for="(photo, index) in shop.photos" :key="photo.id">
 					<figure @click="displayPhoto(index)" :style="{ 'background-image': `url(${imgUrl + photo.name})` }"></figure>
 				</li>
 			</ul>
+			<!-- </PHOTOS PANTEL> -->
 
 			<div class="infoPanel">
 				<div>
+					<!-- <CONTACT PANEL> -->
 					<article class="contact">
 						<h2 v-show="lang === 'en'">Contact</h2>
 						<h2 v-show="lang === 'es'">Contacto</h2>
@@ -65,7 +68,9 @@
 							</a>
 						</p>
 					</article>
+					<!-- </CONTACT PANEL> -->
 
+					<!-- <MENU PANEL> -->
 					<router-link class="menu" :to="{ name: 'Menu', params: { lang: lang, id: shop.id } }">
 						<article class="menu">
 							<h2 v-show="lang === 'en'">Menu</h2>
@@ -80,8 +85,10 @@
 							</ul>
 						</article>
 					</router-link>
+					<!-- </MENU PANEL> -->
 				</div>
 
+				<!-- <LOCATION PANEL> -->
 				<article class="location">
 					<h2 v-show="lang === 'en'">Location</h2>
 					<h2 v-show="lang === 'es'">Ubicación</h2>
@@ -89,6 +96,7 @@
 
 					<gmaps-map class="map" :options="mapOptions">
 						<gmaps-marker :visible="visibleMarker" :position="markerPosition" :label="shop.name" />
+						<gmaps-marker :visible="visibleMarker" :position="{ lat: geo.latitude, lng: geo.longitude }" />
 					</gmaps-map>
 
 					<p class="address location">
@@ -109,8 +117,10 @@
 						<span v-show="lang === 'gl'">de ti</span>
 					</p>
 				</article>
+				<!-- </LOCATION PANEL> -->
 
 				<div>
+					<!-- <REVIEWS PANEL> -->
 					<article>
 						<h2 v-show="lang === 'en'">Reviews</h2>
 						<h2 v-show="lang === 'es'">Opiniones</h2>
@@ -126,7 +136,9 @@
 							</p>
 						</div>
 					</article>
+					<!-- </REVIEWS PANEL> -->
 
+					<!-- <ORDER BUTTON> -->
 					<article class="order">
 						<h2 v-show="lang === 'en'">Make an order</h2>
 						<h2 v-show="lang === 'es'">Realizar un pedido</h2>
@@ -138,12 +150,16 @@
 							<span v-show="lang === 'gl'">Realizar un pedido</span>
 						</router-link>
 					</article>
+					<!-- </ORDER BUTTON> -->
 				</div>
 			</div>
+
+			<!-- <REVIEWS BOX> -->
 			<shopreviews :numberOfReviews="numberOfReviews" :reviews="shop.rates" @write="newReview = true" :lang="lang" />
 			<transition name="fade">
 				<newreview v-show="newReview" :id="shop.id" @cancel="newReview = false" :lang="lang" />
 			</transition>
+			<!-- </REVIEWS BOX> -->
 		</main>
 		<footercustom />
 	</div>
@@ -192,7 +208,7 @@ export default {
 			imgUrl: process.env.VUE_APP_BACKEND_URL + '/uploads/',
 			mapOptions: {
 				center: { lat: 0, lng: 0 },
-				zoom: 13
+				zoom: 12
 			},
 			markerPosition: { lat: 0, lng: 0 },
 
@@ -272,6 +288,8 @@ export default {
 		this.markerPosition.lng = this.shop.longitude;
 
 		this.visibleMarker = true;
+		this.mapOptions.center.lat = this.geo.latitude;
+		this.mapOptions.center.lng = this.geo.longitude;
 
 		this.loading = false;
 	}

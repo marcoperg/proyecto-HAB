@@ -2,8 +2,11 @@
 	<div>
 		<h2 v-show="lang === 'en'">Call to waiter</h2>
 		<h2 v-show="lang === 'es'">Llamada al camarero</h2>
-		<h2 v-show="lang === 'gl'">Llamada al camarero</h2>
-		<p>Table: {{ data.tableNumber }}</p>
+		<h2 v-show="lang === 'gl'">Chamada al camarero</h2>
+
+		<p v-show="lang === 'en'">Table: {{ data.tableNumber }}</p>
+		<p v-show="lang === 'es'">Mesa: {{ data.tableNumber }}</p>
+		<p v-show="lang === 'gl'">Mesa: {{ data.tableNumber }}</p>
 	</div>
 </template>
 
@@ -26,7 +29,7 @@ h2 {
 div {
 	padding: 0.5rem;
 	margin: 0 auto;
-	width: 15rem;
+	width: 18rem;
 	border: 1px solid black;
 	border-radius: 0.4rem;
 }

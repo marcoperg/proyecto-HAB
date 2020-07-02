@@ -6,8 +6,8 @@
 			<ul>
 				<li v-for="(shop, index) in shops" :key="shop.id">
 					<div>
-						<h1>· {{ shop.name }}:</h1>
-						<button @click="toggleMenu(index)" :class="{ active: showMenu[index] }">^</button>
+						<h1>· {{ shop.name }}</h1>
+						<button @click="toggleMenu(index)" :class="{ active: showMenu[index] }"></button>
 					</div>
 
 					<div v-show="showMenu[index]">
@@ -272,6 +272,7 @@ export default {
 	position: relative;
 	min-height: 100vh;
 	padding-bottom: 5rem;
+	color: black;
 }
 
 main {
@@ -310,13 +311,19 @@ button {
 
 li div:first-child {
 	display: flex;
+	min-width: 200px;
 }
 
 li div:first-child button {
+	margin: 0 0 0 1rem;
 	font-size: 2rem;
 	background: 0;
 	width: 2rem;
 	cursor: pointer;
+	background-image: url('../../assets/icons/arrow.png');
+	background-size: 25px;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 li div:first-child button:focus {

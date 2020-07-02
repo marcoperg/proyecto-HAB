@@ -6,7 +6,7 @@
 			<h1 v-show="lang === 'es'">Carrito</h1>
 			<h1 v-show="lang === 'gl'">Carrito</h1>
 
-			<router-link :to="{ name: 'Home' }" v-show="cart.length === 0" :class="{ error: errorIn === 'empty' }">
+			<router-link :to="{ name: 'Search' }" v-show="cart.length === 0" :class="{ error: errorIn === 'empty' }">
 				<h1 v-show="lang === 'en'">Add items to cart</h1>
 				<h1 v-show="lang === 'es'">Añade platos al carro</h1>
 				<h1 v-show="lang === 'gl'">Añade pratos ao carrito</h1>
@@ -14,7 +14,7 @@
 		</header>
 
 		<header v-if="cart === null">
-			<router-link :to="{ name: 'Home' }">
+			<router-link :to="{ name: 'Search' }">
 				<h1 v-show="lang === 'en'">Add items to cart</h1>
 				<h1 v-show="lang === 'es'">Añade platos al carro</h1>
 				<h1 v-show="lang === 'gl'">Añade pratos ao carrito</h1>

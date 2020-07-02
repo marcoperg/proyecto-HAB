@@ -18,7 +18,7 @@
 
 						<span v-show="lang === 'en'">Call the waiter</span>
 						<span v-show="lang === 'es'">Llamar al camarero</span>
-						<span v-show="lang === 'gl'">LLamar ao camarero</span>
+						<span v-show="lang === 'gl'">Chamar ao camarero</span>
 					</button>
 				</li>
 
