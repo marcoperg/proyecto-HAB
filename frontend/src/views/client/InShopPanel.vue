@@ -1,6 +1,11 @@
 <template>
 	<div class="panel">
+		<vue-headful v-if="lang === 'en'" title="Request Panel | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'es'" title="Panel de peticiones | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'gl'" title="Panel de peticiónss | Lastorder" description="Home page of hackamarket" />
+
 		<menucustom />
+
 		<main>
 			<nav>
 				<label for="table">

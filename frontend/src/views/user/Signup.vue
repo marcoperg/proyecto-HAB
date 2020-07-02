@@ -1,6 +1,10 @@
 <template>
 	<!-- This div has 3 analogous parts, english, spanish and galician -->
 	<div class="authForm">
+		<vue-headful v-if="lang === 'en'" title="Sign up | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'es'" title="Registro | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'gl'" title="Registro | Lastorder" description="Home page of hackamarket" />
+
 		<!-- English signup html -->
 		<div class="en" v-if="lang === 'en'">
 			<h1>Sign up</h1>
@@ -9,19 +13,19 @@
 				<img src="@/assets/icons/back.png" alt="Logo" />
 			</router-link>
 
-			<p class="error">{{error}}</p>
+			<p class="error">{{ error }}</p>
 
 			<form @submit.prevent>
 				<!-- BASIC INFO -->
 				<fieldset>
 					<h2>· Basic information</h2>
-					<div class="select" :class="{errorHere: errorIn === 'role'}">
-						<button @click="selectClient()" class="option" :class="{selected: role==='client'}">
+					<div class="select" :class="{ errorHere: errorIn === 'role' }">
+						<button @click="selectClient()" class="option" :class="{ selected: role === 'client' }">
 							<img src="@/assets/icons/user.png" alt="User" />
 							<p>Client</p>
 						</button>
 
-						<button @click="selectSeller()" class="option" :class="{selected: role==='seller'}">
+						<button @click="selectSeller()" class="option" :class="{ selected: role === 'seller' }">
 							<img src="@/assets/icons/seller.png" alt="User" />
 							<p>Seller</p>
 						</button>
@@ -34,7 +38,7 @@
 						id="username"
 						name="username"
 						placeholder="Type your username..."
-						:class="{errorHere: errorIn === 'username'}"
+						:class="{ errorHere: errorIn === 'username' }"
 					/>
 
 					<label class="required" for="email">Email:</label>
@@ -44,7 +48,7 @@
 						id="email"
 						name="email"
 						placeholder="Type your email..."
-						:class="{errorHere: errorIn === 'email'}"
+						:class="{ errorHere: errorIn === 'email' }"
 					/>
 
 					<label class="required" for="confirmEmail">Confirm your email:</label>
@@ -54,7 +58,7 @@
 						id="confirmEmail"
 						name="confirmEmail"
 						placeholder="Type your email again..."
-						:class="{errorHere: errorIn === 'email'}"
+						:class="{ errorHere: errorIn === 'email' }"
 					/>
 
 					<label class="required" for="password">Password:</label>
@@ -64,7 +68,7 @@
 						id="password"
 						name="password"
 						placeholder="Type your password..."
-						:class="{errorHere: errorIn === 'password'}"
+						:class="{ errorHere: errorIn === 'password' }"
 					/>
 				</fieldset>
 
@@ -82,22 +86,10 @@
 					/>
 
 					<label for="lastName">Last name:</label>
-					<input
-						v-model="lastName"
-						type="text"
-						id="lastName"
-						name="lastName"
-						placeholder="Type your last name..."
-					/>
+					<input v-model="lastName" type="text" id="lastName" name="lastName" placeholder="Type your last name..." />
 
 					<label for="tlf">Telephone:</label>
-					<input
-						v-model="tlf"
-						type="tel"
-						id="tlf"
-						name="tlf"
-						placeholder="Type your telephone number..."
-					/>
+					<input v-model="tlf" type="tel" id="tlf" name="tlf" placeholder="Type your telephone number..." />
 
 					<label for="birthday">Birthday:</label>
 					<input v-model="birthday" type="date" id="birthday" name="birthday" />
@@ -118,19 +110,19 @@
 				<img src="@/assets/icons/back.png" alt="Logo" />
 			</router-link>
 
-			<p class="error">{{error}}</p>
+			<p class="error">{{ error }}</p>
 
 			<form @submit.prevent>
 				<!-- BASIC INFO -->
 				<fieldset>
 					<h2>· Información básica</h2>
-					<div class="select" :class="{errorHere: errorIn === 'role'}">
-						<button @click="selectClient()" class="option" :class="{selected: role==='client'}">
+					<div class="select" :class="{ errorHere: errorIn === 'role' }">
+						<button @click="selectClient()" class="option" :class="{ selected: role === 'client' }">
 							<img src="@/assets/icons/user.png" alt="User" />
 							<p>Cliente</p>
 						</button>
 
-						<button @click="selectSeller()" class="option" :class="{selected: role==='seller'}">
+						<button @click="selectSeller()" class="option" :class="{ selected: role === 'seller' }">
 							<img src="@/assets/icons/seller.png" alt="User" />
 							<p>Vendedor</p>
 						</button>
@@ -143,7 +135,7 @@
 						id="username"
 						name="username"
 						placeholder="Ingresa tu nombre de usuario..."
-						:class="{errorHere: errorIn === 'username'}"
+						:class="{ errorHere: errorIn === 'username' }"
 					/>
 
 					<label class="required" for="email">Email:</label>
@@ -153,7 +145,7 @@
 						id="email"
 						name="email"
 						placeholder="Ingresa tu email..."
-						:class="{errorHere: errorIn === 'email'}"
+						:class="{ errorHere: errorIn === 'email' }"
 					/>
 
 					<label class="required" for="confirmEmail">Confirma tu email:</label>
@@ -163,7 +155,7 @@
 						id="confirmEmail"
 						name="confirmEmail"
 						placeholder="Ingresa tu email de nuevo..."
-						:class="{errorHere: errorIn === 'email'}"
+						:class="{ errorHere: errorIn === 'email' }"
 					/>
 
 					<label class="required" for="password">Contraseña:</label>
@@ -173,7 +165,7 @@
 						id="password"
 						name="password"
 						placeholder="Ingresa tu contraseña..."
-						:class="{errorHere: errorIn === 'password'}"
+						:class="{ errorHere: errorIn === 'password' }"
 					/>
 				</fieldset>
 
@@ -182,31 +174,13 @@
 					<h2>· Información personal</h2>
 
 					<label for="firstName">Nombre:</label>
-					<input
-						v-model="firstName"
-						type="text"
-						id="firstName"
-						name="firstName"
-						placeholder="Ingresa tu nombre..."
-					/>
+					<input v-model="firstName" type="text" id="firstName" name="firstName" placeholder="Ingresa tu nombre..." />
 
 					<label for="lastName">Apellidos:</label>
-					<input
-						v-model="lastName"
-						type="text"
-						id="lastName"
-						name="lastName"
-						placeholder="Ingresa tus apellidos..."
-					/>
+					<input v-model="lastName" type="text" id="lastName" name="lastName" placeholder="Ingresa tus apellidos..." />
 
 					<label for="tlf">Teléfono:</label>
-					<input
-						v-model="tlf"
-						type="tel"
-						id="tlf"
-						name="tlf"
-						placeholder="Ingresa tu número de teléfono..."
-					/>
+					<input v-model="tlf" type="tel" id="tlf" name="tlf" placeholder="Ingresa tu número de teléfono..." />
 
 					<label for="birthday">Fecha de nacimiento:</label>
 					<input v-model="birthday" type="date" id="birthday" name="birthday" />
@@ -227,19 +201,19 @@
 				<img src="@/assets/icons/back.png" alt="Logo" />
 			</router-link>
 
-			<p class="error">{{error}}</p>
+			<p class="error">{{ error }}</p>
 
 			<form @submit.prevent>
 				<!-- BASIC INFO -->
 				<fieldset>
 					<h2>· Información Básica</h2>
-					<div class="select" :class="{errorHere: errorIn === 'role'}">
-						<button @click="selectClient()" class="option" :class="{selected: role==='client'}">
+					<div class="select" :class="{ errorHere: errorIn === 'role' }">
+						<button @click="selectClient()" class="option" :class="{ selected: role === 'client' }">
 							<img src="@/assets/icons/user.png" alt="User" />
 							<p>Cliente</p>
 						</button>
 
-						<button @click="selectSeller()" class="option" :class="{selected: role==='seller'}">
+						<button @click="selectSeller()" class="option" :class="{ selected: role === 'seller' }">
 							<img src="@/assets/icons/seller.png" alt="User" />
 							<p>Vendedor</p>
 						</button>
@@ -252,7 +226,7 @@
 						id="username"
 						name="username"
 						placeholder="Ingresa o teu nome de usuario..."
-						:class="{errorHere: errorIn === 'username'}"
+						:class="{ errorHere: errorIn === 'username' }"
 					/>
 
 					<label class="required" for="email">Email:</label>
@@ -262,7 +236,7 @@
 						id="email"
 						name="email"
 						placeholder="Type your email..."
-						:class="{errorHere: errorIn === 'email'}"
+						:class="{ errorHere: errorIn === 'email' }"
 					/>
 
 					<label class="required" for="confirmEmail">Confirma o teu email:</label>
@@ -272,7 +246,7 @@
 						id="confirmEmail"
 						name="confirmEmail"
 						placeholder="Ingresa o teu email de novo..."
-						:class="{errorHere: errorIn === 'email'}"
+						:class="{ errorHere: errorIn === 'email' }"
 					/>
 
 					<label class="required" for="password">Contrasinal:</label>
@@ -282,7 +256,7 @@
 						id="password"
 						name="password"
 						placeholder="Ingresa o teu contraseinal..."
-						:class="{errorHere: errorIn === 'password'}"
+						:class="{ errorHere: errorIn === 'password' }"
 					/>
 				</fieldset>
 
@@ -291,31 +265,13 @@
 					<h2>· Información personal</h2>
 
 					<label for="firstName">Nome:</label>
-					<input
-						v-model="firstName"
-						type="text"
-						id="firstName"
-						name="firstName"
-						placeholder="Ingresa o teu nome..."
-					/>
+					<input v-model="firstName" type="text" id="firstName" name="firstName" placeholder="Ingresa o teu nome..." />
 
 					<label for="lastName">Apellido:</label>
-					<input
-						v-model="lastName"
-						type="text"
-						id="lastName"
-						name="lastName"
-						placeholder="Ingresa o teu apellido..."
-					/>
+					<input v-model="lastName" type="text" id="lastName" name="lastName" placeholder="Ingresa o teu apellido..." />
 
 					<label for="tlf">Teléfono:</label>
-					<input
-						v-model="tlf"
-						type="tel"
-						id="tlf"
-						name="tlf"
-						placeholder="Ingresa o teu número de teléfono..."
-					/>
+					<input v-model="tlf" type="tel" id="tlf" name="tlf" placeholder="Ingresa o teu número de teléfono..." />
 
 					<label for="birthday">Data de nacemento:</label>
 					<input v-model="birthday" type="date" id="birthday" name="birthday" />

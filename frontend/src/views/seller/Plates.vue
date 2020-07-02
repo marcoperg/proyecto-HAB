@@ -1,6 +1,11 @@
 <template>
 	<div class="plates">
+		<vue-headful v-if="lang === 'en'" title="Plates and menu | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'es'" title="Platos y menús | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'gl'" title="Pratos e menús | Lastorder" description="Home page of hackamarket" />
+
 		<menucustom />
+
 		<sellermenu />
 		<main>
 			<ul>

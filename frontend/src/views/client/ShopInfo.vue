@@ -1,5 +1,7 @@
 <template>
 	<div class="shopInfo">
+		<vue-headful :title="shop.name + ' | Lastorder'" description="Home page of hackamarket" />
+
 		<menucustom />
 
 		<header>

@@ -1,6 +1,11 @@
 <template>
 	<div class="cart">
+		<vue-headful v-if="lang === 'en'" title="Cart | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'es'" title="Carrito | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'gl'" title="Carrito | Lastorder" description="Home page of hackamarket" />
+
 		<menucustom />
+
 		<header v-if="cart !== null">
 			<h1 v-show="lang === 'en'">Cart</h1>
 			<h1 v-show="lang === 'es'">Carrito</h1>

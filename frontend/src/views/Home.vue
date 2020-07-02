@@ -1,5 +1,7 @@
 <template>
 	<div class="home">
+		<vue-headful title="Home | Lastorder" description="Home page of hackamarket" />
+
 		<menucustom />
 		<header>
 			<!-- <UPPER TEXT (one tittle for language)> -->

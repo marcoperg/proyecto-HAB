@@ -1,11 +1,15 @@
 <template>
 	<div class="notifications">
+		<vue-headful v-if="lang === 'en'" title="Notifications | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'es'" title="Notificaciones | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'gl'" title="Notificacións | Lastorder" description="Home page of hackamarket" />
+
 		<menucustom />
 
 		<main>
 			<h1 v-show="lang === 'en'">Notifications of shop #{{ shopId }}</h1>
-			<h1 v-show="lang === 'es'">Pedido</h1>
-			<h1 v-show="lang === 'gl'">Pedido</h1>
+			<h1 v-show="lang === 'es'">Notificaciones</h1>
+			<h1 v-show="lang === 'gl'">Notificacións</h1>
 
 			<ul>
 				<li v-for="msg in msgs" :key="msg.id">

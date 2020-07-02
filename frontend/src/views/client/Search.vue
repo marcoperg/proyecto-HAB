@@ -1,6 +1,11 @@
 <template>
 	<div class="home">
+		<vue-headful v-if="lang === 'en'" title="Search | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'es'" title="Búsqueda | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'gl'" title="Búsqueda | Lastorder" description="Home page of hackamarket" />
+
 		<menucustom />
+
 		<main>
 			<!-- <UPPER TEXT (one tittle for language)> -->
 			<h1 v-show="lang === 'en'">Search restaurants in your region</h1>

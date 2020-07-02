@@ -1,6 +1,10 @@
 <template>
 	<!-- This div has 3 analogous parts, english, spanish and galician -->
 	<div class="authForm">
+		<vue-headful v-if="lang === 'en'" title="Login | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'es'" title="Inciar sesión | Lastorder" description="Home page of hackamarket" />
+		<vue-headful v-if="lang === 'gl'" title="Iniciar sesión | Lastorder" description="Home page of hackamarket" />
+
 		<!-- English login html -->
 		<div class="en" v-if="lang === 'en'">
 			<h1>Login</h1>
@@ -9,7 +13,7 @@
 				<img src="@/assets/icons/back.png" alt="Logo" />
 			</router-link>
 
-			<p class="error">{{error}}</p>
+			<p class="error">{{ error }}</p>
 
 			<form @submit.prevent>
 				<label for="username">Username:</label>
@@ -22,13 +26,7 @@
 				/>
 
 				<label for="password">Password:</label>
-				<input
-					v-model="password"
-					type="password"
-					id="password"
-					name="password"
-					placeholder="Type your password..."
-				/>
+				<input v-model="password" type="password" id="password" name="password" placeholder="Type your password..." />
 
 				<button @click="login()">Log in</button>
 			</form>
@@ -46,7 +44,7 @@
 				<img src="@/assets/icons/back.png" alt="Logo" />
 			</router-link>
 
-			<p class="error">{{error}}</p>
+			<p class="error">{{ error }}</p>
 
 			<form @submit.prevent>
 				<label for="username">Nombre de usuario:</label>
@@ -83,7 +81,7 @@
 				<img src="@/assets/icons/back.png" alt="Logo" />
 			</router-link>
 
-			<p class="error">{{error}}</p>
+			<p class="error">{{ error }}</p>
 
 			<form @submit.prevent>
 				<label for="username">Nome de usuario:</label>
@@ -209,6 +207,5 @@ export default {
 	}
 };
 </script>
-
 
 <style scoped src="@/styles/informationForms.css"></style>

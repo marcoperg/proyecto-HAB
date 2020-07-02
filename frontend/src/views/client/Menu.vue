@@ -1,6 +1,9 @@
 <template>
 	<div class="menu">
+		<vue-headful title="Menu | Lastorder" description="Home page of hackamarket" />
+
 		<menucustom />
+
 		<header>
 			<h1>Menu</h1>
 			<router-link :to="{ name: 'Cart', params: { lang: lang } }" :class="{ empty: !cart.size }">
