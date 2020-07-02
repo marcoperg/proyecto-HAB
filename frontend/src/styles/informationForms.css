@@ -52,6 +52,8 @@ button {
 	width: 20rem;
 	height: 3rem;
 	background: #6b6b6b;
+	background: #699b61;
+	font-weight: bolder;
 	border: 0;
 	border-radius: 1rem;
 }
