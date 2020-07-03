@@ -195,7 +195,7 @@ async function validateUser(req, res, next) {
 				400
 			);
 		}
-		res.send({ status: "ok", message: "Email confirmed" });
+		res.redirect(process.env.FRONTEND_URL + "#/en/login");
 	} catch (error) {
 		next(error);
 	} finally {
