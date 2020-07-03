@@ -64,9 +64,19 @@
 					<p v-show="lang === 'es' || lang === 'gl'">Iniciar Sesión</p>
 				</router-link>
 
-				<router-link v-show="userData.logged" class="login" :to="{ name: 'Cart', params: { lang: lang } }">
+				<router-link v-show="userData.role === 'client'" class="login" :to="{ name: 'Cart', params: { lang: lang } }">
 					<p v-show="lang === 'en'">Cart</p>
 					<p v-show="lang === 'es' || lang === 'gl'">Carrito</p>
+				</router-link>
+
+				<router-link
+					v-show="userData.role === 'seller'"
+					class="login"
+					:to="{ name: 'SellerShops', params: { lang: lang } }"
+				>
+					<p v-show="lang === 'en'">My restaurants</p>
+					<p v-show="lang === 'es'">Mis Restaurantes</p>
+					<p v-show="lang === 'gl'">Os meus restaurantes</p>
 				</router-link>
 
 				<div
