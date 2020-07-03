@@ -25,6 +25,20 @@
 					v-show="lang === 'es' || lang === 'gl'"
 				/>
 			</form>
+
+			<div class="modeselector">
+				<button @click="changeMode('name')" class="option" :class="{ selected: searchMode === 'name' }">
+					<p v-show="lang === 'en'">Name</p>
+					<p v-show="lang === 'es'">Nombre</p>
+					<p v-show="lang === 'gl'">Nome</p>
+				</button>
+
+				<button @click="changeMode('city')" class="option" :class="{ selected: searchMode === 'city' }">
+					<p v-show="lang === 'en'">City</p>
+					<p v-show="lang === 'es'">Ciudad</p>
+					<p v-show="lang === 'gl'">Cidade</p>
+				</button>
+			</div>
 			<!-- </SEARCH FORM> -->
 
 			<loadingspinner v-show="loading" />
@@ -74,27 +88,29 @@ export default {
 	computed: {
 		lang() {
 			return this.$route.params.lang;
+		},
+		searchMode() {
+			// Must be 'name' or 'city'
+			return this.$route.query.m;
 		}
 	},
 	methods: {
 		async search() {
 			try {
 				if (this.$route.query.q !== this.searchQuery) {
-					this.$router.replace({ query: { q: this.searchQuery } });
+					this.$router.replace({ query: { q: this.searchQuery, m: this.searchMode } });
 				}
 
 				this.searchResults = [];
 				const url = process.env.VUE_APP_BACKEND_URL + '/shops';
 
-				const results = await axios.get(url + '?name=' + this.searchQuery);
+				const results = await axios.get(url + `?${this.searchMode}=` + this.searchQuery);
 
 				for (const shop of results.data.data) {
 					const extraInfo = await axios.get(url + '/' + shop.id);
 
 					this.searchResults.push(extraInfo.data.data);
 				}
-
-				console.log(this.searchResults);
 			} catch (error) {
 				console.log(error.response);
 			}
@@ -102,6 +118,11 @@ export default {
 
 		displayMenu(id) {
 			console.log(id);
+		},
+
+		changeMode(mode) {
+			this.$router.replace({ query: { q: this.searchQuery, m: mode } });
+			this.search();
 		}
 	},
 
@@ -207,36 +228,49 @@ li {
 }
 /* </Side nav styles> */
 
-/* <Title with middle lines styles> */
-h2 {
-	color: black;
-	margin: 3rem auto 0;
-	overflow: hidden;
-	text-align: center;
-	width: 50rem;
+/* <Mode selector styles> */
+.modeselector {
+	display: flex;
+	justify-content: center;
+	margin: 0 0 1rem;
+}
+button {
+	cursor: pointer;
+	font-size: 1rem;
+	margin: 4rem auto;
+	padding: 0 4rem;
+	width: 20rem;
+	height: 3rem;
+	background: #6b6b6b;
+	background: #699b61;
+	font-weight: bolder;
+	border: 0;
+	border-radius: 1rem;
 }
 
-h2:before,
-h2:after {
-	background-color: #000;
-	content: '';
-	display: inline-block;
-	height: 1px;
-	position: relative;
-	vertical-align: middle;
-	width: 50%;
-
-	z-index: -1;
+button:focus {
+	outline: none;
 }
 
-h2:before {
-	right: 0.5em;
-	margin-left: -50%;
+.option {
+	padding: 0 0.5rem;
+	margin: 0 1rem;
+	width: 136px;
+	height: 50px;
+	background: #dedede;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
-h2:after {
-	left: 0.5em;
-	margin-right: -50%;
+.option img {
+	width: 43px;
+	height: 42px;
 }
-/* </Title with middle lines styles> */
+
+.option.selected {
+	border: 2px solid black;
+	background: #c4c4c4;
+}
+/* </Mode selector styles> */
 </style>

@@ -30,7 +30,9 @@
 							<p>Seller</p>
 						</button>
 					</div>
+				</fieldset>
 
+				<fieldset>
 					<label class="required" for="username">Username:</label>
 					<input
 						v-model="username"
@@ -515,8 +517,6 @@ export default {
 			this.city = '';
 			this.state = '';
 			this.country = '';
-			this.error = '';
-			this.errorIn = '';
 		}
 	}
 };

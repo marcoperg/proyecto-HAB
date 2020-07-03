@@ -73,6 +73,7 @@ export default {
 	methods: {
 		callWaiter() {
 			this.connection.send(JSON.stringify({ type: 'waiter', shopId: this.shopId, tableNumber: this.tableNumber }));
+			console.log(JSON.stringify({ type: 'waiter', shopId: this.shopId, tableNumber: this.tableNumber }));
 
 			let title = '';
 

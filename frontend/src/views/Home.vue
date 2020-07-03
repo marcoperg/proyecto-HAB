@@ -34,7 +34,14 @@
 					placeholder="Buscar restaurante"
 					v-if="lang === 'es' || lang === 'gl'"
 				/>
-				<div class="searchRecomendations" v-show="searchFocus"></div>
+				<div class="searchRecomendations" v-show="searchFocus">
+					<button @click="nearMe()">
+						<img src="@/assets/icons/pin.png" alt="Pin location" />
+						<p v-show="lang === 'en'">Near me</p>
+						<p v-show="lang === 'es'">Cerca de mí</p>
+						<p v-show="lang === 'gl'">Cerca de min</p>
+					</button>
+				</div>
 			</form>
 
 			<div class="background" @click="searchFocus = false" v-show="searchFocus"></div>
@@ -92,6 +99,9 @@
 </template>
 
 <script>
+// Import modules
+import axios from 'axios';
+
 // Components
 import menucustom from '@/components/MenuCustom.vue';
 import footercustom from '@/components/FooterCustom.vue';
@@ -115,7 +125,26 @@ export default {
 	},
 	methods: {
 		sumbitSearch() {
-			this.$router.push({ name: 'Search', query: { q: this.search } });
+			this.$router.push({ name: 'Search', query: { q: this.search, m: 'name' } });
+		},
+
+		async nearMe() {
+			let geo = null;
+
+			navigator.geolocation.getCurrentPosition(async (location) => {
+				geo = location.coords;
+				const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${geo.latitude},${geo.longitude}&sensor=true&key=${process.env.VUE_APP_GOOGLE_API_KEY}`;
+
+				const city = (await axios.get(url)).data.results[4].formatted_address.split(',')[0];
+
+				this.$router.push({
+					name: 'Search',
+					query: {
+						q: city,
+						m: 'city'
+					}
+				});
+			});
 		}
 	}
 };
@@ -139,12 +168,11 @@ h1 {
 }
 
 header {
-	padding: 9rem 0;
-	height: 30rem;
+	height: 20rem;
 	background: #699b61;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 /* <SEARCH FORM STYLES> */
@@ -199,6 +227,33 @@ input:focus {
 	background: white;
 	height: 10rem;
 	width: 40rem;
+}
+
+.searchRecomendations button {
+	background: 0;
+	border: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 0 2rem;
+	width: 100%;
+	height: 3rem;
+	font-size: 1.2rem;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.searchRecomendations button:hover {
+	background: rgba(129, 129, 129, 0.2);
+}
+
+.searchRecomendations button:focus {
+	outline: none;
+}
+
+.searchRecomendations button img {
+	width: 25px;
+	margin: 0 1rem 0 0;
 }
 /* </SEARCH FORM STYLES> */
 
@@ -268,8 +323,17 @@ h2:after {
 		width: 90%;
 	}
 
+	form {
+		width: 100%;
+	}
+
 	input {
 		width: 80%;
+	}
+
+	.searchRecomendations {
+		width: 80%;
+		left: 10%;
 	}
 
 	ul {
