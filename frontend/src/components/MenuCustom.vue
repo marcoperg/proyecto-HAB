@@ -64,13 +64,17 @@
 					<p v-show="lang === 'es' || lang === 'gl'">Iniciar Sesión</p>
 				</router-link>
 
-				<router-link v-show="userData.role === 'client'" class="login" :to="{ name: 'Cart', params: { lang: lang } }">
+				<router-link
+					v-show="userData.role === 'client' || userData.role === 'admin'"
+					class="login"
+					:to="{ name: 'Cart', params: { lang: lang } }"
+				>
 					<p v-show="lang === 'en'">Cart</p>
 					<p v-show="lang === 'es' || lang === 'gl'">Carrito</p>
 				</router-link>
 
 				<router-link
-					v-show="userData.role === 'seller'"
+					v-show="userData.role === 'seller' || userData.role === 'admin'"
 					class="login"
 					:to="{ name: 'SellerShops', params: { lang: lang } }"
 				>
@@ -101,7 +105,7 @@
 								</router-link>
 							</li>
 
-							<li class="linkButton" v-show="userData.role === 'seller'">
+							<li class="linkButton" v-show="userData.role === 'seller' || userData.role === 'admin'">
 								<router-link :to="{ name: 'SellerShops' }">
 									<p v-show="lang === 'en'">My restaurants</p>
 									<p v-show="lang === 'es'">Mis Restaurantes</p>
@@ -109,7 +113,7 @@
 								</router-link>
 							</li>
 
-							<li class="linkButton" v-show="userData.role === 'seller'">
+							<li class="linkButton" v-show="userData.role === 'seller' || userData.role === 'admin'">
 								<router-link :to="{ name: 'SellerPlates' }">
 									<p v-show="lang === 'en'">My menus</p>
 									<p v-show="lang === 'es'">Mis menús</p>

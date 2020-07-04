@@ -41,7 +41,7 @@ export default {
 <style scoped>
 main {
 	margin: 1rem auto;
-	width: 70%;
+	width: 90%;
 	border-radius: 0.4rem;
 	border: 1px solid black;
 }

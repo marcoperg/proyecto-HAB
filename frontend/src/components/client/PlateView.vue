@@ -32,7 +32,7 @@
 					<span v-show="lang === 'en'">Add {{ ammount }} to cart</span>
 					<span v-show="lang === 'es'">Añadir {{ ammount }} al carrito</span>
 					<span v-show="lang === 'gl'">Añadir {{ ammount }} ao carrito</span>
-					<p>{{ ammount * plate.prize }} €</p>
+					<p>{{ Math.round((ammount * plate.prize + Number.EPSILON) * 100) / 100 }} €</p>
 				</button>
 			</nav>
 		</main>
@@ -148,7 +148,7 @@ button {
 }
 
 button span {
-	width: 350px;
+	width: 340px;
 }
 
 button.number {

@@ -8,15 +8,33 @@
 
 		<main>
 			<h1 v-show="lang === 'en'">Notifications of shop #{{ shopId }}</h1>
-			<h1 v-show="lang === 'es'">Notificaciones</h1>
-			<h1 v-show="lang === 'gl'">Notificacións</h1>
+			<h1 v-show="lang === 'es'">Notificaciones de la tienda #{{ shopId }}</h1>
+			<h1 v-show="lang === 'gl'">Notificacións da tenda #{{ shopId }}</h1>
 
-			<ul>
-				<li v-for="msg in msgs" :key="msg.id">
-					<ordernotification v-if="msg.type === 'order'" :data="msg" :lang="lang" />
-					<waiternotification v-if="msg.type === 'waiter'" :data="msg" :lang="lang" />
-				</li>
-			</ul>
+			<div class="notificationscolumns">
+				<div class="ordernotifications">
+					<h2 v-show="lang === 'en'">Orders</h2>
+					<h2 v-show="lang === 'es'">Pedidos</h2>
+					<h2 v-show="lang === 'gl'">Pedidos</h2>
+
+					<ul>
+						<li v-for="msg in msgs" :key="msg.id">
+							<ordernotification v-if="msg.type === 'order'" :data="msg" :lang="lang" />
+						</li>
+					</ul>
+				</div>
+
+				<div class="waiternotifications">
+					<h2 v-show="lang === 'en'">Waiter calls from tables</h2>
+					<h2 v-show="lang === 'es'">Llamadas al camarero desde las mesas</h2>
+					<h2 v-show="lang === 'gl'">Chamadas ao camareiro dende las mesas</h2>
+					<ul>
+						<li v-for="msg in msgs" :key="msg.id">
+							<waiternotification v-if="msg.type === 'waiter'" :data="msg" :lang="lang" />
+						</li>
+					</ul>
+				</div>
+			</div>
 		</main>
 
 		<footercustom />
@@ -103,7 +121,23 @@ h1 {
 	margin: 1rem;
 }
 
+ul {
+	list-style: none;
+	width: 50vw;
+}
+
 li {
 	margin: 2rem 0;
+}
+
+.notificationscolumns {
+	margin-top: 2rem;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.notificationscolumns div {
+	position: relative;
+	min-height: 100%;
 }
 </style>
