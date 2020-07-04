@@ -157,7 +157,7 @@
 			</div>
 
 			<!-- <REVIEWS BOX> -->
-			<shopreviews :numberOfReviews="numberOfReviews" :reviews="shop.rates" @write="newReview = true" :lang="lang" />
+			<shopreviews :numberOfReviews="numberOfReviews" :reviews="shop.rates" @write="postReview()" :lang="lang" />
 			<transition name="fade">
 				<newreview v-show="newReview" :id="shop.id" @cancel="newReview = false" :lang="lang" />
 			</transition>
@@ -168,6 +168,9 @@
 </template>
 
 <script>
+// Import auth functions
+import { isLoggedIn } from '../../auth';
+
 // Import modules
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -247,6 +250,15 @@ export default {
 			const menu = await axios.get(url);
 
 			return menu.data.data;
+		},
+
+		// Check if user logged
+		postReview() {
+			if (isLoggedIn().role !== 'client' && isLoggedIn().role !== 'admin') {
+				this.$router.push({ name: 'Login', params: { lang: this.lang } });
+			} else {
+				this.newReview = true;
+			}
 		},
 
 		// AUXILIARY FUNCTIONS
