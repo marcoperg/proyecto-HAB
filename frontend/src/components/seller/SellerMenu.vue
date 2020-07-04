@@ -29,7 +29,7 @@ export default {
 .sellermenu {
 	width: 100%;
 	min-height: 3rem;
-	background: #c4c4c4;
+	background: #6d9a73;
 
 	box-shadow: 0.2px 0.2px 0.2px #8b8b8b;
 
@@ -63,7 +63,8 @@ export default {
 }
 
 .sellermenu a.router-link-exact-active {
-	background: #7a7a7a;
+	background: #54805a;
+	color: white;
 }
 
 @media (max-width: 600px) {

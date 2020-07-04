@@ -262,7 +262,7 @@ button {
 	height: 2.5rem;
 	border: 0;
 	border-radius: 1rem;
-	background: #c4c4c4;
+	background: #9dc48f;
 
 	cursor: pointer;
 }

@@ -16,21 +16,16 @@
 				<button @click="addPhoto(shop.id)" class="addPhoto"></button>
 			</figure>
 
-			<!-- <figure>
-				<div v-for="photo in shop.photos" :key="photo.id">
-					<img :src="imgUrl + photo.name" alt="Shop picture" />
-				</div>
-				<button @click="addPhoto(shop.id)" class="addPhoto"></button>
-			</figure> -->
+			<div class="text">
+				<h1>{{ shop.name }}</h1>
 
-			<h1>{{ shop.name }}</h1>
+				<p>{{ shop.description }}</p>
 
-			<p>{{ shop.description }}</p>
-
-			<p>{{ shop.line1 }} {{ shop.line2 }}, {{ shop.city }} {{ shop.state }}, {{ shop.country }}</p>
+				<p>{{ shop.line1 }} {{ shop.line2 }}, {{ shop.city }} {{ shop.state }}, {{ shop.country }}</p>
+			</div>
 
 			<nav>
-				<button @click="remove(shop.id)">
+				<button @click="remove(shop.id)" class="remove">
 					<p v-show="lang === 'en'">Remove</p>
 					<p v-show="lang === 'es'">Eliminar</p>
 					<p v-show="lang === 'gl'">Eliminar</p>
@@ -108,34 +103,25 @@ ul {
 li {
 	padding: 1rem;
 	margin: 1rem;
-	/* background: #c4c4c4; */
 	background: #54805a;
 
-	min-height: 450px;
-	width: 265px;
+	width: 500px;
 	border-radius: 1.5rem;
+	display: grid;
+	grid-template-columns: auto 1fr;
 }
 
 li figure {
 	width: 205px;
 	height: 130px;
 	background-color: #363636;
-	margin: 1rem auto;
-
-	/* overflow-y: scroll;
-	overflow-x: hidden;
-	scrollbar-width: 1px; */
+	align-self: center;
 }
 
-/* li figure div {
-	width: 205px;
-	height: 115px;
+.text {
+	width: 90%;
+	margin: 0 auto;
 }
-
-li figure div img {
-	max-width: 100%;
-	max-height: 100%;
-} */
 
 h1,
 p {
@@ -148,6 +134,7 @@ a p {
 }
 
 nav {
+	grid-column: 1/3;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
@@ -158,7 +145,6 @@ button,
 a {
 	font-size: 13.3333px;
 	font-weight: bold;
-	/* background: #717171; */
 	background: #000000;
 
 	border: 0;
@@ -174,6 +160,14 @@ a {
 	cursor: pointer;
 }
 
+button.remove {
+	background: #b45c5a;
+}
+
+button.remove p {
+	color: black;
+}
+
 button.addPhoto {
 	width: 205px;
 	height: 115px;
@@ -185,6 +179,17 @@ button.addPhoto {
 
 a {
 	width: 150px;
+}
+
+@media (max-width: 600px) {
+	li {
+		width: 90%;
+		grid-template-columns: 1fr;
+	}
+
+	nav {
+		grid-column: 1/2;
+	}
 }
 </style>
 
