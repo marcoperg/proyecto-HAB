@@ -17,16 +17,10 @@
 
 			<form @submit.prevent>
 				<label for="username">Username:</label>
-				<input
-					v-model="username"
-					type="text"
-					id="username"
-					name="username"
-					placeholder="Type your username or email..."
-				/>
+				<input v-model="username" type="text" id="username" name="username" />
 
 				<label for="password">Password:</label>
-				<input v-model="password" type="password" id="password" name="password" placeholder="Type your password..." />
+				<input v-model="password" type="password" id="password" name="password" />
 
 				<button @click="login()">Log in</button>
 			</form>
@@ -48,22 +42,10 @@
 
 			<form @submit.prevent>
 				<label for="username">Nombre de usuario:</label>
-				<input
-					v-model="username"
-					type="text"
-					id="username"
-					name="username"
-					placeholder="Ingresa tu nombre de usuario o email..."
-				/>
+				<input v-model="username" type="text" id="username" name="username" />
 
 				<label for="password">Contraseña:</label>
-				<input
-					v-model="password"
-					type="password"
-					id="password"
-					name="password"
-					placeholder="Ingresa tu contraseña..."
-				/>
+				<input v-model="password" type="password" id="password" name="password" />
 
 				<button @click="login()">Iniciar sesión</button>
 			</form>
@@ -85,22 +67,10 @@
 
 			<form @submit.prevent>
 				<label for="username">Nome de usuario:</label>
-				<input
-					v-model="username"
-					type="text"
-					id="username"
-					name="username"
-					placeholder="Ingresa o teu nome de usuario o email..."
-				/>
+				<input v-model="username" type="text" id="username" name="username" />
 
 				<label for="password">Contrasinal:</label>
-				<input
-					v-model="password"
-					type="password"
-					id="password"
-					name="password"
-					placeholder="Ingresa a tua contrasinal..."
-				/>
+				<input v-model="password" type="password" id="password" name="password" />
 
 				<button @click="login()">Iniciar sesión</button>
 			</form>
