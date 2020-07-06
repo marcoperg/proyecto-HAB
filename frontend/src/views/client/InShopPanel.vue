@@ -47,7 +47,7 @@
 				</li>
 
 				<li>
-					<button @click="pay()">
+					<button @click="pay = true">
 						<img src="@/assets/pay.png" alt="Pay" />
 
 						<span v-show="lang === 'en'">Pay</span>
@@ -56,6 +56,7 @@
 					</button>
 				</li>
 			</ul>
+			<pay v-show="pay" @pay="makePay()" @cancel="pay = false" :lang="lang" />
 		</main>
 		<footercustom />
 	</div>
@@ -68,12 +69,14 @@ import Swal from 'sweetalert2';
 // Components
 import menucustom from '@/components/MenuCustom.vue';
 import footercustom from '@/components/FooterCustom.vue';
+import pay from '@/components/client/Pay.vue';
 
 export default {
 	name: 'InShopPanel',
 	components: {
 		menucustom,
-		footercustom
+		footercustom,
+		pay
 	},
 	computed: {
 		lang() {
@@ -86,7 +89,8 @@ export default {
 	data() {
 		return {
 			connection: null,
-			tableNumber: this.$route.params.tableNumber
+			tableNumber: this.$route.params.tableNumber,
+			pay: false
 		};
 	},
 	methods: {
@@ -111,8 +115,24 @@ export default {
 				timer: 1500
 			});
 		},
-		pay() {
-			alert('object');
+
+		makePay(data) {
+			let title = '';
+
+			if (this.lang === 'en') {
+				title = 'Pay done successful';
+			} else if (this.lang === 'es') {
+				title = 'Pago realizado correctamente';
+			} else if (this.lang === 'gl') {
+				title = 'Pago realizado correctamente';
+			}
+
+			Swal.fire({
+				title: title,
+				icon: 'success',
+				showConfirmButton: false,
+				timer: 1500
+			});
 		}
 	},
 	created() {
@@ -193,4 +213,16 @@ li button img {
 	border: 3px solid red;
 }
 /* </Buttons styles> */
+
+.background {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+
+	background: rgba(0, 0, 0, 0.7);
+
+	min-width: 100%;
+	min-height: 100vh;
+}
 </style>

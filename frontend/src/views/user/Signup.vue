@@ -1,9 +1,21 @@
 <template>
 	<!-- This div has 3 analogous parts, english, spanish and galician -->
 	<div class="authForm">
-		<vue-headful v-if="lang === 'en'" title="Sign up | Lastorder" description="Home page of hackamarket" />
-		<vue-headful v-if="lang === 'es'" title="Registro | Lastorder" description="Home page of hackamarket" />
-		<vue-headful v-if="lang === 'gl'" title="Registro | Lastorder" description="Home page of hackamarket" />
+		<vue-headful
+			v-if="lang === 'en'"
+			title="Sign up | Lastorder"
+			description="Home page of hackamarket"
+		/>
+		<vue-headful
+			v-if="lang === 'es'"
+			title="Registro | Lastorder"
+			description="Home page of hackamarket"
+		/>
+		<vue-headful
+			v-if="lang === 'gl'"
+			title="Registro | Lastorder"
+			description="Home page of hackamarket"
+		/>
 
 		<!-- English signup html -->
 		<div class="en" v-if="lang === 'en'">
@@ -44,7 +56,13 @@
 					/>
 
 					<label class="required" for="email">Email:</label>
-					<input v-model="email" type="email" id="email" name="email" :class="{ errorHere: errorIn === 'email' }" />
+					<input
+						v-model="email"
+						type="email"
+						id="email"
+						name="email"
+						:class="{ errorHere: errorIn === 'email' }"
+					/>
 
 					<label class="required" for="confirmEmail">Confirm your email:</label>
 					<input
@@ -127,7 +145,13 @@
 					/>
 
 					<label class="required" for="email">Email:</label>
-					<input v-model="email" type="email" id="email" name="email" :class="{ errorHere: errorIn === 'email' }" />
+					<input
+						v-model="email"
+						type="email"
+						id="email"
+						name="email"
+						:class="{ errorHere: errorIn === 'email' }"
+					/>
 
 					<label class="required" for="confirmEmail">Confirma tu email:</label>
 					<input
@@ -210,7 +234,13 @@
 					/>
 
 					<label class="required" for="email">Email:</label>
-					<input v-model="email" type="email" id="email" name="email" :class="{ errorHere: errorIn === 'email' }" />
+					<input
+						v-model="email"
+						type="email"
+						id="email"
+						name="email"
+						:class="{ errorHere: errorIn === 'email' }"
+					/>
 
 					<label class="required" for="confirmEmail">Confirma o teu email:</label>
 					<input
