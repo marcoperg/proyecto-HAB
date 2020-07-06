@@ -8,6 +8,17 @@
 
 		<sellermenu />
 		<main>
+			<p v-show="lang === 'en'">
+				This panel allows you to add and edit the menu of your restaurants.
+			</p>
+
+			<p v-show="lang === 'es'">
+				Este panel te permite añadir y editar los menús de tus restaurantes.
+			</p>
+			<p v-show="lang === 'gl'">
+				Estee panel te permite añadir e editar os menús dos teus restaurantes.
+			</p>
+
 			<ul>
 				<li v-for="(shop, index) in shops" :key="shop.id">
 					<div>
@@ -283,6 +294,12 @@ export default {
 main {
 	width: 85%;
 	margin: 2rem auto;
+}
+
+main > p {
+	color: black;
+	text-align: left;
+	margin: 1rem 1rem 2rem;
 }
 
 ul {

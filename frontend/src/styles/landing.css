@@ -96,6 +96,12 @@ input:focus {
 	cursor: pointer;
 }
 
+.searchRecomendations button p {
+	display: inline-block;
+	width: auto;
+	margin: 0;
+}
+
 .searchRecomendations button:hover {
 	background: rgba(129, 129, 129, 0.2);
 }
@@ -248,5 +254,9 @@ h2:after {
 
 	h2.organize::before {
 		vertical-align: sub;
+	}
+
+	header > p {
+		width: auto;
 	}
 }

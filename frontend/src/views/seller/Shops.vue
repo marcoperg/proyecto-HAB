@@ -9,6 +9,19 @@
 		<sellermenu />
 
 		<main>
+			<p v-show="lang === 'en'">
+				This panel allows you to add all your restaurants and manage its information. Also you can watch their
+				notifications to see in real time the orders and calls that your clients make.
+			</p>
+			<p v-show="lang === 'es'">
+				Este panel te permite añadir todos tus restaurantes y editar su información. Además puedes ver sus
+				notificaciones para ver en tiempo real los pedidos y avisos de tus clientes.
+			</p>
+			<p v-show="lang === 'gl'">
+				Este panel te permite añadir todos os teus restaurantes e editar a súa información. Ademais podes ver as súas
+				notificacións para ver en tempo real os pedios e avisos dos teus clientes.
+			</p>
+
 			<nav>
 				<button @click="addForm = true">
 					<p v-show="lang === 'en'">Add a new shop</p>
@@ -250,6 +263,12 @@ export default {
 main {
 	width: 85%;
 	margin: 2rem auto;
+}
+
+main > p {
+	color: black;
+	text-align: left;
+	margin: 1rem 1rem 2rem;
 }
 
 nav {

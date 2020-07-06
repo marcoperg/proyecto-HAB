@@ -16,14 +16,17 @@
 				<button @click="addPhoto(plate.id)" class="addPhoto"></button>
 			</figure>
 
-			<h1>{{ plate.name }}</h1>
+			<div class="text">
+				<h1>{{ plate.name }}</h1>
 
-			<p>{{ plate.description }}</p>
+				<p>{{ plate.description }}</p>
 
-			<h2>{{ plate.prize }}€</h2>
-			<br />
+				<h2>{{ plate.prize }}€</h2>
+				<br />
+			</div>
+
 			<nav>
-				<button @click="remove(plate.id)">
+				<button @click="remove(plate.id)" class="remove">
 					<p v-show="lang === 'en'">Remove</p>
 					<p v-show="lang === 'es'">Eliminar</p>
 					<p v-show="lang === 'gl'">Eliminar</p>
@@ -119,11 +122,11 @@ ul {
 li {
 	padding: 1rem;
 	margin: 0.5rem;
-	/* background: #c4c4c4; */
 	background: #54805a;
-	min-height: 400px;
-	width: 265px;
+	width: 500px;
 	border-radius: 1.5rem;
+	display: grid;
+	grid-template-columns: auto 1fr;
 }
 
 li figure {
@@ -131,6 +134,10 @@ li figure {
 	height: 115px;
 	background-color: #363636;
 	margin: 1rem auto;
+}
+
+li .text {
+	align-self: center;
 }
 
 h1,
@@ -147,12 +154,12 @@ nav {
 	flex-wrap: wrap;
 	justify-content: space-evenly;
 	align-items: center;
+	grid-column: 1/3;
 }
 
 button {
 	margin: 5px;
 	font-weight: bold;
-	/* background: #717171;*/
 	background: #000000;
 	border: 0;
 	display: flex;
@@ -163,6 +170,14 @@ button {
 	width: 80px;
 
 	cursor: pointer;
+}
+
+button.remove {
+	background: #b45c5a;
+}
+
+button.remove p {
+	color: black;
 }
 
 button.addPhoto {
@@ -176,6 +191,17 @@ button.addPhoto {
 
 button:focus {
 	outline: none;
+}
+
+@media (max-width: 600px) {
+	li {
+		width: 90%;
+		grid-template-columns: 1fr;
+	}
+
+	nav {
+		grid-column: 1/2;
+	}
 }
 </style>
 
