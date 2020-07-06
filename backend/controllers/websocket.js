@@ -17,6 +17,10 @@ function websocket(ws, req) {
 			return conn === ws ? false : true;
 		});
 	});
+
+	ws.on("error", (error) => {
+		console.log(error);
+	});
 }
 
 module.exports = {
