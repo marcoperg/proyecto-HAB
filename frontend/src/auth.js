@@ -124,6 +124,12 @@ export function getHeader() {
 	return { Authorization: `Bearer ${token}` };
 }
 
+// Function to get the id of the owner of a shop
+export async function getUserFromShop(id) {
+	const data = await axios.get(process.env.VUE_APP_BACKEND_URL + '/shops/' + id);
+	return data.data.data.id_seller;
+}
+
 // Special function to clean data objects of empty keys
 export function clean(obj) {
 	for (const propName in obj) {

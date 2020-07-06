@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 
-import { isLoggedIn } from '../auth';
+import { isLoggedIn, getUserFromShop } from '../auth';
 
 Vue.use(VueRouter);
 
@@ -97,6 +97,20 @@ const routes = [
 		meta: {
 			allowAnonymous: false,
 			requireRole: 'seller'
+		},
+		beforeEnter: async (to, from, next) => {
+			const user = isLoggedIn();
+			const shopId = await getUserFromShop(to.params.id);
+
+			if (user.id !== shopId && user.role !== 'admin') {
+				next({
+					name: 'Login',
+					query: { redirect: to.fullPath },
+					params: { lang: to.params.lang }
+				});
+			} else {
+				next();
+			}
 		}
 	},
 
