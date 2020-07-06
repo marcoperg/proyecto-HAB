@@ -1,8 +1,20 @@
 <template>
 	<div class="panel">
-		<vue-headful v-if="lang === 'en'" title="Request Panel | Lastorder" description="Home page of hackamarket" />
-		<vue-headful v-if="lang === 'es'" title="Panel de peticiones | Lastorder" description="Home page of hackamarket" />
-		<vue-headful v-if="lang === 'gl'" title="Panel de peticiónss | Lastorder" description="Home page of hackamarket" />
+		<vue-headful
+			v-if="lang === 'en'"
+			title="Request Panel | Lastorder"
+			description="Home page of hackamarket"
+		/>
+		<vue-headful
+			v-if="lang === 'es'"
+			title="Panel de peticiones | Lastorder"
+			description="Home page of hackamarket"
+		/>
+		<vue-headful
+			v-if="lang === 'gl'"
+			title="Panel de peticiónss | Lastorder"
+			description="Home page of hackamarket"
+		/>
 
 		<menucustom />
 
@@ -13,7 +25,14 @@
 					<span v-show="lang === 'es'">Número de la mesa:</span>
 					<span v-show="lang === 'gl'">Número da mesa:</span>
 				</label>
-				<input type="Number" min="1" name="table" id="table" v-model="tableNumber" :class="{ error: !tableNumber }" />
+				<input
+					type="Number"
+					min="1"
+					name="table"
+					id="table"
+					v-model="tableNumber"
+					:class="{ error: !tableNumber }"
+				/>
 			</nav>
 
 			<ul>

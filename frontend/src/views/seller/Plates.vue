@@ -212,9 +212,8 @@ export default {
 							headers: getHeader()
 						});
 						location.reload();
-
-						this.loading = false;
 					}
+					this.loading = false;
 				});
 			} catch (error) {
 				console.log(error.response);
