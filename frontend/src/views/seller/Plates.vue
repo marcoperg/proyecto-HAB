@@ -1,23 +1,29 @@
 <template>
 	<div class="plates">
-		<vue-headful v-if="lang === 'en'" title="Plates and menu | Lastorder" description="Home page of hackamarket" />
-		<vue-headful v-if="lang === 'es'" title="Platos y menús | Lastorder" description="Home page of hackamarket" />
-		<vue-headful v-if="lang === 'gl'" title="Pratos e menús | Lastorder" description="Home page of hackamarket" />
+		<vue-headful
+			v-if="lang === 'en'"
+			title="Plates and menu | Lastorder"
+			description="Home page of hackamarket"
+		/>
+		<vue-headful
+			v-if="lang === 'es'"
+			title="Platos y menús | Lastorder"
+			description="Home page of hackamarket"
+		/>
+		<vue-headful
+			v-if="lang === 'gl'"
+			title="Pratos e menús | Lastorder"
+			description="Home page of hackamarket"
+		/>
 
 		<menucustom />
 
 		<sellermenu />
 		<main>
-			<p v-show="lang === 'en'">
-				This panel allows you to add and edit the menu of your restaurants.
-			</p>
+			<p v-show="lang === 'en'">This panel allows you to add and edit the menu of your restaurants.</p>
 
-			<p v-show="lang === 'es'">
-				Este panel te permite añadir y editar los menús de tus restaurantes.
-			</p>
-			<p v-show="lang === 'gl'">
-				Estee panel te permite añadir e editar os menús dos teus restaurantes.
-			</p>
+			<p v-show="lang === 'es'">Este panel te permite añadir y editar los menús de tus restaurantes.</p>
+			<p v-show="lang === 'gl'">Estee panel te permite añadir e editar os menús dos teus restaurantes.</p>
 
 			<ul>
 				<li v-for="(shop, index) in shops" :key="shop.id">
@@ -28,12 +34,10 @@
 
 					<div v-show="showMenu[index]">
 						<nav>
-							<button
-								@click="
+							<button @click="
 									add = true;
 									dataProp.shopIndex = index;
-								"
-							>
+								">
 								<p v-show="lang === 'en'">Add a new plate to this menu</p>
 								<p v-show="lang === 'es'">Añadir un nuevo plato a este menu</p>
 								<p v-show="lang === 'gl'">Añadir un novo prato a este menu</p>
@@ -66,7 +70,13 @@
 				:lang="lang"
 			/>
 
-			<editform v-if="edit" v-on:edit="editPlate" v-on:cancel="edit = false" :lang="lang" :dataProp="dataProp" />
+			<editform
+				v-if="edit"
+				v-on:edit="editPlate"
+				v-on:cancel="edit = false"
+				:lang="lang"
+				:dataProp="dataProp"
+			/>
 
 			<uploadimage
 				v-if="imageId !== null"
@@ -351,6 +361,7 @@ button {
 	border: 0;
 	border-radius: 1rem;
 	background: #9dc48f;
+	color: black;
 
 	cursor: pointer;
 }

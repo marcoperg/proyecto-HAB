@@ -19,17 +19,17 @@
 
 		<header>
 			<!-- <UPPER TEXT (one tittle for language)> -->
-			<p v-show="lang === 'en'">
-				Discover the restaurants and coffee shops of your region and ask for your order from your phone.
-			</p>
+			<p
+				v-show="lang === 'en'"
+			>Discover the restaurants and coffee shops of your region and ask for your order from your phone.</p>
 
-			<p v-show="lang === 'es'">
-				Descubre los restaurantes y cafeterías de tu zona y realiza tu pedido desde tu móvil
-			</p>
+			<p
+				v-show="lang === 'es'"
+			>Descubre los restaurantes y cafeterías de tu zona y realiza tu pedido desde tu móvil</p>
 
-			<p v-show="lang === 'gl'">
-				Descobre os restaurantes e cafeterías da túa zona e realiza o teu pedido dende o teu móbil
-			</p>
+			<p
+				v-show="lang === 'gl'"
+			>Descobre os restaurantes e cafeterías da túa zona e realiza o teu pedido dende o teu móbil</p>
 			<!-- </UPPER TEXT> -->
 
 			<!-- <SEARCH FORM> -->
@@ -66,9 +66,9 @@
 			<h1 v-show="lang === 'es'">Ventajas de nuestra plataforma</h1>
 			<h1 v-show="lang === 'gl'">Vantaxes da nosa plataforma</h1>
 
-			<h2 v-show="lang === 'en'">For clientes:</h2>
-			<h2 v-show="lang === 'es'">Para clientes:</h2>
-			<h2 v-show="lang === 'gl'">Para clientes:</h2>
+			<h2 v-show="lang === 'en'">For clientes</h2>
+			<h2 v-show="lang === 'es'">Para clientes</h2>
+			<h2 v-show="lang === 'gl'">Para clientes</h2>
 
 			<ul>
 				<li>
@@ -80,9 +80,15 @@
 
 				<li>
 					<img src="../assets/food/food0.jpeg" alt="Food" width="160px" />
-					<p v-show="lang === 'en'">Eat in excellent restaurant even if you don't have the time to a long order</p>
-					<p v-show="lang === 'es'">Come en restaurantes de calidad incluso si no tienes tiempo para un pedido largo</p>
-					<p v-show="lang === 'gl'">Come en restaurantes de calidade incluso si non tes tempo para un pedido longo</p>
+					<p
+						v-show="lang === 'en'"
+					>Eat in excellent restaurant even if you don't have the time to a long order</p>
+					<p
+						v-show="lang === 'es'"
+					>Come en restaurantes de calidad incluso si no tienes tiempo para un pedido largo</p>
+					<p
+						v-show="lang === 'gl'"
+					>Come en restaurantes de calidade incluso si non tes tempo para un pedido longo</p>
 				</li>
 
 				<li>
@@ -93,29 +99,31 @@
 				</li>
 			</ul>
 
-			<h2 class="organize" v-show="lang === 'en'">If you own a restaurant:</h2>
-			<h2 class="organize" v-show="lang === 'es'">Si eres dueño de un restaurante:</h2>
-			<h2 class="organize" v-show="lang === 'gl'">Si eres dono dun restaurante:</h2>
+			<h2 class="organize" v-show="lang === 'en'">If you own a restaurant</h2>
+			<h2 class="organize" v-show="lang === 'es'">Si eres dueño de un restaurante</h2>
+			<h2 class="organize" v-show="lang === 'gl'">Si eres dono dun restaurante</h2>
 
 			<ul>
 				<li>
 					<img src="../assets/menu.png" alt="Menu" width="160px" />
-					<p v-show="lang === 'en'">
-						Upload your menu to our platform and let every client consult it anywhere anytime
-					</p>
-					<p v-show="lang === 'es'">
-						Sube tu menú a nuestra plataforma y permite a tus clientes consultarlo en cualquier momento
-					</p>
-					<p v-show="lang === 'gl'">
-						Sube o teu menú á nosa plataforma e permite aos teus clientes consultalo en calquera momento
-					</p>
+					<p
+						v-show="lang === 'en'"
+					>Upload your menu to our platform and let every client consult it anywhere anytime</p>
+					<p
+						v-show="lang === 'es'"
+					>Sube tu menú a nuestra plataforma y permite a tus clientes consultarlo en cualquier momento</p>
+					<p
+						v-show="lang === 'gl'"
+					>Sube o teu menú á nosa plataforma e permite aos teus clientes consultalo en calquera momento</p>
 				</li>
 
 				<li>
 					<img src="../assets/waiter.png" alt="Waiter" width="160px" />
 					<p v-show="lang === 'en'">Let your client call your waiters from the tables</p>
 					<p v-show="lang === 'es'">Permite a tus clientes llamar a tus camareros desde sus mesas</p>
-					<p v-show="lang === 'gl'">Permite aos teus clientes chamar aos teus camareiros dende as súas mesas</p>
+					<p
+						v-show="lang === 'gl'"
+					>Permite aos teus clientes chamar aos teus camareiros dende as súas mesas</p>
 				</li>
 
 				<li>

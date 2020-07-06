@@ -19,7 +19,7 @@ const emailSchema = Joi.string()
 // Compund schemas
 const shopSchema = Joi.object().keys({
 	name: nameSchema,
-	descripion: descriptionShema,
+	description: descriptionShema,
 	email: emailSchema,
 	tlf: Joi.number().integer(),
 
