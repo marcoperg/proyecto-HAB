@@ -11,7 +11,7 @@
 					<img src="@/assets/icons/back.png" alt="Logo" />
 				</a>
 
-				<p class="error">{{error}}</p>
+				<p class="error">{{ error }}</p>
 
 				<form @submit.prevent>
 					<!-- BASIC INFO -->
@@ -25,7 +25,7 @@
 							id="name"
 							name="name"
 							placeholder="Type the restaurant's name..."
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 						/>
 
 						<label class="required" for="description">Description:</label>
@@ -34,7 +34,7 @@
 							name="description"
 							id="description"
 							placeholder="Insert the decription of the restuarant..."
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 							cols="30"
 							rows="10"
 						></textarea>
@@ -49,13 +49,7 @@
 						/>
 
 						<label for="tlf">Telephone:</label>
-						<input
-							v-model="data.tlf"
-							type="tel"
-							id="tlf"
-							name="tlf"
-							placeholder="Type your telephone number..."
-						/>
+						<input v-model="data.tlf" type="tel" id="tlf" name="tlf" placeholder="Type your telephone number..." />
 					</fieldset>
 
 					<!-- Address -->
@@ -84,22 +78,10 @@
 						<input v-model="data.city" type="text" id="city" name="city" placeholder="Type the city..." />
 
 						<label for="state">State:</label>
-						<input
-							v-model="data.state"
-							type="text"
-							id="state"
-							name="state"
-							placeholder="Type the state..."
-						/>
+						<input v-model="data.state" type="text" id="state" name="state" placeholder="Type the state..." />
 
 						<label for="country">Country:</label>
-						<input
-							v-model="data.country"
-							type="text"
-							id="country"
-							name="country"
-							placeholder="Type the country..."
-						/>
+						<input v-model="data.country" type="text" id="country" name="country" placeholder="Type the country..." />
 					</fieldset>
 					<button @click="add()">Add restaurant</button>
 				</form>
@@ -113,7 +95,7 @@
 					<img src="@/assets/icons/back.png" alt="Logo" />
 				</a>
 
-				<p class="error">{{error}}</p>
+				<p class="error">{{ error }}</p>
 
 				<form @submit.prevent>
 					<!-- BASIC INFO -->
@@ -127,7 +109,7 @@
 							id="name"
 							name="name"
 							placeholder="Escribe el nombre del restaurante..."
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 						/>
 
 						<label class="required" for="description">Descripción:</label>
@@ -136,7 +118,7 @@
 							name="description"
 							id="description"
 							placeholder="Inserta la descripción del restaruante..."
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 							cols="30"
 							rows="10"
 						></textarea>
@@ -183,13 +165,7 @@
 						/>
 
 						<label for="city">Ciudad:</label>
-						<input
-							v-model="data.city"
-							type="text"
-							id="city"
-							name="city"
-							placeholder="Ingresa la ciudad..."
-						/>
+						<input v-model="data.city" type="text" id="city" name="city" placeholder="Ingresa la ciudad..." />
 
 						<label for="state">Estado/Comunidad:</label>
 						<input
@@ -201,13 +177,7 @@
 						/>
 
 						<label for="country">País:</label>
-						<input
-							v-model="data.country"
-							type="text"
-							id="country"
-							name="country"
-							placeholder="Ingresa el país..."
-						/>
+						<input v-model="data.country" type="text" id="country" name="country" placeholder="Ingresa el país..." />
 					</fieldset>
 					<button @click="add()">Añadir restaurante</button>
 				</form>
@@ -221,7 +191,7 @@
 					<img src="@/assets/icons/back.png" alt="Logo" />
 				</a>
 
-				<p class="error">{{error}}</p>
+				<p class="error">{{ error }}</p>
 
 				<form @submit.prevent>
 					<!-- BASIC INFO -->
@@ -235,7 +205,7 @@
 							id="name"
 							name="name"
 							placeholder="Escribe o nome do restaurante..."
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 						/>
 
 						<label class="required" for="description">Descrición:</label>
@@ -244,7 +214,7 @@
 							name="description"
 							id="description"
 							placeholder="Inserta a descrición do restaruante..."
-							:class="{errorHere: error}"
+							:class="{ errorHere: error }"
 							cols="30"
 							rows="10"
 						></textarea>
@@ -291,13 +261,7 @@
 						/>
 
 						<label for="city">Ciudade:</label>
-						<input
-							v-model="data.city"
-							type="text"
-							id="city"
-							name="city"
-							placeholder="Ingresa a ciudade..."
-						/>
+						<input v-model="data.city" type="text" id="city" name="city" placeholder="Ingresa a ciudade..." />
 
 						<label for="state">Estado/Comunidade:</label>
 						<input
@@ -309,13 +273,7 @@
 						/>
 
 						<label for="country">País:</label>
-						<input
-							v-model="data.country"
-							type="text"
-							id="country"
-							name="country"
-							placeholder="Ingresa o país..."
-						/>
+						<input v-model="data.country" type="text" id="country" name="country" placeholder="Ingresa o país..." />
 					</fieldset>
 					<button @click="add()">Añadir restaurante</button>
 				</form>
@@ -390,7 +348,7 @@ export default {
 .authForm {
 	position: fixed;
 	top: 0%;
-	left: calc(50% - 187.5px);
+	left: calc(50% - 155px);
 	z-index: 11;
 	background: white;
 	margin: 1rem auto;

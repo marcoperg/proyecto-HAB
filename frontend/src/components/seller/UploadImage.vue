@@ -2,11 +2,11 @@
 	<!-- This div has 3 analogous parts, english, spanish and galician -->
 	<div>
 		<div class="background" @click="cancel()"></div>
-		<main v-if="lang==='en'">
+		<main v-if="lang === 'en'">
 			<button class="cancel" @click="cancel()"></button>
 
 			<h2>Upload image</h2>
-			<p class="error">{{error}}</p>
+			<p class="error">{{ error }}</p>
 
 			<form @submit.prevent>
 				<label for="img">
@@ -17,11 +17,11 @@
 			</form>
 		</main>
 
-		<main v-if="lang==='es'">
+		<main v-if="lang === 'es'">
 			<button class="cancel" @click="cancel()"></button>
 
 			<h2>Subir imagen</h2>
-			<p class="error">{{error}}</p>
+			<p class="error">{{ error }}</p>
 
 			<form @submit.prevent>
 				<label for="img">
@@ -32,11 +32,11 @@
 			</form>
 		</main>
 
-		<main v-if="lang==='gl'">
+		<main v-if="lang === 'gl'">
 			<button class="cancel" @click="cancel()"></button>
 
 			<h2>Subir imaxen</h2>
-			<p class="error">{{error}}</p>
+			<p class="error">{{ error }}</p>
 
 			<form @submit.prevent>
 				<label for="img">
@@ -91,6 +91,11 @@ export default {
 </script>
 
 <style scoped>
+main {
+	--background-color: #00b7ff;
+	--button-color: #0069b7;
+}
+
 h2 {
 	color: white;
 }
@@ -110,7 +115,7 @@ main {
 	top: calc(50% - 10rem);
 	left: calc(50% - 15rem);
 	z-index: 11;
-	background: #797979;
+	background: var(--background-color);
 	height: 20rem;
 	width: 30rem;
 
@@ -120,8 +125,9 @@ main {
 button {
 	width: 9rem;
 	height: 3rem;
-	background: #c4c4c4;
+	background: var(--button-color);
 	border: 0;
+	color: white;
 	border-radius: 1.5rem;
 	margin: 3rem auto;
 	cursor: pointer;
@@ -155,7 +161,7 @@ label > input {
 	padding: 1rem;
 
 	color: white;
-	background: #bbbbbb;
+	background: var(--button-color);
 
 	border-radius: 0.3rem;
 

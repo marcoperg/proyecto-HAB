@@ -44,9 +44,9 @@ textarea {
 	padding: 2rem 2rem;
 	width: 20rem;
 	height: 15rem;
-	background: #c4c4c4;
-	border: 0;
-	border-radius: 1rem;
+
+	border: 1px solid black;
+	border-radius: 3px;
 }
 
 button {
@@ -126,7 +126,7 @@ h2 {
 .option {
 	padding: 0 0.5rem;
 	margin: 0;
-	width: 120px;
+	width: 130px;
 	height: 72px;
 	background: #dedede;
 	display: flex;
@@ -146,11 +146,12 @@ h2 {
 
 @media (max-width: 600px) {
 	.authForm {
-		width: 320px;
+		width: 310px;
 	}
 
 	input,
-	select {
+	select,
+	textarea {
 		width: 270px;
 	}
 }

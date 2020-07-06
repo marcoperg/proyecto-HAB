@@ -52,6 +52,8 @@
 				</li>
 			</ul>
 
+			<loadingspinner v-show="loading" />
+
 			<addform
 				v-if="add"
 				:dataProp="dataProp"
@@ -96,6 +98,7 @@ import platescards from '@/components/seller/plates/PlatesCards.vue';
 import editform from '@/components/seller/plates/EditPlateForm.vue';
 import addform from '@/components/seller/plates/AddPlateForm.vue';
 import uploadimage from '@/components/seller/UploadImage.vue';
+import loadingspinner from '@/components/LoadingSpinner.vue';
 
 export default {
 	name: 'SellerPlates',
@@ -106,7 +109,8 @@ export default {
 		platescards,
 		uploadimage,
 		addform,
-		editform
+		editform,
+		loadingspinner
 	},
 	data() {
 		return {
@@ -115,7 +119,8 @@ export default {
 			edit: false,
 			dataProp: {},
 			imageId: null,
-			showMenu: []
+			showMenu: [],
+			loading: false
 		};
 	},
 	computed: {
@@ -126,11 +131,14 @@ export default {
 	methods: {
 		async getRestaurants() {
 			try {
+				this.loading = true;
+
 				const sellerId = getUserInfo().id;
 				const data = await axios.get(process.env.VUE_APP_BACKEND_URL + `/seller/${sellerId}/shops/`, {
 					headers: getHeader()
 				});
 
+				this.loading = false;
 				return data.data.data;
 			} catch (e) {
 				console.log(e.response);
@@ -139,6 +147,8 @@ export default {
 
 		async addPlate(data) {
 			try {
+				this.loading = true;
+
 				data.prize = Number(data.prize);
 
 				data.id_shop = this.shops[data.shopIndex].id;
@@ -159,6 +169,8 @@ export default {
 				} else if (this.lang === 'gl') {
 					title = 'Plate añadido correctamente';
 				}
+
+				this.loading = false;
 
 				await Swal.fire({
 					title: title,
@@ -183,11 +195,15 @@ export default {
 					cancelButtonColor: '#d33',
 					confirmButtonText: 'Yes, delete it!'
 				}).then(async (result) => {
+					this.loading = true;
+
 					if (result.value) {
 						await axios.delete(process.env.VUE_APP_BACKEND_URL + '/plate/' + id, {
 							headers: getHeader()
 						});
 						location.reload();
+
+						this.loading = false;
 					}
 				});
 			} catch (error) {
@@ -196,6 +212,8 @@ export default {
 		},
 
 		async editPlate(data) {
+			this.loading = true;
+
 			const originalData = this.dataProp;
 			clean(data);
 			removeUnchanged(data, originalData);
@@ -216,6 +234,8 @@ export default {
 				title = 'Restaurante editado correctamente';
 			}
 
+			this.loading = false;
+
 			await Swal.fire({
 				title: title,
 				icon: 'success',
@@ -226,6 +246,8 @@ export default {
 		},
 		async uploadImage(img) {
 			try {
+				this.loading = true;
+
 				const url = process.env.VUE_APP_BACKEND_URL + '/plate/' + this.imageId;
 
 				await axios.post(url, img, {
@@ -244,6 +266,8 @@ export default {
 				} else if (this.lang === 'gl') {
 					title = 'Foto añadida correctamente';
 				}
+
+				this.loading = false;
 
 				await Swal.fire({
 					title: title,

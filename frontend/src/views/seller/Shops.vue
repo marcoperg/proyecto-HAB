@@ -40,6 +40,8 @@
 			/>
 			<addform v-show="addForm" v-on:add="addShop" v-on:cancel="addForm = false" :lang="lang" />
 
+			<loadingspinner v-show="loading" />
+
 			<editform
 				v-if="editIndex !== null"
 				v-on:edit="editShop"
@@ -78,6 +80,7 @@ import shopcards from '@/components/seller/shops/ShopCards.vue';
 import addform from '@/components/seller/shops/AddShopForm.vue';
 import editform from '@/components/seller/shops/EditShopForm.vue';
 import uploadimage from '@/components/seller/UploadImage.vue';
+import loadingspinner from '@/components/LoadingSpinner.vue';
 
 export default {
 	name: 'SellerShops',
@@ -88,14 +91,16 @@ export default {
 		shopcards,
 		addform,
 		editform,
-		uploadimage
+		uploadimage,
+		loadingspinner
 	},
 	data() {
 		return {
 			data: [],
 			addForm: false,
 			editIndex: null,
-			imageId: null
+			imageId: null,
+			loading: false
 		};
 	},
 	computed: {
@@ -106,11 +111,14 @@ export default {
 	methods: {
 		async getData() {
 			try {
+				this.loading = true;
+
 				const sellerId = getUserInfo().id;
 				const data = await axios.get(process.env.VUE_APP_BACKEND_URL + `/seller/${sellerId}/shops/`, {
 					headers: getHeader()
 				});
 
+				this.loading = false;
 				return data.data.data;
 			} catch (e) {
 				console.log(e.response);
@@ -119,6 +127,8 @@ export default {
 
 		async addShop(data) {
 			try {
+				this.loading = true;
+
 				await axios.post(process.env.VUE_APP_BACKEND_URL + '/shops', data, {
 					headers: getHeader()
 				});
@@ -132,6 +142,8 @@ export default {
 				} else if (this.lang === 'gl') {
 					title = 'Restaurante añadido correctamente';
 				}
+
+				this.loading = false;
 
 				Swal.fire({
 					title: title,
@@ -157,9 +169,13 @@ export default {
 					confirmButtonText: 'Yes, delete it!'
 				}).then(async (result) => {
 					if (result.value) {
+						this.loading = true;
+
 						await axios.delete(process.env.VUE_APP_BACKEND_URL + '/shops/' + id, {
 							headers: getHeader()
 						});
+
+						this.loading = false;
 						location.reload();
 					}
 				});
@@ -169,6 +185,8 @@ export default {
 		},
 
 		async editShop(data) {
+			this.loading = true;
+
 			const originalData = this.data[this.editIndex];
 			clean(data);
 			removeUnchanged(data, originalData);
@@ -198,6 +216,8 @@ export default {
 				title = 'Restaurante editado correctamente';
 			}
 
+			this.loading = false;
+
 			Swal.fire({
 				title: title,
 				icon: 'success',
@@ -209,6 +229,8 @@ export default {
 
 		async uploadImage(img) {
 			try {
+				this.loading = true;
+
 				const url = process.env.VUE_APP_BACKEND_URL + '/shops/' + this.imageId;
 
 				await axios.post(url, img, {
@@ -227,6 +249,8 @@ export default {
 				} else if (this.lang === 'gl') {
 					title = 'Foto añadida correctamente';
 				}
+
+				this.loading = false;
 
 				await Swal.fire({
 					title: title,

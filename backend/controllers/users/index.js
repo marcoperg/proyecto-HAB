@@ -49,6 +49,8 @@ async function registration(req, res, next) {
 			[nick, email]
 		);
 
+		console.log(existing);
+
 		if (existing.length) {
 			// Check what data exists
 			let existingData;
