@@ -3,19 +3,33 @@
 		<vue-headful title="Home | Lastorder" description="Home page of hackamarket" />
 
 		<menucustom />
+
+		<div class="bigPic">
+			<transition-group name="fade" tag="div">
+				<div v-for="i in [imgSelector]" :key="i">
+					<figure :style="{ 'background-image': `url(${bigImgUrl})` }" class="big">
+						<button @click="leftImg()" class="left"></button>
+						<button @click="rightImg()" class="right"></button>
+
+						<p>{{ imgSelector + 1 }} / {{ foodImgLength }}</p>
+					</figure>
+				</div>
+			</transition-group>
+		</div>
+
 		<header>
 			<!-- <UPPER TEXT (one tittle for language)> -->
-			<h1 v-show="lang === 'en'">
+			<p v-show="lang === 'en'">
 				Discover the restaurants and coffee shops of your region and ask for your order from your phone.
-			</h1>
+			</p>
 
-			<h1 v-show="lang === 'es'">
+			<p v-show="lang === 'es'">
 				Descubre los restaurantes y cafeterías de tu zona y realiza tu pedido desde tu móvil
-			</h1>
+			</p>
 
-			<h1 v-show="lang === 'gl'">
+			<p v-show="lang === 'gl'">
 				Descobre os restaurantes e cafeterías da túa zona e realiza o teu pedido dende o teu móbil
-			</h1>
+			</p>
 			<!-- </UPPER TEXT> -->
 
 			<!-- <SEARCH FORM> -->
@@ -48,9 +62,13 @@
 			<!-- </SEARCH FORM> -->
 		</header>
 		<main>
-			<h2 v-show="lang === 'en'">Save your time</h2>
-			<h2 v-show="lang === 'es'">Ahorra tiempo</h2>
-			<h2 v-show="lang === 'gl'">Aforra tempo</h2>
+			<h1 v-show="lang === 'en'">Advantages of our platform</h1>
+			<h1 v-show="lang === 'es'">Ventajas de nuestra plataforma</h1>
+			<h1 v-show="lang === 'gl'">Vantaxes da nosa plataforma</h1>
+
+			<h2 v-show="lang === 'en'">For clientes:</h2>
+			<h2 v-show="lang === 'es'">Para clientes:</h2>
+			<h2 v-show="lang === 'gl'">Para clientes:</h2>
 
 			<ul>
 				<li>
@@ -61,16 +79,23 @@
 				</li>
 
 				<li>
-					<img src="../assets/food1.jpg" alt="Food" width="160px" />
+					<img src="../assets/food/food0.jpeg" alt="Food" width="160px" />
 					<p v-show="lang === 'en'">Eat in excellent restaurant even if you don't have the time to a long order</p>
 					<p v-show="lang === 'es'">Come en restaurantes de calidad incluso si no tienes tiempo para un pedido largo</p>
 					<p v-show="lang === 'gl'">Come en restaurantes de calidade incluso si non tes tempo para un pedido longo</p>
 				</li>
+
+				<li>
+					<img src="../assets/table.png" alt="time" width="160px" />
+					<p v-show="lang === 'en'">Call a waiter without moving from the table</p>
+					<p v-show="lang === 'es'">Llama a un camarero sin levantarte de la mesa</p>
+					<p v-show="lang === 'gl'">Chama a un camareiro sin levantarte da mesa</p>
+				</li>
 			</ul>
 
-			<h2 class="organize" v-show="lang === 'en'">Organize your establishment</h2>
-			<h2 class="organize" v-show="lang === 'es'">Organiza tu establecimiento</h2>
-			<h2 class="organize" v-show="lang === 'gl'">Organiza a teu establecemento</h2>
+			<h2 class="organize" v-show="lang === 'en'">If you own a restaurant:</h2>
+			<h2 class="organize" v-show="lang === 'es'">Si eres dueño de un restaurante:</h2>
+			<h2 class="organize" v-show="lang === 'gl'">Si eres dono dun restaurante:</h2>
 
 			<ul>
 				<li>
@@ -92,9 +117,16 @@
 					<p v-show="lang === 'es'">Permite a tus clientes llamar a tus camareros desde sus mesas</p>
 					<p v-show="lang === 'gl'">Permite aos teus clientes chamar aos teus camareiros dende as súas mesas</p>
 				</li>
+
+				<li>
+					<img src="../assets/shop.png" alt="Waiter" width="160px" />
+					<p v-show="lang === 'en'">Organize all your restaurants in one place</p>
+					<p v-show="lang === 'es'">Organiza todos tus restaurantes desde un solo sitio</p>
+					<p v-show="lang === 'gl'">Organiza todos os teus restaurantes dende en único sitio</p>
+				</li>
 			</ul>
 		</main>
-		<footercustom />
+		<!-- <footercustom /> -->
 	</div>
 </template>
 
@@ -115,12 +147,18 @@ export default {
 	data() {
 		return {
 			search: '',
-			searchFocus: false
+			searchFocus: false,
+			imgSelector: 0,
+			foodImgLength: 6
 		};
 	},
 	computed: {
 		lang() {
 			return this.$route.params.lang;
+		},
+
+		bigImgUrl() {
+			return require(`../assets/food/food${this.imgSelector}.jpeg`);
 		}
 	},
 	methods: {
@@ -145,212 +183,30 @@ export default {
 					}
 				});
 			});
+		},
+
+		leftImg() {
+			if (this.imgSelector > 0) {
+				this.imgSelector--;
+			} else if (this.imgSelector === 0) {
+				this.imgSelector = this.foodImgLength - 1;
+			}
+		},
+		rightImg() {
+			if (this.imgSelector < this.foodImgLength - 1) {
+				this.imgSelector++;
+			} else if (this.imgSelector === this.foodImgLength - 1) {
+				this.imgSelector = 0;
+			}
 		}
+	},
+	created() {
+		setInterval(() => {
+			this.rightImg();
+		}, 10000);
 	}
 };
 </script>
 
-<style scoped>
-.home {
-	position: relative;
-	min-height: 100vh;
-}
-
-main {
-	padding-bottom: 80px;
-}
-
-h1 {
-	color: black;
-	font-size: 20px;
-	width: 35rem;
-	margin: 0 auto;
-}
-
-header {
-	height: 20rem;
-	background: #699b61;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-}
-
-/* <SEARCH FORM STYLES> */
-.background {
-	position: fixed;
-	top: 0;
-	right: 0;
-	width: 100%;
-	height: 100vh;
-	z-index: 15;
-	background: rgba(0, 0, 0, 0.7);
-}
-
-input {
-	font-size: 1rem;
-
-	padding: 0 4rem;
-	width: 40rem;
-	height: 3rem;
-
-	background: #c4c4c4 url('../assets/icons/search.png') no-repeat 2%;
-	background-size: 2.2rem;
-
-	border: 0;
-	border-radius: 1rem;
-}
-
-form.focus input {
-	border-radius: 1rem 1rem 0 0;
-	background-color: white;
-}
-
-form {
-	margin: 0 auto;
-	width: 40rem;
-
-	position: relative;
-}
-
-form.focus {
-	z-index: 20;
-}
-
-input:focus {
-	outline: none;
-}
-
-.searchRecomendations {
-	border-radius: 0 0 1rem 1rem;
-
-	position: absolute;
-	background: white;
-	height: 10rem;
-	width: 40rem;
-}
-
-.searchRecomendations button {
-	background: 0;
-	border: 0;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	padding: 0 2rem;
-	width: 100%;
-	height: 3rem;
-	font-size: 1.2rem;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.searchRecomendations button:hover {
-	background: rgba(129, 129, 129, 0.2);
-}
-
-.searchRecomendations button:focus {
-	outline: none;
-}
-
-.searchRecomendations button img {
-	width: 25px;
-	margin: 0 1rem 0 0;
-}
-/* </SEARCH FORM STYLES> */
-
-/* <Cards styles> */
-ul {
-	list-style: none;
-	width: 50rem;
-	margin: 2rem auto;
-
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-items: center;
-}
-
-li {
-	color: black;
-	margin: 1rem 0;
-	width: 200px;
-	background: #c4c4c4;
-	border-radius: 1rem;
-	padding: 1rem;
-}
-
-li img {
-	border-radius: 1rem;
-	margin-bottom: 1rem;
-}
-
-/* </Cards styles> */
-
-/* <Title with middle lines styles> */
-h2 {
-	color: black;
-	margin: 3rem auto 0;
-	overflow: hidden;
-	text-align: center;
-	width: 50rem;
-}
-
-h2:before,
-h2:after {
-	background-color: #000;
-	content: '';
-	display: inline-block;
-	height: 1px;
-	position: relative;
-	vertical-align: middle;
-	width: 50%;
-
-	z-index: -1;
-}
-
-h2:before {
-	right: 0.5em;
-	margin-left: -50%;
-}
-
-h2:after {
-	left: 0.5em;
-	margin-right: -50%;
-}
-/* </Title with middle lines styles> */
-
-@media (max-width: 600px) {
-	h1 {
-		width: 90%;
-	}
-
-	form {
-		width: 100%;
-	}
-
-	input {
-		width: 80%;
-	}
-
-	.searchRecomendations {
-		width: 80%;
-		left: 10%;
-	}
-
-	ul {
-		width: 90%;
-	}
-
-	h2 {
-		width: 90%;
-		padding: 1rem;
-	}
-
-	h2.organize::after {
-		vertical-align: text-top;
-	}
-
-	h2.organize::before {
-		vertical-align: sub;
-	}
-}
-</style>
+<style scoped src="@/styles/landing.css"></style>
+<style scoped src="@/styles/gallery.css"></style>
