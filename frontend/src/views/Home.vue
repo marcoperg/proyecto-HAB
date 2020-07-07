@@ -181,7 +181,14 @@ export default {
 				geo = location.coords;
 				const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${geo.latitude},${geo.longitude}&sensor=true&key=${process.env.VUE_APP_GOOGLE_API_KEY}`;
 
-				const city = (await axios.get(url)).data.results[4].formatted_address.split(',')[0];
+				const addresses = (await axios.get(url)).data.results;
+				let city = '';
+				for (const address of addresses) {
+					if (address.types[0] === 'administrative_area_level_3') {
+						city = address.formatted_address.split(',')[0];
+						break;
+					}
+				}
 
 				this.$router.push({
 					name: 'Search',
