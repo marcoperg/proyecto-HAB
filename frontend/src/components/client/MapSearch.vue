@@ -21,6 +21,8 @@
 				:label="shop.name"
 				@click="toShop(shop.id)"
 			/>
+
+			<gmaps-marker :visible="true" :position="{ lat: mapOptions.center.lat, lng: mapOptions.center.lng }" />
 		</gmaps-map>
 	</div>
 </template>
@@ -41,7 +43,7 @@ export default {
 	data() {
 		return {
 			completeView: false,
-			mapOptions: { center: { lat: 43, lng: -8 }, zoom: 10 }
+			mapOptions: { center: { lat: 43, lng: -8 }, zoom: 14 }
 		};
 	},
 	methods: {
@@ -49,6 +51,12 @@ export default {
 			console.log(id);
 			this.$router.push({ name: 'ShopInfo', params: { id: 1 } });
 		}
+	},
+	created() {
+		navigator.geolocation.getCurrentPosition((position) => {
+			this.$set(this.mapOptions.center, 'lat', position.coords.latitude);
+			this.$set(this.mapOptions.center, 'lng', position.coords.longitude);
+		});
 	}
 };
 </script>
