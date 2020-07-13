@@ -126,3 +126,6 @@ dist
 dist/
 npm-debug.log
 yarn-error.log
+
+### Arduino ###
+arduino_secrets.h
